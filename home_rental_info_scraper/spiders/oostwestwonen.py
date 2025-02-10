@@ -1,10 +1,9 @@
 import scrapy
+from .similar_web_scrapper import SimilarWebScrapper
 
 
-class OostwestwonenSpider(scrapy.Spider):
+class OostwestwonenSpider(SimilarWebScrapper):
     name = "oostwestwonen"
     allowed_domains = ["woningzoeken.oostwestwonen.nl"]
-    start_urls = ["https://woningzoeken.oostwestwonen.nl/aanbod/nu-te-huur/huurwoningen/details/"]
+    start_urls = ["https://woningzoeken.oostwestwonen.nl/aanbod/nu-te-huur/huurwoningen"]
 
-    def parse(self, response):
-        pass

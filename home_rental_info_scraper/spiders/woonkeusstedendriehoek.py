@@ -1,10 +1,10 @@
 import scrapy
+from .similar_web_scrapper import SimilarWebScrapper
 
 
-class WoonkeusstedendriehoekSpider(scrapy.Spider):
+class WoonkeusstedendriehoekSpider(SimilarWebScrapper):
     name = "woonkeusstedendriehoek"
     allowed_domains = ["www.woonkeus-stedendriehoek.nl"]
-    start_urls = ["https://www.woonkeus-stedendriehoek.nl/aanbod/nu-te-huur/huurwoningen/details/"]
+    start_urls = ["https://www.woonkeus-stedendriehoek.nl/aanbod/nu-te-huur/huurwoningen"]
 
-    def parse(self, response):
-        pass
+    

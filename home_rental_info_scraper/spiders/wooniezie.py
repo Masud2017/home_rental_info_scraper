@@ -1,10 +1,10 @@
 import scrapy
+from .similar_web_scrapper import SimilarWebScrapper
 
 
-class WooniezieSpider(scrapy.Spider):
+class WooniezieSpider(SimilarWebScrapper):
     name = "wooniezie"
     allowed_domains = ["www.wooniezie.nl"]
-    start_urls = ["https://www.wooniezie.nl/aanbod/nu-te-huur/te-huur/details/"]
+    start_urls = ["https://www.wooniezie.nl/aanbod/nu-te-huur/te-huur"]
 
-    def parse(self, response):
-        pass
+    

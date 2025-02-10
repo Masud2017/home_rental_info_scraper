@@ -1,10 +1,8 @@
 import scrapy
+from .similar_web_scrapper import SimilarWebScrapper
 
 
-class StudentenenschedeSpider(scrapy.Spider):
+class StudentenenschedeSpider(SimilarWebScrapper):
     name = "studentenenschede"
     allowed_domains = ["www.roomspot.nl"]
-    start_urls = ["https://www.roomspot.nl/aanbod/te-huur/details/"]
-
-    def parse(self, response):
-        pass
+    start_urls = ["https://www.roomspot.nl/aanbod/te-huur"]

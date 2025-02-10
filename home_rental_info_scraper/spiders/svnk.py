@@ -1,10 +1,9 @@
 import scrapy
+from .similar_web_scrapper import SimilarWebScrapper
 
 
-class SvnkSpider(scrapy.Spider):
+class SvnkSpider(SimilarWebScrapper):
     name = "svnk"
     allowed_domains = ["www.svnk.nl"]
-    start_urls = ["https://www.svnk.nl/aanbod/nu-te-huur/huurwoningen/details/"]
+    start_urls = ["https://www.svnk.nl/aanbod/nu-te-huur/huurwoningen"]
 
-    def parse(self, response):
-        pass

@@ -1,10 +1,10 @@
 import scrapy
+from .similar_web_scrapper import SimilarWebScrapper
 
 
-class ThuispoortSpider(scrapy.Spider):
+
+class ThuispoortSpider(SimilarWebScrapper):
     name = "thuispoort"
     allowed_domains = ["www.thuispoort.nl"]
-    start_urls = ["https://www.thuispoort.nl/aanbod/te-huur/details/"]
+    start_urls = ["https://www.thuispoort.nl/aanbod/te-huur"]
 
-    def parse(self, response):
-        pass
