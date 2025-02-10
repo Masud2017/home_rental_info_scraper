@@ -13,6 +13,11 @@ SPIDER_MODULES = ["home_rental_info_scraper.spiders"]
 NEWSPIDER_MODULE = "home_rental_info_scraper.spiders"
 
 
+DOWNLOAD_HANDLERS = {
+    "http": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
+    "https": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
+}
+
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = "home_rental_info_scraper (+http://www.yourdomain.com)"
 
@@ -90,3 +95,4 @@ ROBOTSTXT_OBEY = True
 # Set settings whose default value is deprecated to a future-proof value
 TWISTED_REACTOR = "twisted.internet.asyncioreactor.AsyncioSelectorReactor"
 FEED_EXPORT_ENCODING = "utf-8"
+
