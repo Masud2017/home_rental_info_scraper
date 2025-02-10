@@ -1,10 +1,8 @@
 import scrapy
+from .similar_web_scrapper import SimilarWebScrapper
 
-
-class MercatusAanbodSpider(scrapy.Spider):
+class MercatusAanbodSpider(SimilarWebScrapper):
     name = "mercatus-aanbod"
     allowed_domains = ["woningaanbod.mercatus.nl"]
-    start_urls = ["https://woningaanbod.mercatus.nl/aanbod/te-huur/details/"]
-
-    def parse(self, response):
-        pass
+    start_urls = ["https://woningaanbod.mercatus.nl/aanbod/te-huur"]
+    
