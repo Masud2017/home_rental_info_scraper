@@ -18,6 +18,10 @@ DOWNLOAD_HANDLERS = {
     "https": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
 }
 
+PLAYWRIGHT_LAUNCH_OPTIONS = {
+    # "headless": False,
+}
+
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = "home_rental_info_scraper (+http://www.yourdomain.com)"
 
