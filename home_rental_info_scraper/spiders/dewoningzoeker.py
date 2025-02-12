@@ -1,5 +1,5 @@
 import scrapy
-from similar_web_scrapper import SimilarWebScrapper
+from .similar_web_scrapper import SimilarWebScrapper
 
 
 class DewoningzoekerSpider(SimilarWebScrapper):

@@ -28,6 +28,8 @@ class SimilarWebScrapper(scrapy.Spider):
             image_link = self.allowed_domains[0] + home_card.xpath(".//img/@src").get()
             street = home_card.xpath(".//div[contains(@class, 'object-address')]/span[1]/span/text()").get()
             address = street + home_card.xpath(".//div[contains(@class, 'object-address')]/span[1]/text()").get()
+            city = home_card.xpath(".//div[contains(@class, 'object-address')]//span[contains(@class, 'address-part')][2]/text()").get()
+            agency = self.name
             price = home_card.xpath(".//span[contains(@class, 'kosten-regel2')]/text()").get()
             url = self.allowed_domains[0] + home_card.xpath(".//a[contains(@ng-click,'goToDetails')]").attrib['href']
             
@@ -35,5 +37,6 @@ class SimilarWebScrapper(scrapy.Spider):
             print(f"Price : {price}")
             print(f"Address : {address}")
             print(f"URL : {url}")
-            
+            print(f"City : {city}")
+            print(f"Agency : {agency}")            
     
