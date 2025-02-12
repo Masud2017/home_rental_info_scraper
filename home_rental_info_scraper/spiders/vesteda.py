@@ -35,7 +35,7 @@ class VestedaSpider(scrapy.Spider):
             url = self.allowed_domains[0] + home_card.xpath(".//a").attrib['href']
             await page.wait_for_selector("//div[contains(@class, 'o-card--listview-image')]/picture/img", timeout=6000)
 
-            # image_url = home_card.xpath("//div[contains(@class, 'o-card--listview-image')]/picture/img").attrib['data-src']
+            image_url = home_card.xpath("//div[contains(@class, 'o-card--listview-image')]/picture/source").attrib['data-srcset']
             city = home_card.xpath(".//div[contains(@class, 'o-card--listview-content')]//div[contains(@class, 'o-reorder-column__first')]/strong/text()").get()
             address = home_card.xpath(".//div[contains(@class, 'o-card--listview-content')]//h3[contains(@class, 'h4 u-margin-bottom-none')]/span/text()").get() + ","+ city
             price = home_card.xpath(".//div[contains(@class, 'o-card--listview-content')]//div[contains(@class, 'o-card--listview-price')]/b[contains(@class, 'h5')]/text()").get()
@@ -43,10 +43,11 @@ class VestedaSpider(scrapy.Spider):
             # date_added = home_card.xpath(".//div[contains(@class, 'o-card--listview-content')]//div[contains(@class, 'o-card--listview-price')]/text()").get()
             
             print(url)
-            # print(f"image url : {image_url}")
+            print(f"image url : {image_url}")
             print(f"city : {city}")
             print(f"address: {address}")
             print(f"price : {price}")
+            print(f"agency : {agency}")
             
     
     
