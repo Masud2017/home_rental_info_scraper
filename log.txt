@@ -1,508 +1,248 @@
-<div class="js-animate-fadein" style="">
-  
-
-  <div class="lbl__container">
- 	
-
-	
-
-	<div class="lbl  lbl--favoriet  is-selectable  js-marked-toggle" data-id="100108468" title="Markeer/Verwijder als favoriet"></div>
-  </div>
-
-  <a class="clean" href="/detail/rotterdam/feijenoord/vuurplaat-272/100108468">
-	
-
-	<div class="box__picture">
-		<div class="swipe ">
-            <div class="swipe__list">
-                <div class="swipe__item">
-					<div class="js-responsive-img  swipe__image" style="background-image:url('')"></div>
-				</div>
-				
-            </div>
-        </div>
-		
-		
-		
-				
-		
-			
-		
-	</div>
-
-	<div class="box__properties  group">
-	  <div class="box__title  ellipsis">
-	    Vuurplaat 272
-	  </div>
-	  <div class="box__title  ellipsis">
-		<span>Feijenoord, Rotterdam</span>
-	  </div>
-
-	  <div class="box__text  ellipsis">
-		Eengezinswoning (78 m²)<br>
-		3 slaapkamers
-	  </div>
-
-	  
-		  
-	  
-	  <div class="box--obj__price  text-blue  push-right">€ 1.273,-</div>
-	  <div class="box--obj__type  ellipsis">
-		
-			Huur 
-			
-				- <span class="js-tooltip">				
-					<span class="js-tooltip__trigger  js-is-click-disabled" id="js-tooltip__trigger___34605">ExternAanbod</span>
-					<span class="js-tooltip__content" data-position="right" style="display: none;">
-						U reageert via de website van de corporatie.
-					</span>
-				</span>
-			
-		
-	  </div>
-	</div>
-  </a>
+<div class="result is-loaded" ng-mouseenter="$parent.highlightMarker = 78855" data-object-id="78855" in-view="isInView($event)">
 
 
-	</div><div class="js-animate-fadein" style="">
-  
 
-  <div class="lbl__container">
- 	
-
-	
-
-	<div class="lbl  lbl--favoriet  is-selectable  js-marked-toggle" data-id="100108454" title="Markeer/Verwijder als favoriet"></div>
-  </div>
-
-  <a class="clean" href="/detail/rotterdam/delfshaven/gijsinglaan-606/100108454">
-	
-
-	<div class="box__picture">
-		<div class="swipe js-swipe-slider">
-            <div class="swipe__list">
-                <div class="swipe__item">
-					<div class="js-responsive-img  swipe__image" style="background-image:url('//www.woonnetrijnmond.nl/File_Cabinet/WoonnetRijnmondWoningCartotheek/159294_54409/5094335_24737.jpg')" data-size-mobile="//www.woonnetrijnmond.nl/File_Cabinet/WoonnetRijnmondWoningCartotheek/159294_54409/5094338_29745.jpg" data-size-tablet="//www.woonnetrijnmond.nl/File_Cabinet/WoonnetRijnmondWoningCartotheek/159294_54409/5094334_74596.jpg" data-size-desktop="//www.woonnetrijnmond.nl/File_Cabinet/WoonnetRijnmondWoningCartotheek/159294_54409/5094335_24737.jpg"></div>
-				</div>
-				
-					<div class="swipe__item">
-						<div class="js-responsive-img  swipe__image" style="background-image:url('//www.woonnetrijnmond.nl/File_Cabinet/WoonnetRijnmondWoningCartotheek/159294_54409/5094325_15127.jpg')" data-size-mobile="//www.woonnetrijnmond.nl/File_Cabinet/WoonnetRijnmondWoningCartotheek/159294_54409/5094328_45549.jpg" data-size-tablet="//www.woonnetrijnmond.nl/File_Cabinet/WoonnetRijnmondWoningCartotheek/159294_54409/5094324_97277.jpg" data-size-desktop="//www.woonnetrijnmond.nl/File_Cabinet/WoonnetRijnmondWoningCartotheek/159294_54409/5094325_15127.jpg"></div>
-					</div>
-				
-            </div>
-        </div>
-		
-			<div class="swipe-indicators  js-swipe-indicators">
-				<div class="swipe-indicator__item  is-active"></div>
-				<div class="swipe-indicator__item"></div>
-			</div>
-		
-		
-		
-				
-		
-			
-		
-	</div>
-
-	<div class="box__properties  group">
-	  <div class="box__title  ellipsis">
-	    Gijsinglaan 606
-	  </div>
-	  <div class="box__title  ellipsis">
-		<span>Delfshaven, Rotterdam</span>
-	  </div>
-
-	  <div class="box__text  ellipsis">
-		Flatwoning met lift (52,21 m²)<br>
-		2 slaapkamers en balkon
-	  </div>
-
-	  
-		  
-            <div class="js-tooltip">
-				<div class="timer  js-tooltip__trigger  js-animated-meter  js-is-click-disabled" data-percentage="18" id="js-tooltip__trigger___56004"><span><svg height="24" version="1.1" width="24" xmlns="http://www.w3.org/2000/svg" style="overflow: hidden; position: relative;"><desc style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Created with Raphaël 2.1.2</desc><defs style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></defs><circle cx="12" cy="12" r="11" fill="none" stroke="#1f9ed9" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></circle><path fill="none" stroke="#1f9ed9" d="M12,6A6,6,0,0,1,17.428962314796117,9.445324250609563" stroke-width="11" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path></svg></span></div>
-				<div class="js-tooltip__content" data-position="right" style="display: none;">
-				    <div class="js-pub-stop-date-timer" data-pub-stop-date="February 16, 2025 20:00:00">
-				        U kunt nog <span class="counter__days"><span class="font-bold">4</span> dagen</span><span class="counter__hours">, <span class="font-bold">2</span> uur</span><span class="counter__minutes"> en <span class="font-bold">14</span> minuten</span> reageren
-				    </div>
-				</div>
-			</div>
-			<div class="js-tooltip">
-				<div class="box--obj__icon-eye  js-tooltip__trigger  js-nieuwaanbod-icon  is-hidden" id="js-tooltip__trigger___27110"></div>
-				<div class="js-tooltip__content" data-position="right" style="display: none;">
-					Dit is nieuw aanbod dat om 20:00 uur beschikbaar is.
-				</div>
-			</div>
-		  
-	  
-	  <div class="box--obj__price  text-blue  push-right">€ 682,96</div>
-	  <div class="box--obj__type  ellipsis">
-		
-			Huur 
-			
-				- <span class="js-tooltip">				
-					<span class="js-tooltip__trigger  js-is-click-disabled" id="js-tooltip__trigger___52326">Inschrijfduur</span>
-					<span class="js-tooltip__content" data-position="right" style="display: none;">
-						Uw inschrijfdatum bepaalt uw plaats op de lijst met reacties. Woningzoekenden die voldoen aan de voorwaarden die in de advertentie staan, komen eerst aan de beurt. Urgenten hebben voorrang als hun zoekprofiel past bij deze woning.
-					</span>
-				</span>
-			
-		
-	  </div>
-	</div>
-  </a>
+                                <div class="result__picture">
+                                        <div class="property-label property-label--new"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">New</font></font></div>
 
 
-	</div><div class="js-animate-fadein" style="">
-  
-
-  <div class="lbl__container">
- 	
-
-	
-
-	<div class="lbl  lbl--favoriet  is-selectable  js-marked-toggle" data-id="100108452" title="Markeer/Verwijder als favoriet"></div>
-  </div>
-
-  <a class="clean" href="/detail/capelle-aan-den-ijssel/schollevaar-noord-en-hoofdweg/breedspoor-4/100108452">
-	
-
-	<div class="box__picture">
-		<div class="swipe js-swipe-slider">
-            <div class="swipe__list">
-                <div class="swipe__item">
-					<div class="js-responsive-img  swipe__image" style="background-image:url('//www.woonnetrijnmond.nl/File_Cabinet/WoonnetRijnmondWoningCartotheek/159288_57900/5094012_87445.jpg')" data-size-mobile="//www.woonnetrijnmond.nl/File_Cabinet/WoonnetRijnmondWoningCartotheek/159288_57900/5094015_24731.jpg" data-size-tablet="//www.woonnetrijnmond.nl/File_Cabinet/WoonnetRijnmondWoningCartotheek/159288_57900/5094011_95293.jpg" data-size-desktop="//www.woonnetrijnmond.nl/File_Cabinet/WoonnetRijnmondWoningCartotheek/159288_57900/5094012_87445.jpg"></div>
-				</div>
-				
-					<div class="swipe__item">
-						<div class="js-responsive-img  swipe__image" style="background-image:url('//www.woonnetrijnmond.nl/File_Cabinet/WoonnetRijnmondWoningCartotheek/159288_57900/5094022_65566.jpg')" data-size-mobile="//www.woonnetrijnmond.nl/File_Cabinet/WoonnetRijnmondWoningCartotheek/159288_57900/5094025_37984.jpg" data-size-tablet="//www.woonnetrijnmond.nl/File_Cabinet/WoonnetRijnmondWoningCartotheek/159288_57900/5094021_15708.jpg" data-size-desktop="//www.woonnetrijnmond.nl/File_Cabinet/WoonnetRijnmondWoningCartotheek/159288_57900/5094022_65566.jpg"></div>
-					</div>
-				
-            </div>
-        </div>
-		
-			<div class="swipe-indicators  js-swipe-indicators">
-				<div class="swipe-indicator__item  is-active"></div>
-				<div class="swipe-indicator__item"></div>
-			</div>
-		
-		
-		
-				
-		
-			
-		
-	</div>
-
-	<div class="box__properties  group">
-	  <div class="box__title  ellipsis">
-	    Breedspoor 4
-	  </div>
-	  <div class="box__title  ellipsis">
-		<span>Capelle aan den IJssel</span>
-	  </div>
-
-	  <div class="box__text  ellipsis">
-		Maisonnettewoning (61,04 m²)<br>
-		2 slaapkamers en tuin
-	  </div>
-
-	  
-		  
-            <div class="js-tooltip">
-				<div class="timer  js-tooltip__trigger  js-animated-meter  js-is-click-disabled" data-percentage="30" id="js-tooltip__trigger___82152"><span><svg height="24" version="1.1" width="24" xmlns="http://www.w3.org/2000/svg" style="overflow: hidden; position: relative;"><desc style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Created with Raphaël 2.1.2</desc><defs style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></defs><circle cx="12" cy="12" r="11" fill="none" stroke="#1f9ed9" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></circle><path fill="none" stroke="#1f9ed9" d="M12,6A6,6,0,0,1,17.706339097770922,13.854101966249685" stroke-width="11" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path></svg></span></div>
-				<div class="js-tooltip__content" data-position="right" style="display: none;">
-				    <div class="js-pub-stop-date-timer" data-pub-stop-date="February 14, 2025 20:00:00">
-				        U kunt nog <span class="counter__days"><span class="font-bold">2</span> dagen</span><span class="counter__hours">, <span class="font-bold">2</span> uur</span><span class="counter__minutes"> en <span class="font-bold">14</span> minuten</span> reageren
-				    </div>
-				</div>
-			</div>
-			<div class="js-tooltip">
-				<div class="box--obj__icon-eye  js-tooltip__trigger  js-nieuwaanbod-icon  is-hidden" id="js-tooltip__trigger___24449"></div>
-				<div class="js-tooltip__content" data-position="right" style="display: none;">
-					Dit is nieuw aanbod dat om 20:00 uur beschikbaar is.
-				</div>
-			</div>
-		  
-	  
-	  <div class="box--obj__price  text-blue  push-right">€ 896,67</div>
-	  <div class="box--obj__type  ellipsis">
-		
-			Huur 
-			
-				- <span class="js-tooltip">				
-					<span class="js-tooltip__trigger  js-is-click-disabled" id="js-tooltip__trigger___35372">Inschrijfduur</span>
-					<span class="js-tooltip__content" data-position="right" style="display: none;">
-						Uw inschrijfdatum bepaalt uw plaats op de lijst met reacties. Woningzoekenden die voldoen aan de voorwaarden die in de advertentie staan, komen eerst aan de beurt. Urgenten hebben voorrang als hun zoekprofiel past bij deze woning.
-					</span>
-				</span>
-			
-		
-	  </div>
-	</div>
-  </a>
 
 
-	</div><div class="js-animate-fadein" style="">
-  
+                                    <div class="loader-small"></div>
+                                    <div class="result__picture__slides slick-initialized slick-slider"><button class="slick-prev slick-arrow" aria-label="Previous" type="button" style=""><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Previous</font></font></button>
+                                                <div class="slick-list draggable"><div class="slick-track" style="opacity: 1; width: 12771px; transform: translate3d(-297px, 0px, 0px);"><div class="result__picture__slide slick-slide slick-cloned" data-slick-index="-1" id="" aria-hidden="true" style="width: 297px;" tabindex="-1">
+                                                    <img data-lazy="/webcontent/imagebybestand/78855/4ce5735f-f29b-420f-b3e8-bc28836622ed.jpg?w=600&amp;h=338&amp;k=false&amp;Bestandnaam=4ce5735f-f29b-420f-b3e8-bc28836622ed" data-lazy-mobile="/webcontent/imagebybestand/78855/4ce5735f-f29b-420f-b3e8-bc28836622ed.jpg?w=380&amp;h=169&amp;k=false&amp;Bestandnaam=4ce5735f-f29b-420f-b3e8-bc28836622ed" src="">
+                                                        <a href="kopen/soest/soesterengweg-56" title="View Soesterengweg 56" tabindex="-1"></a>
 
-  <div class="lbl__container">
- 	
+                                                </div><div class="result__picture__slide slick-slide slick-current slick-active" data-slick-index="0" style='background-image: url("/webcontent/imagebybestand/78855/01745b55-d682-4a31-8f96-2d6f17f84984.jpg?w=600&amp;h=338&amp;k=false&amp;Bestandnaam=01745b55-d682-4a31-8f96-2d6f17f84984"); width: 297px;' aria-hidden="false" tabindex="0">
+                                                    <img data-lazy-mobile="/webcontent/imagebybestand/78855/01745b55-d682-4a31-8f96-2d6f17f84984.jpg?w=380&amp;h=169&amp;k=false&amp;Bestandnaam=01745b55-d682-4a31-8f96-2d6f17f84984" src="/webcontent/imagebybestand/78855/01745b55-d682-4a31-8f96-2d6f17f84984.jpg?w=600&amp;h=338&amp;k=false&amp;Bestandnaam=01745b55-d682-4a31-8f96-2d6f17f84984" style="display: none; opacity: 1;">
+                                                        <a href="kopen/soest/soesterengweg-56" title="View Soesterengweg 56" tabindex="0"></a>
 
-	
+                                                </div><div class="result__picture__slide slick-slide" data-slick-index="1" style='background-image: url("/webcontent/imagebybestand/78855/b1de5233-a027-46b0-8723-458a6dd59589.jpg?w=600&amp;h=338&amp;k=false&amp;Bestandnaam=b1de5233-a027-46b0-8723-458a6dd59589"); width: 297px;' aria-hidden="true" tabindex="-1">
+                                                    <img data-lazy="/webcontent/imagebybestand/78855/b1de5233-a027-46b0-8723-458a6dd59589.jpg?w=600&amp;h=338&amp;k=false&amp;Bestandnaam=b1de5233-a027-46b0-8723-458a6dd59589" data-lazy-mobile="/webcontent/imagebybestand/78855/b1de5233-a027-46b0-8723-458a6dd59589.jpg?w=380&amp;h=169&amp;k=false&amp;Bestandnaam=b1de5233-a027-46b0-8723-458a6dd59589" src="" style="display: none;">
+                                                        <a href="kopen/soest/soesterengweg-56" title="View Soesterengweg 56" tabindex="-1"></a>
 
-	<div class="lbl  lbl--favoriet  is-selectable  js-marked-toggle" data-id="100108451" title="Markeer/Verwijder als favoriet"></div>
-  </div>
+                                                </div><div class="result__picture__slide slick-slide" data-slick-index="2" aria-hidden="true" style="width: 297px;" tabindex="-1">
+                                                    <img data-lazy="/webcontent/imagebybestand/78855/53c538d3-98d7-4c85-8d2b-3a5e2734769f.jpg?w=600&amp;h=338&amp;k=false&amp;Bestandnaam=53c538d3-98d7-4c85-8d2b-3a5e2734769f" data-lazy-mobile="/webcontent/imagebybestand/78855/53c538d3-98d7-4c85-8d2b-3a5e2734769f.jpg?w=380&amp;h=169&amp;k=false&amp;Bestandnaam=53c538d3-98d7-4c85-8d2b-3a5e2734769f" src="">
+                                                        <a href="kopen/soest/soesterengweg-56" title="View Soesterengweg 56" tabindex="-1"></a>
 
-  <a class="clean" href="/detail/rotterdam/charlois/groene-kruisweg-209/100108451">
-	
+                                                </div><div class="result__picture__slide slick-slide" data-slick-index="3" aria-hidden="true" style="width: 297px;" tabindex="-1">
+                                                    <img data-lazy="/webcontent/imagebybestand/78855/2507b31a-199c-4c56-9136-4032e141bfd0.jpg?w=600&amp;h=338&amp;k=false&amp;Bestandnaam=2507b31a-199c-4c56-9136-4032e141bfd0" data-lazy-mobile="/webcontent/imagebybestand/78855/2507b31a-199c-4c56-9136-4032e141bfd0.jpg?w=380&amp;h=169&amp;k=false&amp;Bestandnaam=2507b31a-199c-4c56-9136-4032e141bfd0" src="">
+                                                        <a href="kopen/soest/soesterengweg-56" title="View Soesterengweg 56" tabindex="-1"></a>
 
-	<div class="box__picture">
-		<div class="swipe js-swipe-slider">
-            <div class="swipe__list">
-                <div class="swipe__item">
-					<div class="js-responsive-img  swipe__image" style="background-image:url('//www.woonnetrijnmond.nl/File_Cabinet/WoonnetRijnmondWoningCartotheek/154156_79053/4893247_95641.jpg')" data-size-mobile="//www.woonnetrijnmond.nl/File_Cabinet/WoonnetRijnmondWoningCartotheek/154156_79053/4893250_36064.jpg" data-size-tablet="//www.woonnetrijnmond.nl/File_Cabinet/WoonnetRijnmondWoningCartotheek/154156_79053/4893246_40775.jpg" data-size-desktop="//www.woonnetrijnmond.nl/File_Cabinet/WoonnetRijnmondWoningCartotheek/154156_79053/4893247_95641.jpg"></div>
-				</div>
-				
-					<div class="swipe__item">
-						<div class="js-responsive-img  swipe__image" style="background-image:url('//www.woonnetrijnmond.nl/File_Cabinet/WoonnetRijnmondWoningCartotheek/154156_79053/4893259_92793.jpg')" data-size-mobile="//www.woonnetrijnmond.nl/File_Cabinet/WoonnetRijnmondWoningCartotheek/154156_79053/4893262_33217.jpg" data-size-tablet="//www.woonnetrijnmond.nl/File_Cabinet/WoonnetRijnmondWoningCartotheek/154156_79053/4893258_52653.jpg" data-size-desktop="//www.woonnetrijnmond.nl/File_Cabinet/WoonnetRijnmondWoningCartotheek/154156_79053/4893259_92793.jpg"></div>
-					</div>
-				
-            </div>
-        </div>
-		
-			<div class="swipe-indicators  js-swipe-indicators">
-				<div class="swipe-indicator__item  is-active"></div>
-				<div class="swipe-indicator__item"></div>
-			</div>
-		
-		
-		
-				
-		
-			
-		
-	</div>
+                                                </div><div class="result__picture__slide slick-slide" data-slick-index="4" aria-hidden="true" style="width: 297px;" tabindex="-1">
+                                                    <img data-lazy="/webcontent/imagebybestand/78855/15ad8c04-0ccd-4e7e-b4be-f1ecab230354.jpg?w=600&amp;h=338&amp;k=false&amp;Bestandnaam=15ad8c04-0ccd-4e7e-b4be-f1ecab230354" data-lazy-mobile="/webcontent/imagebybestand/78855/15ad8c04-0ccd-4e7e-b4be-f1ecab230354.jpg?w=380&amp;h=169&amp;k=false&amp;Bestandnaam=15ad8c04-0ccd-4e7e-b4be-f1ecab230354" src="">
+                                                        <a href="kopen/soest/soesterengweg-56" title="View Soesterengweg 56" tabindex="-1"></a>
 
-	<div class="box__properties  group">
-	  <div class="box__title  ellipsis">
-	    Groene Kruisweg 209
-	  </div>
-	  <div class="box__title  ellipsis">
-		<span>Charlois, Rotterdam</span>
-	  </div>
+                                                </div><div class="result__picture__slide slick-slide" data-slick-index="5" aria-hidden="true" style="width: 297px;" tabindex="-1">
+                                                    <img data-lazy="/webcontent/imagebybestand/78855/f671d61f-bd26-48a0-a7d9-1d8415d02998.jpg?w=600&amp;h=338&amp;k=false&amp;Bestandnaam=f671d61f-bd26-48a0-a7d9-1d8415d02998" data-lazy-mobile="/webcontent/imagebybestand/78855/f671d61f-bd26-48a0-a7d9-1d8415d02998.jpg?w=380&amp;h=169&amp;k=false&amp;Bestandnaam=f671d61f-bd26-48a0-a7d9-1d8415d02998" src="">
+                                                        <a href="kopen/soest/soesterengweg-56" title="View Soesterengweg 56" tabindex="-1"></a>
 
-	  <div class="box__text  ellipsis">
-		Flatwoning met lift (38,47 m²)<br>
-		1 slaapkamer
-	  </div>
+                                                </div><div class="result__picture__slide slick-slide" data-slick-index="6" aria-hidden="true" style="width: 297px;" tabindex="-1">
+                                                    <img data-lazy="/webcontent/imagebybestand/78855/c04a4f8b-68b1-41f6-a283-671449f18be1.jpg?w=600&amp;h=338&amp;k=false&amp;Bestandnaam=c04a4f8b-68b1-41f6-a283-671449f18be1" data-lazy-mobile="/webcontent/imagebybestand/78855/c04a4f8b-68b1-41f6-a283-671449f18be1.jpg?w=380&amp;h=169&amp;k=false&amp;Bestandnaam=c04a4f8b-68b1-41f6-a283-671449f18be1" src="">
+                                                        <a href="kopen/soest/soesterengweg-56" title="View Soesterengweg 56" tabindex="-1"></a>
 
-	  
-		  
-            <div class="js-tooltip">
-				<div class="timer  js-tooltip__trigger  js-animated-meter  js-is-click-disabled" data-percentage="18" id="js-tooltip__trigger___4601"><span><svg height="24" version="1.1" width="24" xmlns="http://www.w3.org/2000/svg" style="overflow: hidden; position: relative;"><desc style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Created with Raphaël 2.1.2</desc><defs style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></defs><circle cx="12" cy="12" r="11" fill="none" stroke="#1f9ed9" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></circle><path fill="none" stroke="#1f9ed9" d="M12,6A6,6,0,0,1,17.428962314796117,9.445324250609563" stroke-width="11" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path></svg></span></div>
-				<div class="js-tooltip__content" data-position="right" style="display: none;">
-				    <div class="js-pub-stop-date-timer" data-pub-stop-date="February 16, 2025 20:00:00">
-				        U kunt nog <span class="counter__days"><span class="font-bold">4</span> dagen</span><span class="counter__hours">, <span class="font-bold">2</span> uur</span><span class="counter__minutes"> en <span class="font-bold">14</span> minuten</span> reageren
-				    </div>
-				</div>
-			</div>
-			<div class="js-tooltip">
-				<div class="box--obj__icon-eye  js-tooltip__trigger  js-nieuwaanbod-icon  is-hidden" id="js-tooltip__trigger___32831"></div>
-				<div class="js-tooltip__content" data-position="right" style="display: none;">
-					Dit is nieuw aanbod dat om 20:00 uur beschikbaar is.
-				</div>
-			</div>
-		  
-	  
-	  <div class="box--obj__price  text-blue  push-right">€ 650,43</div>
-	  <div class="box--obj__type  ellipsis">
-		
-			Huur 
-			
-				- <span class="js-tooltip">				
-					<span class="js-tooltip__trigger  js-is-click-disabled" id="js-tooltip__trigger___28416">Inschrijfduur</span>
-					<span class="js-tooltip__content" data-position="right" style="display: none;">
-						Uw inschrijfdatum bepaalt uw plaats op de lijst met reacties. Woningzoekenden die voldoen aan de voorwaarden die in de advertentie staan, komen eerst aan de beurt. Urgenten hebben voorrang als hun zoekprofiel past bij deze woning.
-					</span>
-				</span>
-			
-		
-	  </div>
-	</div>
-  </a>
+                                                </div><div class="result__picture__slide slick-slide" data-slick-index="7" aria-hidden="true" style="width: 297px;" tabindex="-1">
+                                                    <img data-lazy="/webcontent/imagebybestand/78855/c04e1d2f-5c72-4fd0-a828-07455445fdcf.jpg?w=600&amp;h=338&amp;k=false&amp;Bestandnaam=c04e1d2f-5c72-4fd0-a828-07455445fdcf" data-lazy-mobile="/webcontent/imagebybestand/78855/c04e1d2f-5c72-4fd0-a828-07455445fdcf.jpg?w=380&amp;h=169&amp;k=false&amp;Bestandnaam=c04e1d2f-5c72-4fd0-a828-07455445fdcf" src="">
+                                                        <a href="kopen/soest/soesterengweg-56" title="View Soesterengweg 56" tabindex="-1"></a>
 
+                                                </div><div class="result__picture__slide slick-slide" data-slick-index="8" aria-hidden="true" style="width: 297px;" tabindex="-1">
+                                                    <img data-lazy="/webcontent/imagebybestand/78855/350ff9fb-135f-462f-9bd3-9ab9884fcdc9.jpg?w=600&amp;h=338&amp;k=false&amp;Bestandnaam=350ff9fb-135f-462f-9bd3-9ab9884fcdc9" data-lazy-mobile="/webcontent/imagebybestand/78855/350ff9fb-135f-462f-9bd3-9ab9884fcdc9.jpg?w=380&amp;h=169&amp;k=false&amp;Bestandnaam=350ff9fb-135f-462f-9bd3-9ab9884fcdc9" src="">
+                                                        <a href="kopen/soest/soesterengweg-56" title="View Soesterengweg 56" tabindex="-1"></a>
 
-	</div><div class="js-animate-fadein" style="">
-  
+                                                </div><div class="result__picture__slide slick-slide" data-slick-index="9" aria-hidden="true" style="width: 297px;" tabindex="-1">
+                                                    <img data-lazy="/webcontent/imagebybestand/78855/137de6ea-cf1b-4aa5-bf40-59552113ae30.jpg?w=600&amp;h=338&amp;k=false&amp;Bestandnaam=137de6ea-cf1b-4aa5-bf40-59552113ae30" data-lazy-mobile="/webcontent/imagebybestand/78855/137de6ea-cf1b-4aa5-bf40-59552113ae30.jpg?w=380&amp;h=169&amp;k=false&amp;Bestandnaam=137de6ea-cf1b-4aa5-bf40-59552113ae30" src="">
+                                                        <a href="kopen/soest/soesterengweg-56" title="View Soesterengweg 56" tabindex="-1"></a>
 
-  <div class="lbl__container">
- 	
+                                                </div><div class="result__picture__slide slick-slide" data-slick-index="10" aria-hidden="true" style="width: 297px;" tabindex="-1">
+                                                    <img data-lazy="/webcontent/imagebybestand/78855/5c79e3fe-eadd-4ecf-b137-d504d80e5cb0.jpg?w=600&amp;h=338&amp;k=false&amp;Bestandnaam=5c79e3fe-eadd-4ecf-b137-d504d80e5cb0" data-lazy-mobile="/webcontent/imagebybestand/78855/5c79e3fe-eadd-4ecf-b137-d504d80e5cb0.jpg?w=380&amp;h=169&amp;k=false&amp;Bestandnaam=5c79e3fe-eadd-4ecf-b137-d504d80e5cb0" src="">
+                                                        <a href="kopen/soest/soesterengweg-56" title="View Soesterengweg 56" tabindex="-1"></a>
 
-	
+                                                </div><div class="result__picture__slide slick-slide" data-slick-index="11" aria-hidden="true" style="width: 297px;" tabindex="-1">
+                                                    <img data-lazy="/webcontent/imagebybestand/78855/7c99a4e4-e9c4-4835-bd1e-587967ffa10f.jpg?w=600&amp;h=338&amp;k=false&amp;Bestandnaam=7c99a4e4-e9c4-4835-bd1e-587967ffa10f" data-lazy-mobile="/webcontent/imagebybestand/78855/7c99a4e4-e9c4-4835-bd1e-587967ffa10f.jpg?w=380&amp;h=169&amp;k=false&amp;Bestandnaam=7c99a4e4-e9c4-4835-bd1e-587967ffa10f" src="">
+                                                        <a href="kopen/soest/soesterengweg-56" title="View Soesterengweg 56" tabindex="-1"></a>
 
-	<div class="lbl  lbl--favoriet  is-selectable  js-marked-toggle" data-id="100108450" title="Markeer/Verwijder als favoriet"></div>
-  </div>
+                                                </div><div class="result__picture__slide slick-slide" data-slick-index="12" aria-hidden="true" style="width: 297px;" tabindex="-1">
+                                                    <img data-lazy="/webcontent/imagebybestand/78855/5baecc01-9286-4e5a-b812-dec3f6c7ad4e.jpg?w=600&amp;h=338&amp;k=false&amp;Bestandnaam=5baecc01-9286-4e5a-b812-dec3f6c7ad4e" data-lazy-mobile="/webcontent/imagebybestand/78855/5baecc01-9286-4e5a-b812-dec3f6c7ad4e.jpg?w=380&amp;h=169&amp;k=false&amp;Bestandnaam=5baecc01-9286-4e5a-b812-dec3f6c7ad4e" src="">
+                                                        <a href="kopen/soest/soesterengweg-56" title="View Soesterengweg 56" tabindex="-1"></a>
 
-  <a class="clean" href="/detail/rotterdam/prins-alexander/johan-huizingastraat-21/100108450">
-	
+                                                </div><div class="result__picture__slide slick-slide" data-slick-index="13" aria-hidden="true" style="width: 297px;" tabindex="-1">
+                                                    <img data-lazy="/webcontent/imagebybestand/78855/4cde0e88-cf88-405f-81c8-f166b8a67f9c.jpg?w=600&amp;h=338&amp;k=false&amp;Bestandnaam=4cde0e88-cf88-405f-81c8-f166b8a67f9c" data-lazy-mobile="/webcontent/imagebybestand/78855/4cde0e88-cf88-405f-81c8-f166b8a67f9c.jpg?w=380&amp;h=169&amp;k=false&amp;Bestandnaam=4cde0e88-cf88-405f-81c8-f166b8a67f9c" src="">
+                                                        <a href="kopen/soest/soesterengweg-56" title="View Soesterengweg 56" tabindex="-1"></a>
 
-	<div class="box__picture">
-		<div class="swipe ">
-            <div class="swipe__list">
-                <div class="swipe__item">
-					<div class="js-responsive-img  swipe__image" style="background-image:url('//www.woonnetrijnmond.nl/File_Cabinet/WoonnetRijnmondWoningCartotheek/159286_29398/5094001_70126.jpg')" data-size-mobile="//www.woonnetrijnmond.nl/File_Cabinet/WoonnetRijnmondWoningCartotheek/159286_29398/5094004_33124.jpg" data-size-tablet="//www.woonnetrijnmond.nl/File_Cabinet/WoonnetRijnmondWoningCartotheek/159286_29398/5094000_57270.jpg" data-size-desktop="//www.woonnetrijnmond.nl/File_Cabinet/WoonnetRijnmondWoningCartotheek/159286_29398/5094001_70126.jpg"></div>
-				</div>
-				
-            </div>
-        </div>
-		
-		
-		
-				
-		
-			
-		
-	</div>
+                                                </div><div class="result__picture__slide slick-slide" data-slick-index="14" aria-hidden="true" style="width: 297px;" tabindex="-1">
+                                                    <img data-lazy="/webcontent/imagebybestand/78855/715036c6-adca-4de8-8086-35eefff4a422.jpg?w=600&amp;h=338&amp;k=false&amp;Bestandnaam=715036c6-adca-4de8-8086-35eefff4a422" data-lazy-mobile="/webcontent/imagebybestand/78855/715036c6-adca-4de8-8086-35eefff4a422.jpg?w=380&amp;h=169&amp;k=false&amp;Bestandnaam=715036c6-adca-4de8-8086-35eefff4a422" src="">
+                                                        <a href="kopen/soest/soesterengweg-56" title="View Soesterengweg 56" tabindex="-1"></a>
 
-	<div class="box__properties  group">
-	  <div class="box__title  ellipsis">
-	    Johan Huizingastraat 21
-	  </div>
-	  <div class="box__title  ellipsis">
-		<span>Prins Alexander, Rotterdam</span>
-	  </div>
+                                                </div><div class="result__picture__slide slick-slide" data-slick-index="15" aria-hidden="true" style="width: 297px;" tabindex="-1">
+                                                    <img data-lazy="/webcontent/imagebybestand/78855/e1cc1c35-79fa-406e-8d28-35325db9d666.jpg?w=600&amp;h=338&amp;k=false&amp;Bestandnaam=e1cc1c35-79fa-406e-8d28-35325db9d666" data-lazy-mobile="/webcontent/imagebybestand/78855/e1cc1c35-79fa-406e-8d28-35325db9d666.jpg?w=380&amp;h=169&amp;k=false&amp;Bestandnaam=e1cc1c35-79fa-406e-8d28-35325db9d666" src="">
+                                                        <a href="kopen/soest/soesterengweg-56" title="View Soesterengweg 56" tabindex="-1"></a>
 
-	  <div class="box__text  ellipsis">
-		Flatwoning zonder lift (69,31 m²)<br>
-		3 slaapkamers en tuin
-	  </div>
+                                                </div><div class="result__picture__slide slick-slide" data-slick-index="16" aria-hidden="true" style="width: 297px;" tabindex="-1">
+                                                    <img data-lazy="/webcontent/imagebybestand/78855/26ab7789-619d-4878-99ab-5e33a56c1c45.jpg?w=600&amp;h=338&amp;k=false&amp;Bestandnaam=26ab7789-619d-4878-99ab-5e33a56c1c45" data-lazy-mobile="/webcontent/imagebybestand/78855/26ab7789-619d-4878-99ab-5e33a56c1c45.jpg?w=380&amp;h=169&amp;k=false&amp;Bestandnaam=26ab7789-619d-4878-99ab-5e33a56c1c45" src="">
+                                                        <a href="kopen/soest/soesterengweg-56" title="View Soesterengweg 56" tabindex="-1"></a>
 
-	  
-		  
-            <div class="js-tooltip">
-				<div class="timer  js-tooltip__trigger  js-animated-meter  js-is-click-disabled" data-percentage="18" id="js-tooltip__trigger___45738"><span><svg height="24" version="1.1" width="24" xmlns="http://www.w3.org/2000/svg" style="overflow: hidden; position: relative;"><desc style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Created with Raphaël 2.1.2</desc><defs style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></defs><circle cx="12" cy="12" r="11" fill="none" stroke="#1f9ed9" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></circle><path fill="none" stroke="#1f9ed9" d="M12,6A6,6,0,0,1,17.428962314796117,9.445324250609563" stroke-width="11" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path></svg></span></div>
-				<div class="js-tooltip__content" data-position="right" style="display: none;">
-				    <div class="js-pub-stop-date-timer" data-pub-stop-date="February 16, 2025 20:00:00">
-				        U kunt nog <span class="counter__days"><span class="font-bold">4</span> dagen</span><span class="counter__hours">, <span class="font-bold">2</span> uur</span><span class="counter__minutes"> en <span class="font-bold">14</span> minuten</span> reageren
-				    </div>
-				</div>
-			</div>
-			<div class="js-tooltip">
-				<div class="box--obj__icon-eye  js-tooltip__trigger  js-nieuwaanbod-icon  is-hidden" id="js-tooltip__trigger___92214"></div>
-				<div class="js-tooltip__content" data-position="right" style="display: none;">
-					Dit is nieuw aanbod dat om 20:00 uur beschikbaar is.
-				</div>
-			</div>
-		  
-	  
-	  <div class="box--obj__price  text-blue  push-right">€ 900,07</div>
-	  <div class="box--obj__type  ellipsis">
-		
-			Huur 
-			
-				- <span class="js-tooltip">				
-					<span class="js-tooltip__trigger  js-is-click-disabled" id="js-tooltip__trigger___64605">Inschrijfduur</span>
-					<span class="js-tooltip__content" data-position="right" style="display: none;">
-						Uw inschrijfdatum bepaalt uw plaats op de lijst met reacties. Woningzoekenden die voldoen aan de voorwaarden die in de advertentie staan, komen eerst aan de beurt. Urgenten hebben voorrang als hun zoekprofiel past bij deze woning.
-					</span>
-				</span>
-			
-		
-	  </div>
-	</div>
-  </a>
+                                                </div><div class="result__picture__slide slick-slide" data-slick-index="17" aria-hidden="true" style="width: 297px;" tabindex="-1">
+                                                    <img data-lazy="/webcontent/imagebybestand/78855/4675ec04-6a33-4f28-a65c-244ad85fd039.jpg?w=600&amp;h=338&amp;k=false&amp;Bestandnaam=4675ec04-6a33-4f28-a65c-244ad85fd039" data-lazy-mobile="/webcontent/imagebybestand/78855/4675ec04-6a33-4f28-a65c-244ad85fd039.jpg?w=380&amp;h=169&amp;k=false&amp;Bestandnaam=4675ec04-6a33-4f28-a65c-244ad85fd039" src="">
+                                                        <a href="kopen/soest/soesterengweg-56" title="View Soesterengweg 56" tabindex="-1"></a>
 
+                                                </div><div class="result__picture__slide slick-slide" data-slick-index="18" aria-hidden="true" style="width: 297px;" tabindex="-1">
+                                                    <img data-lazy="/webcontent/imagebybestand/78855/b3cd6e63-5138-4b70-b792-fdc5c40202af.jpg?w=600&amp;h=338&amp;k=false&amp;Bestandnaam=b3cd6e63-5138-4b70-b792-fdc5c40202af" data-lazy-mobile="/webcontent/imagebybestand/78855/b3cd6e63-5138-4b70-b792-fdc5c40202af.jpg?w=380&amp;h=169&amp;k=false&amp;Bestandnaam=b3cd6e63-5138-4b70-b792-fdc5c40202af" src="">
+                                                        <a href="kopen/soest/soesterengweg-56" title="View Soesterengweg 56" tabindex="-1"></a>
 
-	</div><div class="js-animate-fadein" style="">
-  
+                                                </div><div class="result__picture__slide slick-slide" data-slick-index="19" aria-hidden="true" style="width: 297px;" tabindex="-1">
+                                                    <img data-lazy="/webcontent/imagebybestand/78855/384e8172-f873-44a2-8fe1-cf4c9b012d6b.jpg?w=600&amp;h=338&amp;k=false&amp;Bestandnaam=384e8172-f873-44a2-8fe1-cf4c9b012d6b" data-lazy-mobile="/webcontent/imagebybestand/78855/384e8172-f873-44a2-8fe1-cf4c9b012d6b.jpg?w=380&amp;h=169&amp;k=false&amp;Bestandnaam=384e8172-f873-44a2-8fe1-cf4c9b012d6b" src="">
+                                                        <a href="kopen/soest/soesterengweg-56" title="View Soesterengweg 56" tabindex="-1"></a>
 
-  <div class="lbl__container">
- 	
+                                                </div><div class="result__picture__slide slick-slide" data-slick-index="20" aria-hidden="true" style="width: 297px;" tabindex="-1">
+                                                    <img data-lazy="/webcontent/imagebybestand/78855/4ce5735f-f29b-420f-b3e8-bc28836622ed.jpg?w=600&amp;h=338&amp;k=false&amp;Bestandnaam=4ce5735f-f29b-420f-b3e8-bc28836622ed" data-lazy-mobile="/webcontent/imagebybestand/78855/4ce5735f-f29b-420f-b3e8-bc28836622ed.jpg?w=380&amp;h=169&amp;k=false&amp;Bestandnaam=4ce5735f-f29b-420f-b3e8-bc28836622ed" src="">
+                                                        <a href="kopen/soest/soesterengweg-56" title="View Soesterengweg 56" tabindex="-1"></a>
 
-	
+                                                </div><div class="result__picture__slide slick-slide slick-cloned" data-slick-index="21" style='background-image: url("/webcontent/imagebybestand/78855/01745b55-d682-4a31-8f96-2d6f17f84984.jpg?w=600&amp;h=338&amp;k=false&amp;Bestandnaam=01745b55-d682-4a31-8f96-2d6f17f84984"); width: 297px;' id="" aria-hidden="true" tabindex="-1">
+                                                    <img data-lazy="/webcontent/imagebybestand/78855/01745b55-d682-4a31-8f96-2d6f17f84984.jpg?w=600&amp;h=338&amp;k=false&amp;Bestandnaam=01745b55-d682-4a31-8f96-2d6f17f84984" data-lazy-mobile="/webcontent/imagebybestand/78855/01745b55-d682-4a31-8f96-2d6f17f84984.jpg?w=380&amp;h=169&amp;k=false&amp;Bestandnaam=01745b55-d682-4a31-8f96-2d6f17f84984" src="" style="display: none;">
+                                                        <a href="kopen/soest/soesterengweg-56" title="View Soesterengweg 56" tabindex="-1"></a>
 
-	<div class="lbl  lbl--favoriet  is-selectable  js-marked-toggle" data-id="100108449" title="Markeer/Verwijder als favoriet"></div>
-  </div>
+                                                </div><div class="result__picture__slide slick-slide slick-cloned" data-slick-index="22" style='background-image: url("/webcontent/imagebybestand/78855/b1de5233-a027-46b0-8723-458a6dd59589.jpg?w=600&amp;h=338&amp;k=false&amp;Bestandnaam=b1de5233-a027-46b0-8723-458a6dd59589"); width: 297px;' id="" aria-hidden="true" tabindex="-1">
+                                                    <img data-lazy="/webcontent/imagebybestand/78855/b1de5233-a027-46b0-8723-458a6dd59589.jpg?w=600&amp;h=338&amp;k=false&amp;Bestandnaam=b1de5233-a027-46b0-8723-458a6dd59589" data-lazy-mobile="/webcontent/imagebybestand/78855/b1de5233-a027-46b0-8723-458a6dd59589.jpg?w=380&amp;h=169&amp;k=false&amp;Bestandnaam=b1de5233-a027-46b0-8723-458a6dd59589" src="" style="display: none;">
+                                                        <a href="kopen/soest/soesterengweg-56" title="View Soesterengweg 56" tabindex="-1"></a>
 
-  <a class="clean" href="/detail/rotterdam/centrum/nieuwehaven-298/100108449">
-	
+                                                </div><div class="result__picture__slide slick-slide slick-cloned" data-slick-index="23" id="" aria-hidden="true" style="width: 297px;" tabindex="-1">
+                                                    <img data-lazy="/webcontent/imagebybestand/78855/53c538d3-98d7-4c85-8d2b-3a5e2734769f.jpg?w=600&amp;h=338&amp;k=false&amp;Bestandnaam=53c538d3-98d7-4c85-8d2b-3a5e2734769f" data-lazy-mobile="/webcontent/imagebybestand/78855/53c538d3-98d7-4c85-8d2b-3a5e2734769f.jpg?w=380&amp;h=169&amp;k=false&amp;Bestandnaam=53c538d3-98d7-4c85-8d2b-3a5e2734769f" src="">
+                                                        <a href="kopen/soest/soesterengweg-56" title="View Soesterengweg 56" tabindex="-1"></a>
 
-	<div class="box__picture">
-		<div class="swipe js-swipe-slider">
-            <div class="swipe__list">
-                <div class="swipe__item">
-					<div class="js-responsive-img  swipe__image" style="background-image:url('//www.woonnetrijnmond.nl/File_Cabinet/WoonnetRijnmondWoningCartotheek/159284_95275/5093950_53461.jpg')" data-size-mobile="//www.woonnetrijnmond.nl/File_Cabinet/WoonnetRijnmondWoningCartotheek/159284_95275/5093953_98609.jpg" data-size-tablet="//www.woonnetrijnmond.nl/File_Cabinet/WoonnetRijnmondWoningCartotheek/159284_95275/5093949_88594.jpg" data-size-desktop="//www.woonnetrijnmond.nl/File_Cabinet/WoonnetRijnmondWoningCartotheek/159284_95275/5093950_53461.jpg"></div>
-				</div>
-				
-					<div class="swipe__item">
-						<div class="js-responsive-img  swipe__image" style="background-image:url('//www.woonnetrijnmond.nl/File_Cabinet/WoonnetRijnmondWoningCartotheek/159284_95275/5093960_48940.jpg')" data-size-mobile="//www.woonnetrijnmond.nl/File_Cabinet/WoonnetRijnmondWoningCartotheek/159284_95275/5093963_47070.jpg" data-size-tablet="//www.woonnetrijnmond.nl/File_Cabinet/WoonnetRijnmondWoningCartotheek/159284_95275/5093959_51781.jpg" data-size-desktop="//www.woonnetrijnmond.nl/File_Cabinet/WoonnetRijnmondWoningCartotheek/159284_95275/5093960_48940.jpg"></div>
-					</div>
-				
-            </div>
-        </div>
-		
-			<div class="swipe-indicators  js-swipe-indicators">
-				<div class="swipe-indicator__item  is-active"></div>
-				<div class="swipe-indicator__item"></div>
-			</div>
-		
-		
-		
-				
-		
-			
-		
-	</div>
+                                                </div><div class="result__picture__slide slick-slide slick-cloned" data-slick-index="24" id="" aria-hidden="true" style="width: 297px;" tabindex="-1">
+                                                    <img data-lazy="/webcontent/imagebybestand/78855/2507b31a-199c-4c56-9136-4032e141bfd0.jpg?w=600&amp;h=338&amp;k=false&amp;Bestandnaam=2507b31a-199c-4c56-9136-4032e141bfd0" data-lazy-mobile="/webcontent/imagebybestand/78855/2507b31a-199c-4c56-9136-4032e141bfd0.jpg?w=380&amp;h=169&amp;k=false&amp;Bestandnaam=2507b31a-199c-4c56-9136-4032e141bfd0" src="">
+                                                        <a href="kopen/soest/soesterengweg-56" title="View Soesterengweg 56" tabindex="-1"></a>
 
-	<div class="box__properties  group">
-	  <div class="box__title  ellipsis">
-	    Nieuwehaven 298
-	  </div>
-	  <div class="box__title  ellipsis">
-		<span>Centrum, Rotterdam</span>
-	  </div>
+                                                </div><div class="result__picture__slide slick-slide slick-cloned" data-slick-index="25" id="" aria-hidden="true" style="width: 297px;" tabindex="-1">
+                                                    <img data-lazy="/webcontent/imagebybestand/78855/15ad8c04-0ccd-4e7e-b4be-f1ecab230354.jpg?w=600&amp;h=338&amp;k=false&amp;Bestandnaam=15ad8c04-0ccd-4e7e-b4be-f1ecab230354" data-lazy-mobile="/webcontent/imagebybestand/78855/15ad8c04-0ccd-4e7e-b4be-f1ecab230354.jpg?w=380&amp;h=169&amp;k=false&amp;Bestandnaam=15ad8c04-0ccd-4e7e-b4be-f1ecab230354" src="">
+                                                        <a href="kopen/soest/soesterengweg-56" title="View Soesterengweg 56" tabindex="-1"></a>
 
-	  <div class="box__text  ellipsis">
-		Maisonnettewoning (66,4 m²)<br>
-		3 slaapkamers en balkon
-	  </div>
+                                                </div><div class="result__picture__slide slick-slide slick-cloned" data-slick-index="26" id="" aria-hidden="true" style="width: 297px;" tabindex="-1">
+                                                    <img data-lazy="/webcontent/imagebybestand/78855/f671d61f-bd26-48a0-a7d9-1d8415d02998.jpg?w=600&amp;h=338&amp;k=false&amp;Bestandnaam=f671d61f-bd26-48a0-a7d9-1d8415d02998" data-lazy-mobile="/webcontent/imagebybestand/78855/f671d61f-bd26-48a0-a7d9-1d8415d02998.jpg?w=380&amp;h=169&amp;k=false&amp;Bestandnaam=f671d61f-bd26-48a0-a7d9-1d8415d02998" src="">
+                                                        <a href="kopen/soest/soesterengweg-56" title="View Soesterengweg 56" tabindex="-1"></a>
 
-	  
-		  
-            <div class="js-tooltip">
-				<div class="timer  js-tooltip__trigger  js-animated-meter  js-is-click-disabled" data-percentage="30" id="js-tooltip__trigger___97980"><span><svg height="24" version="1.1" width="24" xmlns="http://www.w3.org/2000/svg" style="overflow: hidden; position: relative;"><desc style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Created with Raphaël 2.1.2</desc><defs style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></defs><circle cx="12" cy="12" r="11" fill="none" stroke="#1f9ed9" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></circle><path fill="none" stroke="#1f9ed9" d="M12,6A6,6,0,0,1,17.706339097770922,13.854101966249685" stroke-width="11" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path></svg></span></div>
-				<div class="js-tooltip__content" data-position="right" style="display: none;">
-				    <div class="js-pub-stop-date-timer" data-pub-stop-date="February 14, 2025 20:00:00">
-				        U kunt nog <span class="counter__days"><span class="font-bold">2</span> dagen</span><span class="counter__hours">, <span class="font-bold">2</span> uur</span><span class="counter__minutes"> en <span class="font-bold">14</span> minuten</span> reageren
-				    </div>
-				</div>
-			</div>
-			<div class="js-tooltip">
-				<div class="box--obj__icon-eye  js-tooltip__trigger  js-nieuwaanbod-icon  is-hidden" id="js-tooltip__trigger___91527"></div>
-				<div class="js-tooltip__content" data-position="right" style="display: none;">
-					Dit is nieuw aanbod dat om 20:00 uur beschikbaar is.
-				</div>
-			</div>
-		  
-	  
-	  <div class="box--obj__price  text-blue  push-right">€ 884,32</div>
-	  <div class="box--obj__type  ellipsis">
-		
-			Huur 
-			
-				- <span class="js-tooltip">				
-					<span class="js-tooltip__trigger  js-is-click-disabled" id="js-tooltip__trigger___96618">Inschrijfduur</span>
-					<span class="js-tooltip__content" data-position="right" style="display: none;">
-						Uw inschrijfdatum bepaalt uw plaats op de lijst met reacties. Woningzoekenden die voldoen aan de voorwaarden die in de advertentie staan, komen eerst aan de beurt. Urgenten hebben voorrang als hun zoekprofiel past bij deze woning.
-					</span>
-				</span>
-			
-		
-	  </div>
-	</div>
-  </a>
+                                                </div><div class="result__picture__slide slick-slide slick-cloned" data-slick-index="27" id="" aria-hidden="true" style="width: 297px;" tabindex="-1">
+                                                    <img data-lazy="/webcontent/imagebybestand/78855/c04a4f8b-68b1-41f6-a283-671449f18be1.jpg?w=600&amp;h=338&amp;k=false&amp;Bestandnaam=c04a4f8b-68b1-41f6-a283-671449f18be1" data-lazy-mobile="/webcontent/imagebybestand/78855/c04a4f8b-68b1-41f6-a283-671449f18be1.jpg?w=380&amp;h=169&amp;k=false&amp;Bestandnaam=c04a4f8b-68b1-41f6-a283-671449f18be1" src="">
+                                                        <a href="kopen/soest/soesterengweg-56" title="View Soesterengweg 56" tabindex="-1"></a>
+
+                                                </div><div class="result__picture__slide slick-slide slick-cloned" data-slick-index="28" id="" aria-hidden="true" style="width: 297px;" tabindex="-1">
+                                                    <img data-lazy="/webcontent/imagebybestand/78855/c04e1d2f-5c72-4fd0-a828-07455445fdcf.jpg?w=600&amp;h=338&amp;k=false&amp;Bestandnaam=c04e1d2f-5c72-4fd0-a828-07455445fdcf" data-lazy-mobile="/webcontent/imagebybestand/78855/c04e1d2f-5c72-4fd0-a828-07455445fdcf.jpg?w=380&amp;h=169&amp;k=false&amp;Bestandnaam=c04e1d2f-5c72-4fd0-a828-07455445fdcf" src="">
+                                                        <a href="kopen/soest/soesterengweg-56" title="View Soesterengweg 56" tabindex="-1"></a>
+
+                                                </div><div class="result__picture__slide slick-slide slick-cloned" data-slick-index="29" id="" aria-hidden="true" style="width: 297px;" tabindex="-1">
+                                                    <img data-lazy="/webcontent/imagebybestand/78855/350ff9fb-135f-462f-9bd3-9ab9884fcdc9.jpg?w=600&amp;h=338&amp;k=false&amp;Bestandnaam=350ff9fb-135f-462f-9bd3-9ab9884fcdc9" data-lazy-mobile="/webcontent/imagebybestand/78855/350ff9fb-135f-462f-9bd3-9ab9884fcdc9.jpg?w=380&amp;h=169&amp;k=false&amp;Bestandnaam=350ff9fb-135f-462f-9bd3-9ab9884fcdc9" src="">
+                                                        <a href="kopen/soest/soesterengweg-56" title="View Soesterengweg 56" tabindex="-1"></a>
+
+                                                </div><div class="result__picture__slide slick-slide slick-cloned" data-slick-index="30" id="" aria-hidden="true" style="width: 297px;" tabindex="-1">
+                                                    <img data-lazy="/webcontent/imagebybestand/78855/137de6ea-cf1b-4aa5-bf40-59552113ae30.jpg?w=600&amp;h=338&amp;k=false&amp;Bestandnaam=137de6ea-cf1b-4aa5-bf40-59552113ae30" data-lazy-mobile="/webcontent/imagebybestand/78855/137de6ea-cf1b-4aa5-bf40-59552113ae30.jpg?w=380&amp;h=169&amp;k=false&amp;Bestandnaam=137de6ea-cf1b-4aa5-bf40-59552113ae30" src="">
+                                                        <a href="kopen/soest/soesterengweg-56" title="View Soesterengweg 56" tabindex="-1"></a>
+
+                                                </div><div class="result__picture__slide slick-slide slick-cloned" data-slick-index="31" id="" aria-hidden="true" style="width: 297px;" tabindex="-1">
+                                                    <img data-lazy="/webcontent/imagebybestand/78855/5c79e3fe-eadd-4ecf-b137-d504d80e5cb0.jpg?w=600&amp;h=338&amp;k=false&amp;Bestandnaam=5c79e3fe-eadd-4ecf-b137-d504d80e5cb0" data-lazy-mobile="/webcontent/imagebybestand/78855/5c79e3fe-eadd-4ecf-b137-d504d80e5cb0.jpg?w=380&amp;h=169&amp;k=false&amp;Bestandnaam=5c79e3fe-eadd-4ecf-b137-d504d80e5cb0" src="">
+                                                        <a href="kopen/soest/soesterengweg-56" title="View Soesterengweg 56" tabindex="-1"></a>
+
+                                                </div><div class="result__picture__slide slick-slide slick-cloned" data-slick-index="32" id="" aria-hidden="true" style="width: 297px;" tabindex="-1">
+                                                    <img data-lazy="/webcontent/imagebybestand/78855/7c99a4e4-e9c4-4835-bd1e-587967ffa10f.jpg?w=600&amp;h=338&amp;k=false&amp;Bestandnaam=7c99a4e4-e9c4-4835-bd1e-587967ffa10f" data-lazy-mobile="/webcontent/imagebybestand/78855/7c99a4e4-e9c4-4835-bd1e-587967ffa10f.jpg?w=380&amp;h=169&amp;k=false&amp;Bestandnaam=7c99a4e4-e9c4-4835-bd1e-587967ffa10f" src="">
+                                                        <a href="kopen/soest/soesterengweg-56" title="View Soesterengweg 56" tabindex="-1"></a>
+
+                                                </div><div class="result__picture__slide slick-slide slick-cloned" data-slick-index="33" id="" aria-hidden="true" style="width: 297px;" tabindex="-1">
+                                                    <img data-lazy="/webcontent/imagebybestand/78855/5baecc01-9286-4e5a-b812-dec3f6c7ad4e.jpg?w=600&amp;h=338&amp;k=false&amp;Bestandnaam=5baecc01-9286-4e5a-b812-dec3f6c7ad4e" data-lazy-mobile="/webcontent/imagebybestand/78855/5baecc01-9286-4e5a-b812-dec3f6c7ad4e.jpg?w=380&amp;h=169&amp;k=false&amp;Bestandnaam=5baecc01-9286-4e5a-b812-dec3f6c7ad4e" src="">
+                                                        <a href="kopen/soest/soesterengweg-56" title="View Soesterengweg 56" tabindex="-1"></a>
+
+                                                </div><div class="result__picture__slide slick-slide slick-cloned" data-slick-index="34" id="" aria-hidden="true" style="width: 297px;" tabindex="-1">
+                                                    <img data-lazy="/webcontent/imagebybestand/78855/4cde0e88-cf88-405f-81c8-f166b8a67f9c.jpg?w=600&amp;h=338&amp;k=false&amp;Bestandnaam=4cde0e88-cf88-405f-81c8-f166b8a67f9c" data-lazy-mobile="/webcontent/imagebybestand/78855/4cde0e88-cf88-405f-81c8-f166b8a67f9c.jpg?w=380&amp;h=169&amp;k=false&amp;Bestandnaam=4cde0e88-cf88-405f-81c8-f166b8a67f9c" src="">
+                                                        <a href="kopen/soest/soesterengweg-56" title="View Soesterengweg 56" tabindex="-1"></a>
+
+                                                </div><div class="result__picture__slide slick-slide slick-cloned" data-slick-index="35" id="" aria-hidden="true" style="width: 297px;" tabindex="-1">
+                                                    <img data-lazy="/webcontent/imagebybestand/78855/715036c6-adca-4de8-8086-35eefff4a422.jpg?w=600&amp;h=338&amp;k=false&amp;Bestandnaam=715036c6-adca-4de8-8086-35eefff4a422" data-lazy-mobile="/webcontent/imagebybestand/78855/715036c6-adca-4de8-8086-35eefff4a422.jpg?w=380&amp;h=169&amp;k=false&amp;Bestandnaam=715036c6-adca-4de8-8086-35eefff4a422" src="">
+                                                        <a href="kopen/soest/soesterengweg-56" title="View Soesterengweg 56" tabindex="-1"></a>
+
+                                                </div><div class="result__picture__slide slick-slide slick-cloned" data-slick-index="36" id="" aria-hidden="true" style="width: 297px;" tabindex="-1">
+                                                    <img data-lazy="/webcontent/imagebybestand/78855/e1cc1c35-79fa-406e-8d28-35325db9d666.jpg?w=600&amp;h=338&amp;k=false&amp;Bestandnaam=e1cc1c35-79fa-406e-8d28-35325db9d666" data-lazy-mobile="/webcontent/imagebybestand/78855/e1cc1c35-79fa-406e-8d28-35325db9d666.jpg?w=380&amp;h=169&amp;k=false&amp;Bestandnaam=e1cc1c35-79fa-406e-8d28-35325db9d666" src="">
+                                                        <a href="kopen/soest/soesterengweg-56" title="View Soesterengweg 56" tabindex="-1"></a>
+
+                                                </div><div class="result__picture__slide slick-slide slick-cloned" data-slick-index="37" id="" aria-hidden="true" style="width: 297px;" tabindex="-1">
+                                                    <img data-lazy="/webcontent/imagebybestand/78855/26ab7789-619d-4878-99ab-5e33a56c1c45.jpg?w=600&amp;h=338&amp;k=false&amp;Bestandnaam=26ab7789-619d-4878-99ab-5e33a56c1c45" data-lazy-mobile="/webcontent/imagebybestand/78855/26ab7789-619d-4878-99ab-5e33a56c1c45.jpg?w=380&amp;h=169&amp;k=false&amp;Bestandnaam=26ab7789-619d-4878-99ab-5e33a56c1c45" src="">
+                                                        <a href="kopen/soest/soesterengweg-56" title="View Soesterengweg 56" tabindex="-1"></a>
+
+                                                </div><div class="result__picture__slide slick-slide slick-cloned" data-slick-index="38" id="" aria-hidden="true" style="width: 297px;" tabindex="-1">
+                                                    <img data-lazy="/webcontent/imagebybestand/78855/4675ec04-6a33-4f28-a65c-244ad85fd039.jpg?w=600&amp;h=338&amp;k=false&amp;Bestandnaam=4675ec04-6a33-4f28-a65c-244ad85fd039" data-lazy-mobile="/webcontent/imagebybestand/78855/4675ec04-6a33-4f28-a65c-244ad85fd039.jpg?w=380&amp;h=169&amp;k=false&amp;Bestandnaam=4675ec04-6a33-4f28-a65c-244ad85fd039" src="">
+                                                        <a href="kopen/soest/soesterengweg-56" title="View Soesterengweg 56" tabindex="-1"></a>
+
+                                                </div><div class="result__picture__slide slick-slide slick-cloned" data-slick-index="39" id="" aria-hidden="true" style="width: 297px;" tabindex="-1">
+                                                    <img data-lazy="/webcontent/imagebybestand/78855/b3cd6e63-5138-4b70-b792-fdc5c40202af.jpg?w=600&amp;h=338&amp;k=false&amp;Bestandnaam=b3cd6e63-5138-4b70-b792-fdc5c40202af" data-lazy-mobile="/webcontent/imagebybestand/78855/b3cd6e63-5138-4b70-b792-fdc5c40202af.jpg?w=380&amp;h=169&amp;k=false&amp;Bestandnaam=b3cd6e63-5138-4b70-b792-fdc5c40202af" src="">
+                                                        <a href="kopen/soest/soesterengweg-56" title="View Soesterengweg 56" tabindex="-1"></a>
+
+                                                </div><div class="result__picture__slide slick-slide slick-cloned" data-slick-index="40" id="" aria-hidden="true" style="width: 297px;" tabindex="-1">
+                                                    <img data-lazy="/webcontent/imagebybestand/78855/384e8172-f873-44a2-8fe1-cf4c9b012d6b.jpg?w=600&amp;h=338&amp;k=false&amp;Bestandnaam=384e8172-f873-44a2-8fe1-cf4c9b012d6b" data-lazy-mobile="/webcontent/imagebybestand/78855/384e8172-f873-44a2-8fe1-cf4c9b012d6b.jpg?w=380&amp;h=169&amp;k=false&amp;Bestandnaam=384e8172-f873-44a2-8fe1-cf4c9b012d6b" src="">
+                                                        <a href="kopen/soest/soesterengweg-56" title="View Soesterengweg 56" tabindex="-1"></a>
+
+                                                </div><div class="result__picture__slide slick-slide slick-cloned" data-slick-index="41" id="" aria-hidden="true" style="width: 297px;" tabindex="-1">
+                                                    <img data-lazy-mobile="/webcontent/imagebybestand/78855/4ce5735f-f29b-420f-b3e8-bc28836622ed.jpg?w=380&amp;h=169&amp;k=false&amp;Bestandnaam=4ce5735f-f29b-420f-b3e8-bc28836622ed" src="/webcontent/imagebybestand/78855/4ce5735f-f29b-420f-b3e8-bc28836622ed.jpg?w=600&amp;h=338&amp;k=false&amp;Bestandnaam=4ce5735f-f29b-420f-b3e8-bc28836622ed" style="opacity: 1;">
+                                                        <a href="kopen/soest/soesterengweg-56" title="View Soesterengweg 56" tabindex="-1"></a>
+
+                                                </div></div></div>
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                                
+                                    <button class="slick-next slick-arrow" aria-label="Next" type="button" style=""><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Next</font></font></button></div>
+                                </div>
+                                <!-- Favo functionaliteit
+                                <div class="result__fav">
+                                    <button class="btn" ng-class="{ 'is-favourite' : isFavourite(78855) }" ng-click="toggleFavourite($event, 78855);"><i class="icon icon--fav--off"></i></button>
+                                </div>
+                                    -->
+                                <a href="kopen/soest/soesterengweg-56">
+                                    <div class="result__info">
+                                        <h3>
+
+                                                <span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Soesterengweg 56</font></font></span>
+
+                                        </h3>
 
 
-	</div>
+                                        <p class="result__info__footer">
+                                            <span class="city"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Soest</font></font></span>
+                                            <span class="path"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">
+                                                93 m </font></font><sup><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">2</font></font></sup> <span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">-</font></font></span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> 
+4 rooms</font></font><span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">-</font></font></span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;"> 
+Semi-detached house
+ </font></font><span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">-</font></font></span><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Garden
+
+                                            </font></font></span>
+                                        </p>
+
+
+
+                                        <div class="result__info__pricing">
+                                                <p class="result__info__price"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">â‚¬500,000 kk</font></font></p>
+
+                                        </div>
+
+                                        <div class="result__info__property-labels">
+
+                                                        <span class="property-label-small property-label-small--special"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Priority tenants</font></font></span>
+
+                                                <span class="property-label-small property-label-small--special"><font style="vertical-align: inherit;"><font style="vertical-align: inherit;">Open House</font></font></span>
+                                        </div>
+                                    </div>
+                                </a>
+                            </div>
