@@ -74,43 +74,11 @@ class AlliantieSpider(scrapy.Spider):
             # address = ""
             # address = home_card.xpath(".//div[contains(@class , 'result__info')]/h3/span/text()").get() + "," + city
             price = home_card.xpath(".//div[contains(@class, 'result__info__pricing')]//p[contains(@class, 'result__info__price')]/text()").get()
+            agency = self.name
             
             print(f"url : {url}")
             print(f"image_Url = {image_url}")
             # print(f"address : {address}")
             print(f"price : {price}")
+            print(f"Name : {agency}")
         
-
-
-
-
-# home_card_list = Selector(text=data).xpath("//div[contains(@class, 'js-animate-fadein')]")
-        
-#         # with open("log.txt", "a") as f:
-#         #         f.write(''.join(home_card_list.getall()))
-#         print(f"Total Home Cards : {len(home_card_list)}")
-#         for home_card in home_card_list:
-#             url = self.allowed_domains[0] + home_card.xpath(".//a").attrib['href']
-#             # await page.wait_for_selector("div['data-size-desktop']", timeout=6000)
-            
-            
-
-#             image_url = home_card.xpath(".//div[contains(@class, 'swipe__list')]//div[contains(@class, 'swipe__item')][1]//div[contains(@class, 'swipe__image')]").get()
-#             regex = r"background-image:url\(['\"]?(.*?)['\"]?\)"
-#             image_url = re.search(regex, image_url).group(1)
-#             if (len(image_url) > 2):
-#                 image_url = image_url[2:]
-                
-#             city = home_card.xpath(".//a[contains(@class, 'clean')]//div[contains(@class, 'box__properties')]//div[contains(@class, 'box__title')][2]/span/text()").get()
-#             address = (home_card.xpath(".//a[contains(@class, 'clean')]//div[contains(@class, 'box__properties')]//div[contains(@class, 'box__title')][1]/text()").get() + ","+ city).strip()
-#             price = home_card.xpath(".//a[contains(@class, 'clean')]//div[contains(@class, 'box--obj__price')]/text()").get()
-#             agency = self.name
-#             # date_added = home_card.xpath(".//div[contains(@class, 'o-card--listview-content')]//div[contains(@class, 'o-card--listview-price')]/text()").get()
-            
-#             print(url)
-#             print(f"image url : {image_url}")
-#             print(f"city : {city}")
-#             print(f"address: {address}")
-#             print(f"price : {price}")
-#             print(f"agency : {agency}")
-            
