@@ -1,6 +1,7 @@
 import psycopg2
 from psycopg2.extras import RealDictCursor
 from secrets import  DB
+from models.Home import Home
 
 def query_db(query: str, params: list[str] = [], fetchOne: bool = False) -> list[dict] | dict | None:
     db = psycopg2.connect(database=DB["database"],
@@ -26,3 +27,11 @@ def query_db(query: str, params: list[str] = [], fetchOne: bool = False) -> list
     db.close()
     
     return result
+
+
+def add_home(home:Home):
+    query_db("insert into homes() values()")
+    
+def get_homes():
+    return query_db("select * from home;")
+    

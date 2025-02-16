@@ -1,3 +1,6 @@
+from datetime import datetime
+import re
+
 class Home:
     def __init__(self, address: str = '', city: str = '', url: str = '', agency: str = '', price: int = -1, image_url: str = '') -> None:
         self.address = address
@@ -77,3 +80,16 @@ class Home:
             
         self._parsed_city = city
         
+    @image_url.setter
+    def image_url(self, image_url: str) -> None:
+        self._image_url = image_url
+        
+    def get_tuple(self):
+        return (self.url, self.address, self.city, self.price, self.agency, self.image_url, datetime.now().__str__())
+        
+        
+        
+if __name__ == "__main__":
+    home = Home(address="sdrf", city="city", url="http://example.com", agency="agency", price=34, image_url="image_url")
+    
+    print(home.get_tuple())
