@@ -89,7 +89,7 @@ class Home:
         
         
         
-if __name__ == "__main__":
-    home = Home(address="sdrf", city="city", url="http://example.com", agency="agency", price=34, image_url="image_url")
+# if __name__ == "__main__":
+#     home = Home(address="sdrf", city="city", url="http://example.com", agency="agency", price=34, image_url="image_url")
     
-    print(home.get_tuple())
+#     print(home.get_tuple())

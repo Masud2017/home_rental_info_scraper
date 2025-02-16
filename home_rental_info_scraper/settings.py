@@ -19,7 +19,7 @@ DOWNLOAD_HANDLERS = {
 }
 
 PLAYWRIGHT_LAUNCH_OPTIONS = {
-    # "headless": False,
+    "headless": False,
 }
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
@@ -40,7 +40,7 @@ ROBOTSTXT_OBEY = True
 #CONCURRENT_REQUESTS_PER_IP = 16
 
 # Disable cookies (enabled by default)
-#COOKIES_ENABLED = False
+COOKIES_ENABLED = True # disabled the cookie to evade bot detection
 
 # Disable Telnet Console (enabled by default)
 #TELNETCONSOLE_ENABLED = False
