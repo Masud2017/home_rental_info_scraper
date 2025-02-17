@@ -2,6 +2,7 @@ import scrapy
 from scrapy_playwright.page import PageMethod
 from scrapy.selector import Selector
 import re
+from home_rental_info_scraper.models.Home import Home
 
 
 class BouwinvestSpider(scrapy.Spider):
@@ -26,6 +27,7 @@ class BouwinvestSpider(scrapy.Spider):
         )
 
     async def parse(self, response):
+        home_list = list()
         page = response.meta["playwright_page"]
         
         data = await page.content()
@@ -60,10 +62,22 @@ class BouwinvestSpider(scrapy.Spider):
             print(f"Name : {agency}")
             print("--------------------------\n")
             
+            home = Home(
+                url=url,
+                image_url=image_url,
+                address=address,
+                price=price,
+                agency=agency
+            )
+            
+            
+            home_list.append(home)
+            
             
             # next_page = Selector(text = data).xpath("//div[contains(@class , 'results__pagination')]//a[contains(@class, 'results__pagination__nav-next')]").get()
             
         # has_next = response.meta["playwright_page"].locator("//ul[contains(@class, 'pagination')]//li[last()]")
+        yield home_list
             
             
            
