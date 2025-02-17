@@ -1,8 +1,6 @@
 import scrapy
 from scrapy_playwright.page import PageMethod
 from scrapy.selector import Selector
-import random
-import time
 
 class VboSpider(scrapy.Spider):
     name = "vbo"

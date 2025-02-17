@@ -27,11 +27,3 @@ def query_db(query: str, params: list[str] = [], fetchOne: bool = False) -> list
     db.close()
     
     return result
-
-
-def add_home(home:Home):
-    query_db("insert into homes() values()")
-    
-def get_homes():
-    return query_db("select * from home;")
-    
