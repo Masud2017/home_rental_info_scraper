@@ -1,7 +1,11 @@
-import psycopg2                                                                                                           
+import psycopg2   
+from dotenv import load_dotenv
+import os
+
+load_dotenv()                                                                                                        
 
 DB = { 
-    "database": "hestia",
+    "database": os.environ["db_name"],
     "host": "hestia-database",
     "user": "hestia",
     "password": "<db_user_password>",
