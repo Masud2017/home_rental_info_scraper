@@ -48,7 +48,7 @@ class MakelaarshuisSpider(scrapy.Spider):
             print(f"Debugging the price {price}")
             
             if len(price) > 0:
-                price = price.split(" ")[1]
+                price = price.split(" ")[0]
             agency = self.name
             
             print("\n--------------------------")
