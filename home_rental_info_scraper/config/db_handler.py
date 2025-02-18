@@ -1,7 +1,7 @@
 import psycopg2
 from psycopg2.extras import RealDictCursor
-from secrets import  DB
-from models.Home import Home
+from home_rental_info_scraper.config.secrets import  DB
+from home_rental_info_scraper.models.Home import Home
 
 def query_db(query: str, params: list[str] = [], fetchOne: bool = False) -> list[dict] | dict | None:
     db = psycopg2.connect(database=DB["database"],

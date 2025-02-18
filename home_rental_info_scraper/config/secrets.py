@@ -6,8 +6,8 @@ load_dotenv()
 
 DB = { 
     "database": os.environ["db_name"],
-    "host": "hestia-database",
-    "user": "hestia",
-    "password": "<db_user_password>",
-    "port" : "5432"
+    "host": os.environ["db_host"],
+    "user": os.environ["db_user"],
+    "password": os.environ["db_password"],
+    "port": os.environ["db_port"]
 }

@@ -1,8 +1,8 @@
 import logging
 import requests
 import re
-from models.Home import Home
-from db_handler import query_db
+from home_rental_info_scraper.models.Home import Home
+from ..config.db_handler import query_db
 
 
 
@@ -59,7 +59,7 @@ class EmailHandler:
     
     def send_single_email(self, to_address: str, subject: str, message: str):
         try:
-            api_key = "e198d9e304b9238386a7a588ad90f76e-667818f5-25d649a0"
+            api_key = ""
             resp = requests.post(
                 self.MAILGUN_API_URL,
                 auth=("api", api_key),

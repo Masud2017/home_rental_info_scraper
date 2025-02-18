@@ -7,6 +7,7 @@ class Home:
         self.city = city
         self.url = url
         self.agency = agency
+        self.date_added = datetime.now()
         self.price = price
         self.image_url = image_url
         
@@ -14,11 +15,17 @@ class Home:
         return str(self)
         
     def __str__(self) -> str:
-        return f"{self.address}, {self.city} ({self.agency.title()})"
+        
+        return f'\'{self.address}\', \'{self.city}\', \'{self.url}\', \'{self.agency}\',\'{self.date_added}\', {self.price}, \'{self.image_url}\''
+    
         
     def __eq__(self, other: 'Home') -> bool:
-        if self.address.lower() == other.address.lower():
-            if self.city.lower() == other.city.lower():
+        if self.address.lower() == other["address"].lower():
+            if self.city.lower() == other["city"].lower() and \
+               self.url.lower() == other["url"].lower() and \
+               self.agency.lower() == other["agency"].lower() and \
+               self.price == other["price"] and \
+               self.image_url.lower() == other["image_url"].lower():
                 return True
         return False
     
@@ -41,45 +48,52 @@ class Home:
     @city.setter
     def city(self, city: str) -> None:
         # Strip the trailing province if present
-        if re.search(" \([a-zA-Z]{2}\)$", city):
-            city = ' '.join(city.split(' ')[:-1])
+        # if re.search(" \([a-zA-Z]{2}\)$", city):
+        #     city = ' '.join(city.split(' ')[:-1])
     
-        # Handle cities with two names and other edge cases
-        if city.lower() in ["'s-gravenhage", "s-gravenhage"]:
-            city = "Den Haag"
-        elif city.lower() in ["'s-hertogenbosch", "s-hertogenbosch"]:
-            city = "Den Bosch"
-        elif city.lower() in ["alphen aan den rijn", "alphen a/d rijn"]:
-            city = "Alphen aan den Rijn"
-        elif city.lower() in ["koog aan de zaan", "koog a/d zaan"]:
-            city = "Koog aan de Zaan"
-        elif city.lower() in ["capelle aan den ijssel", "capelle a/d ijssel"]:
-            city = "Capelle aan den IJssel"
-        elif city.lower() in ["berkel-enschot", "berkel enschot"]:
-            city = "Berkel-Enschot"
-        elif city.lower() in ["oud-beijerland", "oud beijerland"]:
-            city = "Oud-Beijerland"
-        elif city.lower() in ["etten-leur", "etten leur"]:
-            city = "Etten-Leur"
-        elif city.lower() in ["nieuw vennep", "nieuw-vennep"]:
-            city = "Nieuw-Vennep"
-        elif city.lower() == "son en breugel":
-            city = "Son en Breugel"
-        elif city.lower() == "bergen op zoom":
-            city = "Bergen op Zoom"
-        elif city.lower() == "berkel en rodenrijs":
-            city = "Berkel en Rodenrijs"
-        elif city.lower() == "wijk bij duurstede":
-            city = "Wijk bij Duurstede"
-        elif city.lower() == "hoogvliet rotterdam":
-            city = "Hoogvliet Rotterdam"
-        elif city.lower() == "nederhorst den berg":
-            city = "Nederhorst den Berg"
-        elif city.lower() == "huis ter heide":
-            city = "Huis ter Heide"
+        # # Handle cities with two names and other edge cases
+        # if city.lower() in ["'s-gravenhage", "s-gravenhage"]:
+        #     city = "Den Haag"
+        # elif city.lower() in ["'s-hertogenbosch", "s-hertogenbosch"]:
+        #     city = "Den Bosch"
+        # elif city.lower() in ["alphen aan den rijn", "alphen a/d rijn"]:
+        #     city = "Alphen aan den Rijn"
+        # elif city.lower() in ["koog aan de zaan", "koog a/d zaan"]:
+        #     city = "Koog aan de Zaan"
+        # elif city.lower() in ["capelle aan den ijssel", "capelle a/d ijssel"]:
+        #     city = "Capelle aan den IJssel"
+        # elif city.lower() in ["berkel-enschot", "berkel enschot"]:
+        #     city = "Berkel-Enschot"
+        # elif city.lower() in ["oud-beijerland", "oud beijerland"]:
+        #     city = "Oud-Beijerland"
+        # elif city.lower() in ["etten-leur", "etten leur"]:
+        #     city = "Etten-Leur"
+        # elif city.lower() in ["nieuw vennep", "nieuw-vennep"]:
+        #     city = "Nieuw-Vennep"
+        # elif city.lower() == "son en breugel":
+        #     city = "Son en Breugel"
+        # elif city.lower() == "bergen op zoom":
+        #     city = "Bergen op Zoom"
+        # elif city.lower() == "berkel en rodenrijs":
+        #     city = "Berkel en Rodenrijs"
+        # elif city.lower() == "wijk bij duurstede":
+        #     city = "Wijk bij Duurstede"
+        # elif city.lower() == "hoogvliet rotterdam":
+        #     city = "Hoogvliet Rotterdam"
+        # elif city.lower() == "nederhorst den berg":
+        #     city = "Nederhorst den Berg"
+        # elif city.lower() == "huis ter heide":
+        #     city = "Huis ter Heide"
             
         self._parsed_city = city
         
+    @property
+    def date_added(self) -> datetime:
+        return self._date_added
+
+    @date_added.setter
+    def date_added(self, date_added: datetime) -> None:
+        self._date_added = date_added
     @image_url.setter
     def image_url(self, image_url: str) -> None:
         self._image_url = image_url

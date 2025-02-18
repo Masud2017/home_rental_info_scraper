@@ -65,12 +65,24 @@ class WoonzekerSpider(scrapy.Spider):
         if await has_next.is_visible():
             await has_next.click()
             await response.meta["playwright_page"].wait_for_selector("div.property-cards__single")  # Wait for new cards
-            yield scrapy.Request(
-                response.url,
-                meta={"playwright": True, "playwright_include_page": True},
-                callback=self.parse
+            # yield scrapy.Request(
+            #     response.url,
+            #     meta={
+            #         "playwright": True,
+            #     "playwright_include_page": True,
+            #     "playwright_page_methods": [
+            #         PageMethod("wait_for_selector", "div.property-cards__single", timeout=6000)
+            #     ],
+            #         },
+            #     callback=self.parse
+            # )
+            await self.parse(
+                scrapy.http.Response(
+                    url=response.url,
+                    request=response.request,
+                    # meta={"playwright_page": page},
+                )
             )
-            
             
             
 # properties that need to be extracted          
