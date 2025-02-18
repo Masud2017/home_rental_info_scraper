@@ -42,7 +42,15 @@ class WoonzekerSpider(scrapy.Spider):
             print(f"count of home list : {len(home_card_list)}")
             for home_card in home_card_list:
                 url = self.allowed_domains[0] + home_card.xpath(".//div[contains(@class,'property__body-container')]/a").attrib['href']
-                image_url = self.allowed_domains[0] + home_card.xpath(".//div[contains(@class,  'property__image-container')]//div[contains(@class, 'property__image')]").get()
+                image_url = home_card.xpath(".//div[contains(@class,  'property__image-container')]//div[contains(@class, 'property__image')]").get()
+                regex_image_url = r'background-image:\s*url\(["\']?(.*?)["\']?\);'
+                if image_url is not None:
+                    print(f"printing the image url : {image_url}")
+                    res = re.search(regex_image_url,image_url)
+                    if res is not None:
+                        image_url = res.group(1)
+                    else:
+                        image_url = ""
                 # with open("log.txt", "w", encoding = "utf-8") as f:
                 #     f.write(image_url)
                 # image_url = re.search(r"background-image:\s*url\(&quot;(.*?)&quot;\);",image_url).group(1)
@@ -60,7 +68,7 @@ class WoonzekerSpider(scrapy.Spider):
                 print(f"address : {address}")
                 print(f"price : {price}")
                 print(f"Name : {agency}")
-                home = Home(address, city=city, url = url, agency = agency, price = 0,image_url = image_url)
+                home = Home(address, city=city, url = url, agency = agency, price = price,image_url = image_url)
                 # self.home_list.append(home)
                 
                 item = HomeRentalInfoScraperItem()

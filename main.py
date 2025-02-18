@@ -52,6 +52,13 @@ scraped_home_list = [home1, home2, home3, home4, home5, home6, home7, home8, hom
 # home_list is basically the scraped data
 
 # this needs to be used in future stuff 
-# unique_home_list = get_unique_home_list(scraped_home_list)
-# send_email_notification_on_user_preferences(unique_home_list=unique_home_list)
-# save_new_homes(unique_home_list=unique_home_list)
+home_list = list()
+for item in result:
+    home_list.append(item["home"])
+    
+print(f"checking the home list :{home_list[0].address}")
+unique_home_list = get_unique_home_list(home_list)
+print(f"printing the size of unique home_list {len(unique_home_list)}")
+if len(unique_home_list) > 0:
+    send_email_notification_on_user_preferences(unique_home_list)
+    # save_new_homes(unique_home_list=unique_home_list)

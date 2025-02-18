@@ -3,14 +3,25 @@ from home_rental_info_scraper.config.db_handler import query_db
 from home_rental_info_scraper.utils import util
 from home_rental_info_scraper.config.email_handler import EmailHandler
 
-
+def exitsIn(scraped_home_item, old_home_list)-> bool:
+    for old_home_item in old_home_list:
+        if scraped_home_item.address == old_home_item["address"] and \
+        scraped_home_item.price == old_home_item["price"] and \
+        scraped_home_item.city  == old_home_item["city"] and \
+        scraped_home_item.url == old_home_item["url"] and \
+        scraped_home_item.agency == old_home_item["agency"] and \
+        scraped_home_item.image_Url == old_home_item["image_url"]:
+            return True
+            
+            
+    return False
 def get_unique_home_list(scraped_home_list : Home)-> list[Home]:
     old_home_list = query_db("select * from homes;")
     unique_home_list = list()
     
     if old_home_list is not None:
         for scraped_home_item in scraped_home_list:
-            if scraped_home_item in old_home_list:
+            if exitsIn(scraped_home_item=scraped_home_item, old_home_list = old_home_list):
                 continue
             else:
                 unique_home_list.append(scraped_home_item)
@@ -46,9 +57,10 @@ def send_email_notification_on_user_preferences(unique_home_list:list[Home]):
             if search_pref is not None:
                 sendable_home_list = list()
                 for home_item in unique_home_list:
-                    if (home_item.price >= search_pref["min_price"] and
-                        home_item.price <= search_pref["max_price"]):
+                    if (int(home_item.price) >= int(search_pref["min_price"]) and
+                        int(home_item.price) <= int(search_pref["max_price"])):
                         sendable_home_list.append(home_item)
+                print(f"Size of sendable home list : {sendable_home_list}")
                 email_message = email_handler.generate_email_message(sendable_home_list)
                 email_handler.send_single_email(user_item["email"],"Home list notification", email_message)
         
