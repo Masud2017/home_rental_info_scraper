@@ -19,7 +19,7 @@ DOWNLOAD_HANDLERS = {
 }
 
 PLAYWRIGHT_LAUNCH_OPTIONS = {
-    "headless": False,
+    # "headless": False,
 }
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
@@ -71,9 +71,9 @@ COOKIES_ENABLED = True # disabled the cookie to evade bot detection
 
 # Configure item pipelines
 # See https://docs.scrapy.org/en/latest/topics/item-pipeline.html
-#ITEM_PIPELINES = {
-#    "home_rental_info_scraper.pipelines.HomeRentalInfoScraperPipeline": 300,
-#}
+ITEM_PIPELINES = {
+   "home_rental_info_scraper.pipelines.HomeRentalInfoScraperPipeline": 300,
+}
 
 # Enable and configure the AutoThrottle extension (disabled by default)
 # See https://docs.scrapy.org/en/latest/topics/autothrottle.html

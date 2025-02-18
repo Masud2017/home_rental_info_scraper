@@ -10,4 +10,5 @@ from itemadapter import ItemAdapter
 
 class HomeRentalInfoScraperPipeline:
     def process_item(self, item, spider):
+        print(f"Testing pipeline *********")
         return item

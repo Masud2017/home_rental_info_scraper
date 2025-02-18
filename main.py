@@ -2,7 +2,7 @@ from scrapy.crawler import CrawlerProcess
 from scrapy import signals
 from scrapy.signalmanager import dispatcher
 from scrapy.utils.project import get_project_settings
-from home_rental_info_scraper.spiders import vesteda,bouwinvest
+from home_rental_info_scraper.spiders import vesteda,bouwinvest,woonzeker
 from home_rental_info_scraper.services.home_services import get_unique_home_list,save_new_homes,send_email_notification_on_user_preferences
 
 
@@ -13,13 +13,19 @@ def spider_results():
         results.append(item)
         
 
-    dispatcher.connect(crawler_results, signal=signals.item_passed)
+    # dispatcher.connect(crawler_results, signal=signals.item_passed)
 
     process = CrawlerProcess(get_project_settings())
-    process.crawl(bouwinvest.BouwinvestSpider)
+    process.crawl(woonzeker.WoonzekerSpider)
+    
+    for crawler in process.crawlers:
+        crawler.signals.connect(crawler_results, signal = signals.item_passed)
+    
     process.start()  # the script will block here until the crawling is finished
     return results
-
+result = spider_results()
+print(result)
+print(f"Printing the count of result : {len(result)}")
 # scraped_home_list = spider_results()
 # todo
 '''
@@ -45,6 +51,7 @@ home11 = Home(address="808 Birch St", city="North Haverbrook", url="http://examp
 scraped_home_list = [home1, home2, home3, home4, home5, home6, home7, home8, home9, home10, home11]
 # home_list is basically the scraped data
 
-unique_home_list = get_unique_home_list(scraped_home_list)
-send_email_notification_on_user_preferences(unique_home_list=unique_home_list)
-save_new_homes(unique_home_list=unique_home_list)
+# this needs to be used in future stuff 
+# unique_home_list = get_unique_home_list(scraped_home_list)
+# send_email_notification_on_user_preferences(unique_home_list=unique_home_list)
+# save_new_homes(unique_home_list=unique_home_list)
