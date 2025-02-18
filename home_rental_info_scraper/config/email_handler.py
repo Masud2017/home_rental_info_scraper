@@ -79,17 +79,17 @@ class EmailHandler:
         except Exception as ex:
             logging.exception(f"Mailgun error: {ex}")
 
-if __name__ == "__main__":
-    email_handler = EmailHandler()
+# if __name__ == "__main__":
+#     email_handler = EmailHandler()
     
-    # home = hestia.Home()
-    home = Home()
-    home.address = "1234 Main St"
-    home.city = "New York"
-    home.price = 1000
-    home.agency = "Agency"
-    home.url = "https://facebook.com"
+#     # home = hestia.Home()
+#     home = Home()
+#     home.address = "1234 Main St"
+#     home.city = "New York"
+#     home.price = 1000
+#     home.agency = "Agency"
+#     home.url = "https://facebook.com"
     
-    homes = [home]
-    message = email_handler.generate_email_message(homes)
-    email_handler.send_single_email("Masud <msmasud578@gmail.com>", "New Homes", message)
+#     homes = [home]
+#     message = email_handler.generate_email_message(homes)
+#     email_handler.send_single_email("Masud <msmasud578@gmail.com>", "New Homes", message)
