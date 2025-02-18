@@ -58,32 +58,33 @@ class WoonzekerSpider(scrapy.Spider):
             
             # next_page = Selector(text = data).xpath("//div[contains(@class , 'results__pagination')]//a[contains(@class, 'results__pagination__nav-next')]").get()
             
-            has_next = response.meta["playwright_page"].locator("//li[contains(@class, 'pagination-item')]/button[contains(@aria-label, 'Go to next page')]")
-            
-            
+        has_next = response.meta["playwright_page"].locator("//li[contains(@class, 'pagination-item')]/button[contains(@aria-label, 'Go to next page')]")
+        disabled_var = await has_next.get_attribute("disabled")
+        print(f"Debugging the attribute from locator : {disabled_var}")
+        if (disabled_var != "disabled"):
            
-        if await has_next.is_visible():
-            await has_next.click()
-            await response.meta["playwright_page"].wait_for_selector("div.property-cards__single")  # Wait for new cards
-            # yield scrapy.Request(
-            #     response.url,
-            #     meta={
-            #         "playwright": True,
-            #     "playwright_include_page": True,
-            #     "playwright_page_methods": [
-            #         PageMethod("wait_for_selector", "div.property-cards__single", timeout=6000)
-            #     ],
-            #         },
-            #     callback=self.parse
-            # )
-            await self.parse(
-                scrapy.http.Response(
-                    url=response.url,
-                    request=response.request,
-                    # meta={"playwright_page": page},
+            if await has_next.is_visible():
+                await has_next.click()
+                await response.meta["playwright_page"].wait_for_selector("div.property-cards__single")  # Wait for new cards
+                # yield scrapy.Request(
+                #     response.url,
+                #     meta={
+                #         "playwright": True,
+                #     "playwright_include_page": True,
+                #     "playwright_page_methods": [
+                #         PageMethod("wait_for_selector", "div.property-cards__single", timeout=6000)
+                #     ],
+                #         },
+                #     callback=self.parse
+                # )
+                await self.parse(
+                    scrapy.http.Response(
+                        url=response.url,
+                        request=response.request,
+                        # meta={"playwright_page": page},
+                    )
                 )
-            )
-            
+                
             
 # properties that need to be extracted          
 # url
