@@ -3,6 +3,7 @@ import requests
 import re
 from home_rental_info_scraper.models.Home import Home
 from ..config.db_handler import query_db
+from .secrets import MAIL_GUN_API
 
 
 
@@ -59,7 +60,7 @@ class EmailHandler:
     
     def send_single_email(self, to_address: str, subject: str, message: str):
         try:
-            api_key = ""
+            api_key = MAIL_GUN_API
             resp = requests.post(
                 self.MAILGUN_API_URL,
                 auth=("api", api_key),

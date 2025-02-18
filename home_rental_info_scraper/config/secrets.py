@@ -11,3 +11,5 @@ DB = {
     "password": os.environ["db_password"],
     "port": os.environ["db_port"]
 }
+
+MAIL_GUN_API = os.environ["mail_gun_api"]
