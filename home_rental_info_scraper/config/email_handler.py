@@ -14,16 +14,20 @@ class EmailHandler:
     
     def generate_email_message(self, homes):
         home_cards = "".join(f'''
-            <div class="card_container">
-                <img src="https://via.placeholder.com/150" alt="Home Image">
-                <div class="card-right_side">
-                    <ul>
-                        <li><strong>Address:</strong> {home.address}, {home.city}</li>
-                        <li><strong>Price:</strong> €{home.price}/m</li>
-                    </ul>
-                    <a href="{home.url}" target="_blank">View</a>
-                </div>
-            </div>
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-bottom: 20px; border: 1px solid #ddd; border-radius: 4px; max-width: 600px;">
+                <tr>
+                    <td style="padding: 10px; vertical-align: top;">
+                        <img src="{home.image_url}" alt="Home Image" style="display: block; width: 100px; height: 100px; border-radius: 4px; margin-right: 10px;" />
+                    </td>
+                    <td style="padding: 10px; vertical-align: top;">
+                        <p style="margin: 0; font-size: 14px; line-height: 1.5;"><strong>Address:</strong> {home.address}, {home.city}</p>
+                        <p style="margin: 0; font-size: 14px; line-height: 1.5;"><strong>Price:</strong> €{home.price}/m</p>
+                        <p style="margin-top: 10px;">
+                            <a href="{home.url}" target="_blank" rel="noopener noreferrer" style="display: inline-block; background: #ff9800; color: #ffffff; padding: 8px 16px; text-decoration: none; font-size: 14px; border-radius: 4px;">View</a>
+                        </p>
+                    </td>
+                </tr>
+            </table>
         ''' for home in homes)
 
         html_template = f'''
@@ -31,32 +35,41 @@ class EmailHandler:
         <html lang="en">
         <head>
             <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Home List</title>
-            <style>
-                * {{ margin: 0; padding: 0; }}
-                .card_container{{ width: 25rem; padding: .5rem; border-radius: .4rem; border: 1px solid black; display: flex; flex-direction: row; gap: 2rem; }}
-                .card_container img {{ width: 8rem; height: 8rem; }}
-                .container {{ padding: 1rem; }}
-                .card-grp {{ margin-top: 1.5rem; display: flex; flex-direction: column; gap: .5rem; align-items: center; }}
-                .card-right_side{{ display: flex; flex-direction: row; gap: .5rem; width: 100%; }}
-                .card-right_side ul {{ list-style-type: none; flex-grow: 10; display: flex; flex-direction: column; justify-content: center; }}
-                .card-right_side a {{ background: orange; color: white; border-radius: .5rem; width: 5rem; height: 2rem; display: flex; justify-content: center; align-items: center; text-decoration: none; }}
-                .card-right_side a:hover {{ background: #cc8400; transition: .2s background-color; }}
-            </style>
         </head>
-        <body class='container'>
-            <div style="text-align: center;">
-                <h1>Your Home List <strong>Alert</strong></h1>
-                <span>{len(homes)} new matches for you.</span>
-            </div>
-            <div class="card-grp">
-                {home_cards}
-            </div>
+        <body style="font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px; margin: 0;">
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" style="background-color: #ffffff; max-width: 600px; margin: 0 auto; border-collapse: collapse;">
+                <tr>
+                    <td style="padding: 20px; text-align: center; background-color: #ff9800; color: #ffffff;">
+                        <h1 style="font-size: 24px; margin: 0;">Your Home List <strong>Alert</strong></h1>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 20px; text-align: center;">
+                        <p style="font-size: 16px; margin: 0;">{len(homes)} new matches for you.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 0;">
+                        {home_cards}
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 20px; text-align: center; background-color: #f4f4f4;">
+                        <p style="font-size: 12px; color: #888;">This is an automated email. Please do not reply.</p>
+                    </td>
+                </tr>
+            </table>
         </body>
         </html>
         '''
+        
+        with open("test.html", "w") as file:
+            file.write(html_template)
         return html_template
+
+
     
     def send_single_email(self, to_address: str, subject: str, message: str):
         try:

@@ -41,7 +41,7 @@ class WoonzekerSpider(scrapy.Spider):
 
             print(f"count of home list : {len(home_card_list)}")
             for home_card in home_card_list:
-                url = self.allowed_domains[0] + home_card.xpath(".//div[contains(@class,'property__body-container')]/a").attrib['href']
+                url = "https://"+self.allowed_domains[0] + home_card.xpath(".//div[contains(@class,'property__body-container')]/a").attrib['href']
                 image_url = home_card.xpath(".//div[contains(@class,  'property__image-container')]//div[contains(@class, 'property__image')]").get()
                 regex_image_url = r'background-image:\s*url\(["\']?(.*?)["\']?\);'
                 if image_url is not None:
