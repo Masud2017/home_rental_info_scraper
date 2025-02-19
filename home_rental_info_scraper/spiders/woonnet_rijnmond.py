@@ -2,6 +2,8 @@ import scrapy
 from scrapy_playwright.page import PageMethod
 from scrapy.selector import Selector
 import re
+from home_rental_info_scraper.models.Home import Home
+from ..items import HomeRentalInfoScraperItem
 
 class WoonnetRijnmondSpider(scrapy.Spider):
     name = "woonnet_rijnmond"
@@ -25,11 +27,28 @@ class WoonnetRijnmondSpider(scrapy.Spider):
             
         )
 
+    async def scroll(self,home_card_list,page,data):
+        while True:
+            prev_count = len(home_card_list)
+            await page.evaluate("window.scrollBy(0,document.body.scrollHeight)")
+            data = await page.content()
+            # import time
+            # time.sleep(10)
+            home_card_list = Selector(text=data).xpath("//div[contains(@class, 'js-animate-fadein')]")
+            # await page.wait_for_selector("div.js-animate-fadein", timeout=6000)
+            print(len(home_card_list))
+            if (len(home_card_list) > prev_count):
+                continue
+            else:
+                return home_card_list
+                
     async def parse(self, response):
         page = response.meta["playwright_page"]
         
         data = await page.content()
         home_card_list = Selector(text=data).xpath("//div[contains(@class, 'js-animate-fadein')]")
+        home_card_list = await self.scroll(home_card_list,page,data)
+        print(f"Printing the home_card_list: {len(home_card_list)}")
         
         # with open("log.txt", "a") as f:
         #         f.write(''.join(home_card_list.getall()))
@@ -46,9 +65,11 @@ class WoonnetRijnmondSpider(scrapy.Spider):
             if (len(image_url) > 2):
                 image_url = image_url[2:]
                 
-            city = home_card.xpath(".//a[contains(@class, 'clean')]//div[contains(@class, 'box__properties')]//div[contains(@class, 'box__title')][2]/span/text()").get()
-            address = (home_card.xpath(".//a[contains(@class, 'clean')]//div[contains(@class, 'box__properties')]//div[contains(@class, 'box__title')][1]/text()").get() + ","+ city).strip()
+            city = home_card.xpath(".//a[contains(@class, 'clean')]//div[contains(@class, 'box__properties')]//div[contains(@class, 'box__title')][2]/span/text()").get().strip()
+            address = home_card.xpath(".//a[contains(@class, 'clean')]//div[contains(@class, 'box__properties')]//div[contains(@class, 'box__title')][1]/text()").get().strip() + ","+ city
             price = home_card.xpath(".//a[contains(@class, 'clean')]//div[contains(@class, 'box--obj__price')]/text()").get()
+            if price is not None:
+                price = price[2:]
             agency = self.name
             # date_added = home_card.xpath(".//div[contains(@class, 'o-card--listview-content')]//div[contains(@class, 'o-card--listview-price')]/text()").get()
             
@@ -58,4 +79,8 @@ class WoonnetRijnmondSpider(scrapy.Spider):
             print(f"address: {address}")
             print(f"price : {price}")
             print(f"agency : {agency}")
+            home = Home(address, city=city, url = url, agency = agency, price = price,image_url = image_url)
+            item = HomeRentalInfoScraperItem()
+            item["home"] = home
+            yield item
             
