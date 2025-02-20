@@ -3,6 +3,7 @@ from scrapy_playwright.page import PageMethod
 from scrapy.selector import Selector
 import re
 from home_rental_info_scraper.models.Home import Home
+from home_rental_info_scraper.items import HomeRentalInfoScraperItem
 
 
 class BouwinvestSpider(scrapy.Spider):
@@ -75,6 +76,9 @@ class BouwinvestSpider(scrapy.Spider):
                     price=price,
                     agency=agency
                 )
+                item = HomeRentalInfoScraperItem()
+                item["home"] = home
+                yield item
                 
             has_next = response.meta["playwright_page"].locator("a.active.active-exact.pagination__arrow.pagination__next.icon-caret-right")
             
