@@ -58,7 +58,10 @@ def send_email_notification_on_user_preferences(unique_home_list:list[Home]):
                 sendable_home_list = list()
                 for home_item in unique_home_list:
                     if (int(home_item.price) >= int(search_pref["min_price"]) and
-                        int(home_item.price) <= int(search_pref["max_price"])):
+                        int(home_item.price) <= int(search_pref["max_price"])) and\
+                        home_item.city.lower() == search_pref["city"].lower() and \
+                        int(home_item.room_count) >= int(search_pref["min_rooms"]) and \
+                        int(home_item.room_count) <= int(search_pref["max_rooms"]):
                         sendable_home_list.append(home_item)
                 print(f"Size of sendable home list : {sendable_home_list}")
                 email_message = email_handler.generate_email_message(sendable_home_list)
