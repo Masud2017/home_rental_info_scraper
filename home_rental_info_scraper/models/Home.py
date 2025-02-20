@@ -2,7 +2,7 @@ from datetime import datetime
 import re
 
 class Home:
-    def __init__(self, address: str = '', city: str = '', url: str = '', agency: str = '', price: int = -1, image_url: str = '') -> None:
+    def __init__(self, address: str = '', city: str = '', url: str = '', agency: str = '', price: int = -1, image_url: str = '', room_count:int = 1) -> None:
         self.address = address
         self.city = city
         self.url = url
@@ -10,13 +10,14 @@ class Home:
         self.date_added = datetime.now()
         self.price = price
         self.image_url = image_url
+        self.room_count = room_count
         
     def __repr__(self) -> str:
         return str(self)
         
     def __str__(self) -> str:
         
-        return f'\'{self.address}\', \'{self.city}\', \'{self.url}\', \'{self.agency}\',\'{self.date_added}\', {self.price}, \'{self.image_url}\''
+        return f'\'{self.address}\', \'{self.city}\', \'{self.url}\', \'{self.agency}\',\'{self.date_added}\', {self.price}, \'{self.image_url}\', {self.room_count}'
     
         
     def __eq__(self, other: 'Home') -> bool:
@@ -25,10 +26,17 @@ class Home:
                self.url.lower() == other["url"].lower() and \
                self.agency.lower() == other["agency"].lower() and \
                self.price == other["price"] and \
-               self.image_url.lower() == other["image_url"].lower():
+               self.image_url.lower() == other["image_url"].lower() and \
+               self.room_count == other["room_count"]:
                 return True
         return False
-    
+    @property
+    def room_count(self) -> int:
+        return self._room_count
+
+    @room_count.setter
+    def room_count(self, room_count: int) -> None:
+        self._room_count = room_count
     @property
     def address(self) -> str:
         return self._address

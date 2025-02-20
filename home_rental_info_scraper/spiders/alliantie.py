@@ -117,6 +117,10 @@ class AlliantieSpider(scrapy.Spider):
                 image_url = self.allowed_domains[0] + home_card.xpath(".//div[contains(@class, 'result__picture__slide slick-slide slick-current slick-active')]/img").attrib["src"]
                 city = ""
                 city = home_card.xpath(".//p[contains(@class, 'result__info__footer')]/span[1]/font/font/text()").get().strip()
+                room_count = home_card.xpath(".//p[contains(@class, 'result__info__footer')]/span[2]/font[2]/font/text()").get()
+                if room_count is not None:
+                    room_count = room_count.strip()
+                    room_count = room_count.split(" ")[0]
                 address = ""
                 address = home_card.xpath(".//div[contains(@class, 'result__info')]/h3/span/font/font/text()").get().strip() + "," + city
                 price = home_card.xpath(".//p[contains(@class, 'result__info__price')]/font/font/text()").get()
@@ -131,13 +135,16 @@ class AlliantieSpider(scrapy.Spider):
                 print(f"City : {city}")
                 print(f"price : {price}")
                 print(f"Name : {agency}")
+                print(f"Room count : {room_count}")
                 home = Home(
+                    address=address,
+                    city=city,
                     url=url,
-                    image_url=image_url,
+                    agency=agency,
                     price=price,
-                    agency=agency
+                    image_url=image_url,
+                    room_count=room_count
                 )
-                
                 yield HomeRentalInfoScraperItem(home=home)
             
             has_next = response.meta["playwright_page"].locator("//a[contains(@class, 'results__pagination__nav-next is-visible')]")
