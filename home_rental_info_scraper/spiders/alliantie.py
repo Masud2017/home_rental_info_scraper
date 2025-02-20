@@ -5,6 +5,8 @@ import json
 import re
 from home_rental_info_scraper.models.Home import Home
 import time
+import random
+from home_rental_info_scraper.items import HomeRentalInfoScraperItem
 
 
 def parse_alliantie(r:str):
@@ -40,7 +42,8 @@ def parse_alliantie(r:str):
 class AlliantieSpider(scrapy.Spider):
     name = "alliantie"
     allowed_domains = ["ik-zoek.de-alliantie.nl"]
-    start_urls = ["https://ik-zoek.de-alliantie.nl/aanbod?_gl=1*lkt4rw*_gcl_au*MTY5NjczODI4MC4xNzM5Mzg1NTc0*FPAU*MTY5NjczODI4MC4xNzM5Mzg1NTc0*_ga*NjE3NzA3NTQuMTczOTM4NTU3NQ..*_ga_479KG3CQM4*MTczOTUzMDY2NC4zLjAuMTczOTUzMDY3MS4wLjAuMzY3NDQ0Mzkz*_fplc*bTllR0o5WkZ2RnUxUXJwblNkamVwQ0pTSGszWU1MYXRqT21tMGl4Sm5mcE1udkV6d0ZsdHNsRkdZaXBDT0Q0R3B3STVhMHB5Y0VXaGFyUlNHQ0hJRUUlMkJXdGFZS1BNd1N5VHhhUG12T2VYcWpycFF3M2VmbzRPYWM1SzBKM3clM0QlM0Q."]
+    # start_urls = ["https://ik-zoek.de-alliantie.nl/aanbod?_gl=1*lkt4rw*_gcl_au*MTY5NjczODI4MC4xNzM5Mzg1NTc0*FPAU*MTY5NjczODI4MC4xNzM5Mzg1NTc0*_ga*NjE3NzA3NTQuMTczOTM4NTU3NQ..*_ga_479KG3CQM4*MTczOTUzMDY2NC4zLjAuMTczOTUzMDY3MS4wLjAuMzY3NDQ0Mzkz*_fplc*bTllR0o5WkZ2RnUxUXJwblNkamVwQ0pTSGszWU1MYXRqT21tMGl4Sm5mcE1udkV6d0ZsdHNsRkdZaXBDT0Q0R3B3STVhMHB5Y0VXaGFyUlNHQ0hJRUUlMkJXdGFZS1BNd1N5VHhhUG12T2VYcWpycFF3M2VmbzRPYWM1SzBKM3clM0QlM0Q."]
+    start_urls = ["https://ik-zoek.de-alliantie.nl/huren/?page=1"]
 
     def start_requests(self):
         yield scrapy.Request(
@@ -49,36 +52,102 @@ class AlliantieSpider(scrapy.Spider):
                 "playwright": True,
                 "playwright_include_page": True,
                 "playwright_page_methods": [
-                    PageMethod("wait_for_selector", "div.result.is-loaded", timeout=6000)
+                    PageMethod("wait_for_selector", "div.result", timeout=6000),
+                    PageMethod("click", "//div[contains(@class, 'cookie-bar__buttons')]/button/font/font"),
+                    # PageMethod("wait_for_selector", ".filters.is-scrollable"),
+                    # PageMethod("evaluate", self.slow_scroll_js()),
+
                 ],
             },
             headers = {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
+                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36 Edg/133.0.0.0'
             }
             
         )
-
+    def scroll(self):
+        return """
+        async () => {
+            const scrollableDiv = document.querySelector('.filters.is-scrollable');
+            if (scrollableDiv) {
+                scrollableDiv.scrollBy(0, scrollableDiv.scrollHeight);
+            } else {
+                console.error('Scrollable div not found!');
+            }
+        }
+        """
+        
+        
+    def slow_scroll_js(self):
+        return f"""
+        async () => {{
+            const scrollableDiv = document.querySelector('.filters.is-scrollable');
+            if (scrollableDiv) {{
+                const totalHeight = scrollableDiv.scrollHeight;
+                const step = totalHeight / 10; // Divide the scroll into 10 steps
+                let currentPosition = 0;
+                
+                while (currentPosition < totalHeight) {{
+                    currentPosition += step;
+                    scrollableDiv.scrollBy(0, step);
+                    await new Promise(resolve => setTimeout(resolve, 200));
+                }}
+            }} else {{
+                console.error('Scrollable element not found!');
+            }}
+        }}
+        """
+            
     async def parse(self, response):
         page = response.meta["playwright_page"]
         
-        data = await page.content()
-        home_card_list = Selector(text=data).xpath("//div[contains(@class, 'result is-loaded')]")
-        with open("log.txt", "w", encoding="utf-8") as f:
-            f.write(home_card_list.get())
-        print(f"count of home list : {len(home_card_list)}")
-        for home_card in home_card_list:
-            url = self.allowed_domains[0] + home_card.xpath("./a").attrib['href']
-            image_url = self.allowed_domains[0] + home_card.xpath(".//div[contains(@class, 'result__picture__slide slick-slide slick-current slick-active')]/img").attrib["src"]
-            # city = ""
-            # city = home_card.xpath(".//p[contains(@class, 'result__info__footer')]/span[1]/text()").get()
-            # address = ""
-            # address = home_card.xpath(".//div[contains(@class , 'result__info')]/h3/span/text()").get() + "," + city
-            price = home_card.xpath(".//div[contains(@class, 'result__info__pricing')]//p[contains(@class, 'result__info__price')]/text()").get()
-            agency = self.name
-            
-            print(f"url : {url}")
-            print(f"image_Url = {image_url}")
-            # print(f"address : {address}")
-            print(f"price : {price}")
-            print(f"Name : {agency}")
         
+        while True:
+            # instead doing the js thing in the start_requests, we can do it here
+            await page.wait_for_selector(".filters.is-scrollable")
+            await page.evaluate(self.slow_scroll_js())        
+            # js = self.slow_scroll_js() is done
+            data = await page.content()
+            # home_card_list = Selector(text=data).xpath("//div[contains(@class, 'result')]")
+            home_card_list = Selector(text=data).css("div.result")
+            # with open("log.txt", "w", encoding="utf-8") as f:
+            #     f.write(home_card_list.get())
+            print(f"count of home list : {len(home_card_list)}")
+            for home_card in home_card_list:
+                url = self.allowed_domains[0] + home_card.xpath("./a").attrib['href']
+                image_url = self.allowed_domains[0] + home_card.xpath(".//div[contains(@class, 'result__picture__slide slick-slide slick-current slick-active')]/img").attrib["src"]
+                city = ""
+                city = home_card.xpath(".//p[contains(@class, 'result__info__footer')]/span[1]/font/font/text()").get().strip()
+                address = ""
+                address = home_card.xpath(".//div[contains(@class, 'result__info')]/h3/span/font/font/text()").get().strip() + "," + city
+                price = home_card.xpath(".//p[contains(@class, 'result__info__price')]/font/font/text()").get()
+                if price is not None:
+                    price = price.split(" ")[0][1:]
+                    price = price.replace(",","")
+                agency = self.name
+                
+                print(f"url : {url}")
+                print(f"image_Url = {image_url}")
+                print(f"address : {address}")
+                print(f"City : {city}")
+                print(f"price : {price}")
+                print(f"Name : {agency}")
+                home = Home(
+                    url=url,
+                    image_url=image_url,
+                    price=price,
+                    agency=agency
+                )
+                
+                yield HomeRentalInfoScraperItem(home=home)
+            
+            has_next = response.meta["playwright_page"].locator("//a[contains(@class, 'results__pagination__nav-next is-visible')]")
+            # disabled_var = await has_next.get_attribute("disabled")
+            
+            if await has_next.is_visible():
+                await has_next.click()
+                await response.meta["playwright_page"].wait_for_selector("div.result")  # Wait for new cards
+            
+            else:
+                break
+
+            
