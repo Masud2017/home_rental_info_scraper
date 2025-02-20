@@ -1,6 +1,9 @@
 import scrapy
 from scrapy_playwright.page import PageMethod
 from scrapy.selector import Selector
+from home_rental_info_scraper.models.Home import Home
+import random
+from home_rental_info_scraper.items import HomeRentalInfoScraperItem
 
 
 class MakelaarshuisSpider(scrapy.Spider):
@@ -29,13 +32,18 @@ class MakelaarshuisSpider(scrapy.Spider):
         
         data = await page.content()
         home_card_list = Selector(text=data).xpath("//div[contains(@class,  'object__holder')]")
+        
 
-        # await page.wait_for_selector("//a[contains(@class, 'propertyLink')]", timeout=6000)
 
         print(f"count of home list : {len(home_card_list)}")
         for home_card in home_card_list:
             url = self.allowed_domains[0] + home_card.xpath(".//div[contains(@class,'object__data')]//a[contains(@class,'object__address-container')]").attrib['href']
-            image_url = self.allowed_domains[0] + home_card.xpath(".//div[contains(@class,'object__image')]").attrib["data-href"]
+            await page.wait_for_timeout(random.randint(4000, 7000))
+            
+            image_url = home_card.xpath(".//a[contains(@class,'swiper-slide swiper-slide-active')]/img").attrib["srcset"].strip()
+            if image_url is not None:
+                image_url = image_url.split(",")[0]
+                image_url = image_url.split(" ")[0]
             
             city = home_card.xpath(".//div[contains(@class,'object__data')]//a[contains(@class , 'object__address-container')]//h3[contains(@class, 'object__address')]/span[2]/span[1]/text()").get().strip() + " "+ home_card.xpath(".//div[contains(@class,'object__data')]//a[contains(@class , 'object__address-container')]//h3[contains(@class, 'object__address')]/span[2]/span[2]/text()").get().strip()
             
@@ -45,6 +53,9 @@ class MakelaarshuisSpider(scrapy.Spider):
             address = "" + city
             address = home_card.xpath(".//div[contains(@class,'object__data')]//a[contains(@class , 'object__address-container')]//h3[contains(@class, 'object__address')]/span[1]/text()").get().strip() + "," + city
             price = home_card.xpath(".//div[contains(@class,'object__data')]//a[contains(@class , 'object__address-container')]//h3[contains(@class, 'object__address')]/span[3]/text()").get().strip()
+            
+            room_count = home_card.xpath(".//span[contains(@class, 'object__features')]/span[2]/span/text()").get()
+    
             print(f"Debugging the price {price}")
             
             if len(price) > 0:
@@ -57,7 +68,19 @@ class MakelaarshuisSpider(scrapy.Spider):
             print(f"address : {address}")
             print(f"price : {price}")
             print(f"Name : {agency}")
+            print(f"Room count : {room_count}")
             print("--------------------------\n")
+            
+            home = Home(
+                        address=address,
+                        city=city,
+                        url=url,
+                        agency=agency,
+                        price=price,
+                        image_url=image_url,
+                        room_count=room_count
+                    )
+            yield HomeRentalInfoScraperItem(home=home)
             
             
             # next_page = Selector(text = data).xpath("//div[contains(@class , 'results__pagination')]//a[contains(@class, 'results__pagination__nav-next')]").get()
