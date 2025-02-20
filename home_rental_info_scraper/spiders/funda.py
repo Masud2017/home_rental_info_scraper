@@ -1,9 +1,8 @@
 import scrapy
 from scrapy_playwright.page import PageMethod
 from scrapy.selector import Selector
-# from models.Home import Home
-# from utils import util
-# from services.home_services import get_unique_home_list,save_new_homes
+from home_rental_info_scraper.models.Home import Home
+from home_rental_info_scraper.items import HomeRentalInfoScraperItem
 
 class FundaSpider(scrapy.Spider):
     name = "funda"
@@ -17,12 +16,14 @@ class FundaSpider(scrapy.Spider):
                 "playwright": True,
                 "playwright_include_page": True,
                 "playwright_page_methods": [
-                    PageMethod("wait_for_selector", "div.gap-3", timeout=6000)
+                    PageMethod("wait_for_selector", "div.gap-3", timeout=6000),
+                    # PageMethod("evaluate", "window.scrollBy(0,100)"),
+                    # PageMethod("click", "//div[contains(@class,'multiple didomi-buttons didomi-popup-notice-buttons')]/button[3]")
                 ],
             },
             headers = {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
-            }
+            'user-agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/133.0.0.0 Safari/537.36 Edg/133.0.0.0'
+        }
             
         )
 
@@ -52,47 +53,27 @@ class FundaSpider(scrapy.Spider):
             if price is not None:
                 price = price.split(" ")[1:-1]
             agency = self.name
+            room_count = home_card.xpath(".//div[contains(@class, 'flex space-x-3')]/ul/li[2]/span[2]/text()").get()
+            if room_count is not None:
+                room_count = room_count.strip()
             
             print("\n--------------------------")
             print(f"url : {url}")
             print(f"image_Url = {image_url}")
             print(f"address : {address}")
+            print(f"city : {city}")
             print(f"price : {price}")
             print(f"Name : {agency}")
+            print(f"Room count : {room_count}")
             print("--------------------------\n")
             
-        #     home = Home(
-        #         url=url,
-        #         image_url=image_url,
-        #         address=address,
-        #         price=price,
-        #         agency=agency
-        #     )
-        #     parsed_home_list.append(home)
-        
-        # unique_home_list = get_unique_home_list(parsed_home_list)
-        # if save_new_homes(unique_home_list):
-        #     print(f"New home list uploaded to the db storage")
-        # else:
-        #     print(f"Something went wrong while trying to saving the home list to the db.")
-            
-        # has_next = response.meta["playwright_page"].locator("//ul[contains(@class, 'pagination')]//li[last()]")
-            
-            
-           
-        # if await has_next.is_visible():
-        #     await has_next.click()
-        #     await response.meta["playwright_page"].wait_for_selector("div.col-lg-4")  # Wait for new cards
-        #     yield scrapy.Request(
-        #         response.url,
-        #         meta={"playwright": True, "playwright_include_page": True},
-        #         headers = {
-        #         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
-        #         },
-        #         callback=self.parse
-        #     )
-        # else:
-        #     print("All the pages finished scraping")
-            
-
-
+        home = Home(
+            address=address,
+            city=city,
+            url=url,
+            agency=agency,
+            price=price,
+            image_url=image_url,
+            room_count=room_count
+        )
+        yield HomeRentalInfoScraperItem(home=home)
