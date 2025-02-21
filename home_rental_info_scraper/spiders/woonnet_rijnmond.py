@@ -71,6 +71,10 @@ class WoonnetRijnmondSpider(scrapy.Spider):
             if price is not None:
                 price = price[2:]
             agency = self.name
+            room_count = home_card.xpath(".//div[contains(@class, 'box__text  ellipsis')]/text()").get()
+            if room_count is not None:
+                room_count = room_count.strip()
+                room_count = room_count.split(" ")[0]
             # date_added = home_card.xpath(".//div[contains(@class, 'o-card--listview-content')]//div[contains(@class, 'o-card--listview-price')]/text()").get()
             
             print(url)
@@ -79,7 +83,8 @@ class WoonnetRijnmondSpider(scrapy.Spider):
             print(f"address: {address}")
             print(f"price : {price}")
             print(f"agency : {agency}")
-            home = Home(address, city=city, url = url, agency = agency, price = price,image_url = image_url)
+            print(f"room count : {room_count}")
+            home = Home(address, city=city, url = url, agency = agency, price = price,image_url = image_url,room_count=room_count)
             item = HomeRentalInfoScraperItem()
             item["home"] = home
             yield item

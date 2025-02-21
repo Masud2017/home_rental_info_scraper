@@ -62,13 +62,19 @@ class WoonzekerSpider(scrapy.Spider):
                 price = price.split(",")[0]
                 price = price.split(" ")[1]
                 agency = self.name
+                room_count = home_card.xpath(".//div[contains(@class, 'property__details__rooms')]/span/text()").get()
+                if room_count is not None:
+                    room_count = room_count.strip()
+                    room_count = room_count.split(" ")[0]
                 
                 print(f"url : {url}")
                 print(f"image_Url = {image_url}")
                 print(f"address : {address}")
+                print(f"city : {city}")
                 print(f"price : {price}")
                 print(f"Name : {agency}")
-                home = Home(address, city=city, url = url, agency = agency, price = price,image_url = image_url)
+                print(f"Room count : {room_count}")
+                home = Home(address, city=city, url = url, agency = agency, price = price,image_url = image_url,room_count=room_count)
                 # self.home_list.append(home)
                 
                 item = HomeRentalInfoScraperItem()

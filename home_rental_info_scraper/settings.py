@@ -19,7 +19,7 @@ DOWNLOAD_HANDLERS = {
 }
 
 PLAYWRIGHT_LAUNCH_OPTIONS = {
-    "headless": False,
+    # "headless": False,
 }
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
