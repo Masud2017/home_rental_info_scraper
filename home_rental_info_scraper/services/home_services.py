@@ -6,11 +6,12 @@ from home_rental_info_scraper.config.email_handler import EmailHandler
 def exitsIn(scraped_home_item, old_home_list)-> bool:
     for old_home_item in old_home_list:
         if scraped_home_item.address == old_home_item["address"] and \
-        scraped_home_item.price == old_home_item["price"] and \
+        int(scraped_home_item.price) == int(old_home_item["price"]) and \
         scraped_home_item.city  == old_home_item["city"] and \
         scraped_home_item.url == old_home_item["url"] and \
         scraped_home_item.agency == old_home_item["agency"] and \
-        scraped_home_item.image_Url == old_home_item["image_url"]:
+        scraped_home_item.image_url == old_home_item["image_url"] and \
+        int(scraped_home_item.room_count) == int(old_home_item["room_count"]):
             return True
             
             
