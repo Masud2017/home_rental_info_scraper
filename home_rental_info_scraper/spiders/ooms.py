@@ -2,6 +2,8 @@ import scrapy
 from scrapy_playwright.page import PageMethod
 from scrapy.selector import Selector
 import re
+from home_rental_info_scraper.models.Home import Home
+from home_rental_info_scraper.items import HomeRentalInfoScraperItem
 
 class OomsSpider(scrapy.Spider):
     name = "ooms"
@@ -15,7 +17,8 @@ class OomsSpider(scrapy.Spider):
                 "playwright": True,
                 "playwright_include_page": True,
                 "playwright_page_methods": [
-                    PageMethod("wait_for_selector", "div.card--object--properties", timeout=6000)
+                    PageMethod("wait_for_selector", "div.card--object--properties", timeout=6000),
+                    PageMethod("click", "//div[contains(@id,'CybotCookiebotDialogFooter')]//button[contains(@id, 'CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll')]" , timeout=15000),
                 ],
             },
             headers = {
@@ -24,8 +27,29 @@ class OomsSpider(scrapy.Spider):
             
         )
 
+
+    def slow_scroll_js(self):
+        return f"""
+        async () => {{
+            const scrollableDiv = true;
+            if (scrollableDiv) {{
+                const totalHeight = document.body.scrollHeight;
+                const step = totalHeight / 10; // Divide the scroll into 10 steps
+                let currentPosition = 0;
+                
+                while (currentPosition < totalHeight) {{
+                    currentPosition += step;
+                    window.scrollBy(0, step);
+                    await new Promise(resolve => setTimeout(resolve, 200));
+                }}
+            }} else {{
+                console.error('Scrollable element not found!');
+            }}
+        }}
+        """
     async def parse(self, response):
         page = response.meta["playwright_page"]
+        await page.evaluate(self.slow_scroll_js())
         
         data = await page.content()
         home_card_list = Selector(text=data).xpath("//div[contains(@class, 'card card--default card--object card--object--properties')]")
@@ -34,26 +58,59 @@ class OomsSpider(scrapy.Spider):
         print(f"count of home list : {len(home_card_list)}")
         for home_card in home_card_list:
             url = self.allowed_domains[0] + home_card.xpath("./a").attrib['href']
-        #     image_url = self.allowed_domains[0] + home_card.xpath(".//div[contains(@class,  'property__image-container')]//div[contains(@class, 'property__image')]").get()
-        #     # with open("log.txt", "w", encoding = "utf-8") as f:
-        #     #     f.write(image_url)
+            
+            await page.wait_for_selector("//div[contains(@class, 'card card--default card--object card--object--properties')]//div[contains(@class, 'card-inner')]//div[contains(@class, 'card--default__figure__header')]//div[contains(@class,'card--object__slider')]/figure[1]/picture/picture")
+            
+            image_url = home_card.xpath(".//div[contains(@class, 'card card--default card--object card--object--properties')]//div[contains(@class, 'card-inner')]//div[contains(@class, 'card--default__figure__header')]//div[contains(@class,'card--object__slider')]/figure[1]/picture/picture").get()
+        
         #     # image_url = re.search(r"background-image:\s*url\(&quot;(.*?)&quot;\);",image_url).group(1)
             city = ""
-            city = home_card.xpath(".//div[contains(@class, 'card--default__content')]//div[contains(@class, 'card--default__body')]/h5/text()").get()
+            city = home_card.xpath(".//div[contains(@class, 'card--default__content')]//div[contains(@class, 'card--default__body')]/small/text()").get()
+            if city is None:
+                city = city.strip()
             address = ""
-            address = city + "," +  (home_card.xpath(".//div[contains(@class, 'card--default__content')]//div[contains(@class, 'card--default__body')]/small/text()").get()) 
+            address = home_card.xpath(".//div[contains(@class, 'card--default__content')]//div[contains(@class, 'card--default__body')]/h5/text()").get()
+            if address is not None:
+                address = address.strip()
+                address = address + "," + city
+                
+            city = city.split(",")
+            if len(city) > 1:
+                city = city[1].strip()
+            
             price = home_card.xpath(".//div[contains(@class, 'card--default__content')]//footer[contains(@class, 'card--default__footer')]/strong/text()").get()
+            print(f"price : {price}")
             splitted_price = price.split(" ")
             if (len(splitted_price) > 0):
-                price = splitted_price[1]
-                price = splitted_price[1]
+                price = splitted_price[0]
+                price=  price[2:].strip()
+                price = price.replace('.', '')
+                
             agency = self.name
+            room_count = home_card.xpath(".//footer[contains(@class, 'card--default__footer')]/ul/li[last()]/small/text()").get()
+            if room_count is not None:
+                room_count = room_count.strip()
+                room_count = room_count.split(" ")[0]
+            else:
+                room_count = "1"
             
             print(f"url : {url}")
-            # print(f"image_Url = {image_url}")
+            print(f"image_Url = {image_url}")
+            print(f"city : {city}")
             print(f"address : {address}")
             print(f"price : {price}")
             print(f"Name : {agency}")
+            print(f"Room count : {room_count}")
+            home = Home(
+                    address=address,
+                    city=city,
+                    url=url,
+                    agency=agency,
+                    price=price,
+                    image_url=image_url,
+                    room_count=room_count
+                )
+            yield HomeRentalInfoScraperItem(home=home)
             # 
         #     # next_page = Selector(text = data).xpath("//div[contains(@class , 'results__pagination')]//a[contains(@class, 'results__pagination__nav-next')]").get()
             

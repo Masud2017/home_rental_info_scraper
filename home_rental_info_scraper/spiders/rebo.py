@@ -2,29 +2,34 @@ import scrapy
 from scrapy_playwright.page import PageMethod
 from scrapy.selector import Selector
 
+
 class ReboSpider(scrapy.Spider):
     name = "rebo"
-    allowed_domains = ["www.rebogroep.nl"]
-    start_urls = ["https://www.rebogroep.nl/nl/aanbod"]
+    allowed_domains = ["rebowonenhuur.nl"]
+    start_urls = ["https://rebowonenhuur.nl/login?lang=en"]
 
     def start_requests(self):
         yield scrapy.Request(
             url=self.start_urls[0],
             meta={
-                "playwright": True,
-                "playwright_include_page": True,
-                "playwright_page_methods": [
-                    PageMethod("wait_for_selector", "div.col-lg-4", timeout=6000)
-                ],
+            "playwright": True,
+            "playwright_include_page": True,
+            "playwright_page_methods": [
+                PageMethod("wait_for_selector", "input[name='txtEmail']", timeout=6000),
+                
+                PageMethod("click", "//button[contains(@class, 'btn btn-secondary btn-block')]"),
+            ],
             },
-            headers = {
-                'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/58.0.3029.110 Safari/537.3'
-            }
             
+
+         
         )
 
     async def parse(self, response):
         page = response.meta["playwright_page"]
+        
+        print(f"Printing headers : {response.headers}")
+        
         
         data = await page.content()
         home_card_list = Selector(text=data).xpath("//div[contains(@class, 'col-12 col-sm-6 col-lg-4')]")
@@ -81,4 +86,5 @@ class ReboSpider(scrapy.Spider):
         else:
             print("All the pages finished scraping")
             
+
 

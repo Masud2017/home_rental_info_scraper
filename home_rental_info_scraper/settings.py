@@ -19,8 +19,16 @@ DOWNLOAD_HANDLERS = {
 }
 
 PLAYWRIGHT_LAUNCH_OPTIONS = {
-    # "headless": False,
+    "headless": False,
 }
+PLAYWRIGHT_BROWSER_TYPE = "firefox"
+# PLAYWRIGHT_CONTEXTS={
+#       "persistent": {
+#         "user_data_dir": "C:\\Users\\User\\AppData\\Local\\Mozilla\\Firefox\\Profiles\\pq6y97j6.default-release",  # will be a persistent context
+#         # "context_arg1": "value",
+#     }
+# }
+
 
 # Crawl responsibly by identifying yourself (and your website) on the user-agent
 #USER_AGENT = "home_rental_info_scraper (+http://www.yourdomain.com)"
