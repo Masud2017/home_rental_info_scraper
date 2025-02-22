@@ -33,6 +33,15 @@ class SimilarWebScrapper(scrapy.Spider):
             city = home_card.xpath(".//div[contains(@class, 'object-address')]//span[contains(@class, 'address-part')][2]/text()").get()
             agency = self.name
             price = home_card.xpath(".//span[contains(@class, 'kosten-regel2')]/text()").get()
+            if price is not None:
+                price = price.split(" ")
+                if len(price) > 1:
+                    price = price[2][2:]
+                    # CONVERTING FROM EUROPEAN FORMAT TO AMERICAN FORMAT (CURRENCY)
+                    if "," in price:
+                        price = price.replace(",", ".")
+                    if "." in price:
+                        price = price.replace(".", "")
             url = self.allowed_domains[0] + home_card.xpath(".//a[contains(@ng-click,'goToDetails')]").attrib['href']
             
             print(f"Image : {image_url}")

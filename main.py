@@ -2,8 +2,9 @@ from scrapy.crawler import CrawlerProcess
 from scrapy import signals
 from scrapy.signalmanager import dispatcher
 from scrapy.utils.project import get_project_settings
-from home_rental_info_scraper.spiders import vesteda,bouwinvest,woonzeker,woonnet_rijnmond,alliantie,funda,makelaarshuis,rebo
+from home_rental_info_scraper.spiders import vesteda,bouwinvest,woonzeker,woonnet_rijnmond,alliantie,funda,makelaarshuis,rebo,antares
 from home_rental_info_scraper.services.home_services import get_unique_home_list,save_new_homes,send_email_notification_on_user_preferences
+
 
 
 def spider_results():
@@ -16,7 +17,7 @@ def spider_results():
     # dispatcher.connect(crawler_results, signal=signals.item_passed)
 
     process = CrawlerProcess(get_project_settings())
-    process.crawl(rebo.ReboSpider)
+    process.crawl(antares.AntaresSpider)
     
     for crawler in process.crawlers:
         crawler.signals.connect(crawler_results, signal = signals.item_passed)
