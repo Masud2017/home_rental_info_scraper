@@ -48,93 +48,69 @@ class OomsSpider(scrapy.Spider):
         }}
         """
     async def parse(self, response):
-        page = response.meta["playwright_page"]
-        await page.evaluate(self.slow_scroll_js())
-        
-        data = await page.content()
-        home_card_list = Selector(text=data).xpath("//div[contains(@class, 'card card--default card--object card--object--properties')]")
-        
+        try:
+            page = response.meta["playwright_page"]
+            await page.evaluate(self.slow_scroll_js())
+            
+            data = await page.content()
+            home_card_list = Selector(text=data).xpath("//div[contains(@class, 'card card--default card--object card--object--properties')]")
+            
 
-        print(f"count of home list : {len(home_card_list)}")
-        for home_card in home_card_list:
-            url = self.allowed_domains[0] + home_card.xpath("./a").attrib['href']
-            
-            await page.wait_for_selector("//div[contains(@class, 'card card--default card--object card--object--properties')]//div[contains(@class, 'card-inner')]//div[contains(@class, 'card--default__figure__header')]//div[contains(@class,'card--object__slider')]/figure[1]/picture/picture")
-            
-            image_url = home_card.xpath(".//div[contains(@class, 'card card--default card--object card--object--properties')]//div[contains(@class, 'card-inner')]//div[contains(@class, 'card--default__figure__header')]//div[contains(@class,'card--object__slider')]/figure[1]/picture/picture").get()
-        
-        #     # image_url = re.search(r"background-image:\s*url\(&quot;(.*?)&quot;\);",image_url).group(1)
-            city = ""
-            city = home_card.xpath(".//div[contains(@class, 'card--default__content')]//div[contains(@class, 'card--default__body')]/small/text()").get()
-            if city is None:
-                city = city.strip()
-            address = ""
-            address = home_card.xpath(".//div[contains(@class, 'card--default__content')]//div[contains(@class, 'card--default__body')]/h5/text()").get()
-            if address is not None:
-                address = address.strip()
-                address = address + "," + city
+            print(f"count of home list : {len(home_card_list)}")
+            for home_card in home_card_list:
+                url = self.allowed_domains[0] + home_card.xpath("./a").attrib['href']
                 
-            city = city.split(",")
-            if len(city) > 1:
-                city = city[1].strip()
-            
-            price = home_card.xpath(".//div[contains(@class, 'card--default__content')]//footer[contains(@class, 'card--default__footer')]/strong/text()").get()
-            print(f"price : {price}")
-            splitted_price = price.split(" ")
-            if (len(splitted_price) > 0):
-                price = splitted_price[0]
-                price=  price[2:].strip()
-                price = price.replace('.', '')
+                await page.wait_for_selector("//div[contains(@class, 'card card--default card--object card--object--properties')]//div[contains(@class, 'card-inner')]//div[contains(@class, 'card--default__figure__header')]//div[contains(@class,'card--object__slider')]/figure[1]/picture/picture")
                 
-            agency = self.name
-            room_count = home_card.xpath(".//footer[contains(@class, 'card--default__footer')]/ul/li[last()]/small/text()").get()
-            if room_count is not None:
-                room_count = room_count.strip()
-                room_count = room_count.split(" ")[0]
-            else:
-                room_count = "1"
+                image_url = home_card.xpath(".//div[contains(@class, 'card card--default card--object card--object--properties')]//div[contains(@class, 'card-inner')]//div[contains(@class, 'card--default__figure__header')]//div[contains(@class,'card--object__slider')]/figure[1]/picture/picture").get()
             
-            print(f"url : {url}")
-            print(f"image_Url = {image_url}")
-            print(f"city : {city}")
-            print(f"address : {address}")
-            print(f"price : {price}")
-            print(f"Name : {agency}")
-            print(f"Room count : {room_count}")
-            home = Home(
-                    address=address,
-                    city=city,
-                    url=url,
-                    agency=agency,
-                    price=price,
-                    image_url=image_url,
-                    room_count=room_count
-                )
-            yield HomeRentalInfoScraperItem(home=home)
-            # 
-        #     # next_page = Selector(text = data).xpath("//div[contains(@class , 'results__pagination')]//a[contains(@class, 'results__pagination__nav-next')]").get()
-            
-        #     has_next = response.meta["playwright_page"].locator("//li[contains(@class, 'pagination-item')]/button[contains(@aria-label, 'Go to next page')]")
-            
-            
-           
-        # if await has_next.is_visible():
-        #     await has_next.click()
-        #     await response.meta["playwright_page"].wait_for_selector("div.property-cards__single")  # Wait for new cards
-        #     yield scrapy.Request(
-        #         response.url,
-        #         meta={"playwright": True, "playwright_include_page": True},
-        #         callback=self.parse
-        #     )
-            
-            
-            
-# properties that need to be extracted          
-# url
-# home_url
-# city
-# address
-# price
-# agency
-        
-
+            #     # image_url = re.search(r"background-image:\s*url\(&quot;(.*?)&quot;\);",image_url).group(1)
+                city = ""
+                city = home_card.xpath(".//div[contains(@class, 'card--default__content')]//div[contains(@class, 'card--default__body')]/small/text()").get()
+                if city is None:
+                    city = city.strip()
+                address = ""
+                address = home_card.xpath(".//div[contains(@class, 'card--default__content')]//div[contains(@class, 'card--default__body')]/h5/text()").get()
+                if address is not None:
+                    address = address.strip()
+                    address = address + "," + city
+                    
+                city = city.split(",")
+                if len(city) > 1:
+                    city = city[1].strip()
+                
+                price = home_card.xpath(".//div[contains(@class, 'card--default__content')]//footer[contains(@class, 'card--default__footer')]/strong/text()").get()
+                print(f"price : {price}")
+                splitted_price = price.split(" ")
+                if (len(splitted_price) > 0):
+                    price = splitted_price[0]
+                    price=  price[2:].strip()
+                    price = price.replace('.', '')
+                    
+                agency = self.name
+                room_count = home_card.xpath(".//footer[contains(@class, 'card--default__footer')]/ul/li[last()]/small/text()").get()
+                if room_count is not None:
+                    room_count = room_count.strip()
+                    room_count = room_count.split(" ")[0]
+                else:
+                    room_count = "1"
+                
+                print(f"url : {url}")
+                print(f"image_Url = {image_url}")
+                print(f"city : {city}")
+                print(f"address : {address}")
+                print(f"price : {price}")
+                print(f"Name : {agency}")
+                print(f"Room count : {room_count}")
+                home = Home(
+                        address=address,
+                        city=city,
+                        url=url,
+                        agency=agency,
+                        price=price,
+                        image_url=image_url,
+                        room_count=room_count
+                    )
+                yield HomeRentalInfoScraperItem(home=home)
+        except Exception as e:
+            print(f"Error while parsing: {e}")    

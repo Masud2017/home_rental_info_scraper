@@ -98,63 +98,65 @@ class AlliantieSpider(scrapy.Spider):
         """
             
     async def parse(self, response):
-        page = response.meta["playwright_page"]
-        
-        
-        while True:
-            # instead doing the js thing in the start_requests, we can do it here
-            await page.wait_for_selector(".filters.is-scrollable")
-            await page.evaluate(self.slow_scroll_js())        
-            # js = self.slow_scroll_js() is done
-            data = await page.content()
-            # home_card_list = Selector(text=data).xpath("//div[contains(@class, 'result')]")
-            home_card_list = Selector(text=data).css("div.result")
-            # with open("log.txt", "w", encoding="utf-8") as f:
-            #     f.write(home_card_list.get())
-            print(f"count of home list : {len(home_card_list)}")
-            for home_card in home_card_list:
-                url = self.allowed_domains[0] + home_card.xpath("./a").attrib['href']
-                image_url = self.allowed_domains[0] + home_card.xpath(".//div[contains(@class, 'result__picture__slide slick-slide slick-current slick-active')]/img").attrib["src"]
-                city = ""
-                city = home_card.xpath(".//p[contains(@class, 'result__info__footer')]/span[1]/font/font/text()").get().strip()
-                room_count = home_card.xpath(".//p[contains(@class, 'result__info__footer')]/span[2]/font[2]/font/text()").get()
-                if room_count is not None:
-                    room_count = room_count.strip()
-                    room_count = room_count.split(" ")[0]
-                address = ""
-                address = home_card.xpath(".//div[contains(@class, 'result__info')]/h3/span/font/font/text()").get().strip() + "," + city
-                price = home_card.xpath(".//p[contains(@class, 'result__info__price')]/font/font/text()").get()
-                if price is not None:
-                    price = price.split(" ")[0][1:]
-                    price = price.replace(",","")
-                agency = self.name
+        try:
+            page = response.meta["playwright_page"]
+            
+            
+            while True:
+                # instead doing the js thing in the start_requests, we can do it here
+                await page.wait_for_selector(".filters.is-scrollable")
+                await page.evaluate(self.slow_scroll_js())        
+                # js = self.slow_scroll_js() is done
+                data = await page.content()
+                # home_card_list = Selector(text=data).xpath("//div[contains(@class, 'result')]")
+                home_card_list = Selector(text=data).css("div.result")
+                # with open("log.txt", "w", encoding="utf-8") as f:
+                #     f.write(home_card_list.get())
+                print(f"count of home list : {len(home_card_list)}")
+                for home_card in home_card_list:
+                    url = self.allowed_domains[0] + home_card.xpath("./a").attrib['href']
+                    image_url = self.allowed_domains[0] + home_card.xpath(".//div[contains(@class, 'result__picture__slide slick-slide slick-current slick-active')]/img").attrib["src"]
+                    city = ""
+                    city = home_card.xpath(".//p[contains(@class, 'result__info__footer')]/span[1]/font/font/text()").get().strip()
+                    room_count = home_card.xpath(".//p[contains(@class, 'result__info__footer')]/span[2]/font[2]/font/text()").get()
+                    if room_count is not None:
+                        room_count = room_count.strip()
+                        room_count = room_count.split(" ")[0]
+                    address = ""
+                    address = home_card.xpath(".//div[contains(@class, 'result__info')]/h3/span/font/font/text()").get().strip() + "," + city
+                    price = home_card.xpath(".//p[contains(@class, 'result__info__price')]/font/font/text()").get()
+                    if price is not None:
+                        price = price.split(" ")[0][1:]
+                        price = price.replace(",","")
+                    agency = self.name
+                    
+                    print(f"url : {url}")
+                    print(f"image_Url = {image_url}")
+                    print(f"address : {address}")
+                    print(f"City : {city}")
+                    print(f"price : {price}")
+                    print(f"Name : {agency}")
+                    print(f"Room count : {room_count}")
+                    home = Home(
+                        address=address,
+                        city=city,
+                        url=url,
+                        agency=agency,
+                        price=price,
+                        image_url=image_url,
+                        room_count=room_count
+                    )
+                    yield HomeRentalInfoScraperItem(home=home)
                 
-                print(f"url : {url}")
-                print(f"image_Url = {image_url}")
-                print(f"address : {address}")
-                print(f"City : {city}")
-                print(f"price : {price}")
-                print(f"Name : {agency}")
-                print(f"Room count : {room_count}")
-                home = Home(
-                    address=address,
-                    city=city,
-                    url=url,
-                    agency=agency,
-                    price=price,
-                    image_url=image_url,
-                    room_count=room_count
-                )
-                yield HomeRentalInfoScraperItem(home=home)
-            
-            has_next = response.meta["playwright_page"].locator("//a[contains(@class, 'results__pagination__nav-next is-visible')]")
-            # disabled_var = await has_next.get_attribute("disabled")
-            
-            if await has_next.is_visible():
-                await has_next.click()
-                await response.meta["playwright_page"].wait_for_selector("div.result")  # Wait for new cards
-            
-            else:
-                break
+                has_next = response.meta["playwright_page"].locator("//a[contains(@class, 'results__pagination__nav-next is-visible')]")
+                # disabled_var = await has_next.get_attribute("disabled")
+                
+                if await has_next.is_visible():
+                    await has_next.click()
+                    await response.meta["playwright_page"].wait_for_selector("div.result")  # Wait for new cards
+                
+                else:
+                    break
 
-            
+        except Exception as e:
+            print(f"Error in parsing: {e}")

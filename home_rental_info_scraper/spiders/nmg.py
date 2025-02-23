@@ -27,80 +27,82 @@ class NmgSpider(scrapy.Spider):
         )
 
     async def parse(self, response):
-        page = response.meta["playwright_page"]
-        
-        while True:
-            data = await page.content()
-            home_card_list = Selector(text=data).xpath("//article[contains(@class, 'house huur')]")
+        try:
+            page = response.meta["playwright_page"]
+            
+            while True:
+                data = await page.content()
+                home_card_list = Selector(text=data).xpath("//article[contains(@class, 'house huur')]")
 
-            # await page.wait_for_selector("//a[contains(@class, 'propertyLink')]", timeout=6000)
+                # await page.wait_for_selector("//a[contains(@class, 'propertyLink')]", timeout=6000)
 
-            print(f"count of home list : {len(home_card_list)}")
-            for home_card in home_card_list:
-                url = home_card.xpath("./a").attrib['href']
-                image_url = home_card.xpath(".//figure[contains(@class, 'house__figure')]/img").get()
-                if image_url is not None:
-                    reg = r'data-lazy-srcset="([^"]+)"'
-                    alternate_reg = r'src="([^"]+)"'
-                    search = re.search(reg, image_url)
-                    if search:
-                        image_url = search.group(1)
-                        image_url = image_url.split(",")[0].split(" ")[0]
-                    else:
-                        search = re.search(alternate_reg, image_url)
+                print(f"count of home list : {len(home_card_list)}")
+                for home_card in home_card_list:
+                    url = home_card.xpath("./a").attrib['href']
+                    image_url = home_card.xpath(".//figure[contains(@class, 'house__figure')]/img").get()
+                    if image_url is not None:
+                        reg = r'data-lazy-srcset="([^"]+)"'
+                        alternate_reg = r'src="([^"]+)"'
+                        search = re.search(reg, image_url)
                         if search:
                             image_url = search.group(1)
-                city = home_card.xpath(".//div[contains(@class, 'house__content')]//div[contains(@class, 'house__heading heading u-center')]/h2/span/text()").get().strip()
-                # debugging purpose only
-                # print(f"debugging the value of city : {home_card.xpath("//a[contains(@class, 'propertyLink')]/figure/figcaption/span[1]").get()}")
-                
-                if city is None:
-                    city = ""
-                address = "" + city
-                address = home_card.xpath(".//div[contains(@class, 'house__content')]//div[contains(@class, 'house__heading heading u-center')]/h2/text()").get().strip() + "," + city
-                price = home_card.xpath(".//div[contains(@class, 'house__content')]//div[contains(@class, 'house__listing')]/ul/li[1]/span[2]/text()").get()
-                if price is not None:
-                    price = price.split(" ")[1]
-                    price = price.split(",")[0]
-                    price = price.replace(".","")
-                    price = price.replace(",",".")
-                agency = self.name
-                room_count = home_card.xpath("//ul[contains(@class ,'house__list u-center')]/li[last()]/span[2]/text()").get()
-                if room_count is not None:
-                    room_count = room_count.strip()
-                    room_count = room_count.split(" ")[0]
-                else:
-                    room_count = "1"
-                
-                print("\n--------------------------")
-                print(f"url : {url}")
-                print(f"image_Url = {image_url}")
-                print(f"address : {address}")
-                print(f"City : {city}")
-                print(f"price : {price}")
-                print(f"Name : {agency}")
-                print(f"Room count : {room_count}")
-                print("--------------------------\n")
-                
-                home = Home(
-                        url=url,
-                        city = city,
-                        image_url=image_url,
-                        address=address,
-                        price=price,
-                        agency=agency,
-                        room_count=room_count
-                    )
-                item = HomeRentalInfoScraperItem()
-                item["home"] = home
-                yield item
+                            image_url = image_url.split(",")[0].split(" ")[0]
+                        else:
+                            search = re.search(alternate_reg, image_url)
+                            if search:
+                                image_url = search.group(1)
+                    city = home_card.xpath(".//div[contains(@class, 'house__content')]//div[contains(@class, 'house__heading heading u-center')]/h2/span/text()").get().strip()
+                    # debugging purpose only
+                    # print(f"debugging the value of city : {home_card.xpath("//a[contains(@class, 'propertyLink')]/figure/figcaption/span[1]").get()}")
                     
-            has_next = response.meta["playwright_page"].locator("a.next.page-numbers")
-            
-            if await has_next.is_visible():
-                await has_next.click()
-                await response.meta["playwright_page"].wait_for_selector("article.house")  # Wait for new cards
-            else:
-                break
+                    if city is None:
+                        city = ""
+                    address = "" + city
+                    address = home_card.xpath(".//div[contains(@class, 'house__content')]//div[contains(@class, 'house__heading heading u-center')]/h2/text()").get().strip() + "," + city
+                    price = home_card.xpath(".//div[contains(@class, 'house__content')]//div[contains(@class, 'house__listing')]/ul/li[1]/span[2]/text()").get()
+                    if price is not None:
+                        price = price.split(" ")[1]
+                        price = price.split(",")[0]
+                        price = price.replace(".","")
+                        price = price.replace(",",".")
+                    agency = self.name
+                    room_count = home_card.xpath("//ul[contains(@class ,'house__list u-center')]/li[last()]/span[2]/text()").get()
+                    if room_count is not None:
+                        room_count = room_count.strip()
+                        room_count = room_count.split(" ")[0]
+                    else:
+                        room_count = "1"
+                    
+                    print("\n--------------------------")
+                    print(f"url : {url}")
+                    print(f"image_Url = {image_url}")
+                    print(f"address : {address}")
+                    print(f"City : {city}")
+                    print(f"price : {price}")
+                    print(f"Name : {agency}")
+                    print(f"Room count : {room_count}")
+                    print("--------------------------\n")
+                    
+                    home = Home(
+                            url=url,
+                            city = city,
+                            image_url=image_url,
+                            address=address,
+                            price=price,
+                            agency=agency,
+                            room_count=room_count
+                        )
+                    item = HomeRentalInfoScraperItem()
+                    item["home"] = home
+                    yield item
+                        
+                has_next = response.meta["playwright_page"].locator("a.next.page-numbers")
                 
-            
+                if await has_next.is_visible():
+                    await has_next.click()
+                    await response.meta["playwright_page"].wait_for_selector("article.house")  # Wait for new cards
+                else:
+                    break
+                    
+        except Exception as e:
+            print(f"Error while parsing : {e}")

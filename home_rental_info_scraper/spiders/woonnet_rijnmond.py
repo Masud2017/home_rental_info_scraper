@@ -43,49 +43,51 @@ class WoonnetRijnmondSpider(scrapy.Spider):
                 return home_card_list
                 
     async def parse(self, response):
-        page = response.meta["playwright_page"]
+        try:
+            page = response.meta["playwright_page"]
         
-        data = await page.content()
-        home_card_list = Selector(text=data).xpath("//div[contains(@class, 'js-animate-fadein')]")
-        home_card_list = await self.scroll(home_card_list,page,data)
-        print(f"Printing the home_card_list: {len(home_card_list)}")
-        
-        # with open("log.txt", "a") as f:
-        #         f.write(''.join(home_card_list.getall()))
-        print(f"Total Home Cards : {len(home_card_list)}")
-        for home_card in home_card_list:
-            url = self.allowed_domains[0] + home_card.xpath(".//a").attrib['href']
-            # await page.wait_for_selector("div['data-size-desktop']", timeout=6000)
+            data = await page.content()
+            home_card_list = Selector(text=data).xpath("//div[contains(@class, 'js-animate-fadein')]")
+            home_card_list = await self.scroll(home_card_list,page,data)
+            print(f"Printing the home_card_list: {len(home_card_list)}")
             
-            
-
-            image_url = home_card.xpath(".//div[contains(@class, 'swipe__list')]//div[contains(@class, 'swipe__item')][1]//div[contains(@class, 'swipe__image')]").get()
-            regex = r"background-image:url\(['\"]?(.*?)['\"]?\)"
-            image_url = re.search(regex, image_url).group(1)
-            if (len(image_url) > 2):
-                image_url = image_url[2:]
+            # with open("log.txt", "a") as f:
+            #         f.write(''.join(home_card_list.getall()))
+            print(f"Total Home Cards : {len(home_card_list)}")
+            for home_card in home_card_list:
+                url = self.allowed_domains[0] + home_card.xpath(".//a").attrib['href']
+                # await page.wait_for_selector("div['data-size-desktop']", timeout=6000)
                 
-            city = home_card.xpath(".//a[contains(@class, 'clean')]//div[contains(@class, 'box__properties')]//div[contains(@class, 'box__title')][2]/span/text()").get().strip()
-            address = home_card.xpath(".//a[contains(@class, 'clean')]//div[contains(@class, 'box__properties')]//div[contains(@class, 'box__title')][1]/text()").get().strip() + ","+ city
-            price = home_card.xpath(".//a[contains(@class, 'clean')]//div[contains(@class, 'box--obj__price')]/text()").get()
-            if price is not None:
-                price = price[2:]
-            agency = self.name
-            room_count = home_card.xpath(".//div[contains(@class, 'box__text  ellipsis')]/text()").get()
-            if room_count is not None:
-                room_count = room_count.strip()
-                room_count = room_count.split(" ")[0]
-            # date_added = home_card.xpath(".//div[contains(@class, 'o-card--listview-content')]//div[contains(@class, 'o-card--listview-price')]/text()").get()
-            
-            print(url)
-            print(f"image url : {image_url}")
-            print(f"city : {city}")
-            print(f"address: {address}")
-            print(f"price : {price}")
-            print(f"agency : {agency}")
-            print(f"room count : {room_count}")
-            home = Home(address, city=city, url = url, agency = agency, price = price,image_url = image_url,room_count=room_count)
-            item = HomeRentalInfoScraperItem()
-            item["home"] = home
-            yield item
-            
+                
+
+                image_url = home_card.xpath(".//div[contains(@class, 'swipe__list')]//div[contains(@class, 'swipe__item')][1]//div[contains(@class, 'swipe__image')]").get()
+                regex = r"background-image:url\(['\"]?(.*?)['\"]?\)"
+                image_url = re.search(regex, image_url).group(1)
+                if (len(image_url) > 2):
+                    image_url = image_url[2:]
+                    
+                city = home_card.xpath(".//a[contains(@class, 'clean')]//div[contains(@class, 'box__properties')]//div[contains(@class, 'box__title')][2]/span/text()").get().strip()
+                address = home_card.xpath(".//a[contains(@class, 'clean')]//div[contains(@class, 'box__properties')]//div[contains(@class, 'box__title')][1]/text()").get().strip() + ","+ city
+                price = home_card.xpath(".//a[contains(@class, 'clean')]//div[contains(@class, 'box--obj__price')]/text()").get()
+                if price is not None:
+                    price = price[2:]
+                agency = self.name
+                room_count = home_card.xpath(".//div[contains(@class, 'box__text  ellipsis')]/text()").get()
+                if room_count is not None:
+                    room_count = room_count.strip()
+                    room_count = room_count.split(" ")[0]
+                # date_added = home_card.xpath(".//div[contains(@class, 'o-card--listview-content')]//div[contains(@class, 'o-card--listview-price')]/text()").get()
+                
+                print(url)
+                print(f"image url : {image_url}")
+                print(f"city : {city}")
+                print(f"address: {address}")
+                print(f"price : {price}")
+                print(f"agency : {agency}")
+                print(f"room count : {room_count}")
+                home = Home(address, city=city, url = url, agency = agency, price = price,image_url = image_url,room_count=room_count)
+                item = HomeRentalInfoScraperItem()
+                item["home"] = home
+                yield item
+        except Exception as e:
+            print(f"Error while parsing: {e}")

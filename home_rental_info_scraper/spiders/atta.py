@@ -91,4 +91,4 @@ class AttaSpider(scrapy.Spider):
             #         callback=self.parse
             #     )
         except Exception as e:
-            print(f"Error : {e}")
+            print(f"Error while parsing : {e}")

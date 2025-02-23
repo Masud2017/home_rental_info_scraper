@@ -28,43 +28,46 @@ class VestedaSpider(scrapy.Spider):
         )
 
     async def parse(self, response):
-        page = response.meta["playwright_page"]
-        
-        data = await page.content()
-        home_card_list = Selector(text=data).xpath("//div[contains(@class, 'o-card--listview-container')]")
-        print(f"Total Home Cards : {len(home_card_list)}")
-        for home_card in home_card_list:
-            url = self.allowed_domains[0] + home_card.xpath(".//a").attrib['href']
-            await page.wait_for_selector("//div[contains(@class, 'o-card--listview-image')]/picture/img", timeout=6000)
+        try:
+            page = response.meta["playwright_page"]
+            
+            data = await page.content()
+            home_card_list = Selector(text=data).xpath("//div[contains(@class, 'o-card--listview-container')]")
+            print(f"Total Home Cards : {len(home_card_list)}")
+            for home_card in home_card_list:
+                url = self.allowed_domains[0] + home_card.xpath(".//a").attrib['href']
+                await page.wait_for_selector("//div[contains(@class, 'o-card--listview-image')]/picture/img", timeout=6000)
 
-            image_url = home_card.xpath("//div[contains(@class, 'o-card--listview-image')]/picture/source").attrib['data-srcset']
-            city = home_card.xpath(".//div[contains(@class, 'o-card--listview-content')]//div[contains(@class, 'o-reorder-column__first')]/strong/text()").get()
-            address = home_card.xpath(".//div[contains(@class, 'o-card--listview-content')]//h3[contains(@class, 'h4 u-margin-bottom-none')]/span/text()").get() + ","+ city
-            price = home_card.xpath(".//div[contains(@class, 'o-card--listview-content')]//div[contains(@class, 'o-card--listview-price')]/b[contains(@class, 'h5')]/text()").get()
-            agency = "Vesteda"
-            room_count = home_card.xpath(".//ul[contains(@class, 'o-layout o-layout-gap o-layout--gutter-tiny')]/li[2]/b/text()").get()
-            if room_count is not None:
-                room_count = room_count.strip()
-                room_count = room_count.split(" ")[0]
-            else:
-                room_count = "1"
-            # date_added = home_card.xpath(".//div[contains(@class, 'o-card--listview-content')]//div[contains(@class, 'o-card--listview-price')]/text()").get()
-            
-            print(f"url : {url}")
-            print(f"image url : {image_url}")
-            print(f"city : {city}")
-            print(f"address: {address}")
-            print(f"price : {price}")
-            print(f"agency : {agency}")
-            print(f"room_count : {room_count}")
-            
-            home = Home(
-                    address=address,
-                    city=city,
-                    url=url,
-                    agency=agency,
-                    price=price,
-                    image_url=image_url,
-                    room_count=room_count
-                )
-            yield HomeRentalInfoScraperItem(home=home)
+                image_url = home_card.xpath("//div[contains(@class, 'o-card--listview-image')]/picture/source").attrib['data-srcset']
+                city = home_card.xpath(".//div[contains(@class, 'o-card--listview-content')]//div[contains(@class, 'o-reorder-column__first')]/strong/text()").get()
+                address = home_card.xpath(".//div[contains(@class, 'o-card--listview-content')]//h3[contains(@class, 'h4 u-margin-bottom-none')]/span/text()").get() + ","+ city
+                price = home_card.xpath(".//div[contains(@class, 'o-card--listview-content')]//div[contains(@class, 'o-card--listview-price')]/b[contains(@class, 'h5')]/text()").get()
+                agency = "Vesteda"
+                room_count = home_card.xpath(".//ul[contains(@class, 'o-layout o-layout-gap o-layout--gutter-tiny')]/li[2]/b/text()").get()
+                if room_count is not None:
+                    room_count = room_count.strip()
+                    room_count = room_count.split(" ")[0]
+                else:
+                    room_count = "1"
+                # date_added = home_card.xpath(".//div[contains(@class, 'o-card--listview-content')]//div[contains(@class, 'o-card--listview-price')]/text()").get()
+                
+                print(f"url : {url}")
+                print(f"image url : {image_url}")
+                print(f"city : {city}")
+                print(f"address: {address}")
+                print(f"price : {price}")
+                print(f"agency : {agency}")
+                print(f"room_count : {room_count}")
+                
+                home = Home(
+                        address=address,
+                        city=city,
+                        url=url,
+                        agency=agency,
+                        price=price,
+                        image_url=image_url,
+                        room_count=room_count
+                    )
+                yield HomeRentalInfoScraperItem(home=home)
+        except Exception as e:
+            print(f"Error while parsing: {e}")
