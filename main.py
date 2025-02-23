@@ -17,7 +17,7 @@ def spider_results():
     # dispatcher.connect(crawler_results, signal=signals.item_passed)
 
     process = CrawlerProcess(get_project_settings())
-    process.crawl(antares.AntaresSpider)
+    process.crawl(alliantie.AlliantieSpider)
     
     for crawler in process.crawlers:
         crawler.signals.connect(crawler_results, signal = signals.item_passed)
