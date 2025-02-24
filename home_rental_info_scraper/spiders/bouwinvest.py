@@ -82,14 +82,24 @@ class BouwinvestSpider(scrapy.Spider):
                     yield item
                     
                 has_next = response.meta["playwright_page"].locator("a.active.active-exact.pagination__arrow.pagination__next.icon-caret-right")
+                print(f"Debugging the has next page for potential anomalies : {has_next}")
                 
                 if await has_next.is_visible():
                     cls_next = await has_next.get_attribute("class")
                     print(f"debugging the next page : {cls_next}")
                     if cls_next == "active active-exact pagination__arrow pagination__next icon-caret-right":
+                        await page.wait_for_timeout(3000)
                         await has_next.click()
-                        await response.meta["playwright_page"].wait_for_selector("div.projectproperty-tile")  # Wait for new cards
+                        try:
+                            await response.meta["playwright_page"].wait_for_selector("div.projectproperty-tile")  # Wait for new cards
+                        except Exception as e:
+                            print(f"Faced an issue while searching for projectproperty-tile so retrying for one last time : {e}")
+                            await response.meta["playwright_page"].wait_for_selector("div.projectproperty-tile")  # Wait for new cards
+                        
                 else:
                     break
         except Exception as e:
-            print(f"Error : {e}")
+            print(f"Error while parsing : {e}")
+            
+            print(f"Halting to test the error: ")
+            

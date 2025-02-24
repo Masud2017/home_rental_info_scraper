@@ -2,6 +2,7 @@ import scrapy
 from scrapy_playwright.page import PageMethod
 from scrapy.selector import Selector
 from home_rental_info_scraper.models.Home import Home
+from home_rental_info_scraper.utils.util import parse_city_string
 from home_rental_info_scraper.items import HomeRentalInfoScraperItem
 
 class IkwilhurenSpider(scrapy.Spider):
@@ -41,7 +42,10 @@ class IkwilhurenSpider(scrapy.Spider):
                     if len(image_url) > 2:
                         image_url = self.allowed_domains[0]+ image_url[17:]
                     city = (home_card.xpath(".//div[contains(@class, 'card-body d-flex flex-column')]//span[contains(@class , 'card-title h5 text-secondary mb-0')]/following-sibling::span[1]/text()").get()).strip()
-                    address = (home_card.xpath(".//a[contains(@class, 'stretched-link')]/text()").get()).strip() + "," + city
+                    if city is not None:
+                        address = (home_card.xpath(".//a[contains(@class, 'stretched-link')]/text()").get()).strip() + "," + city
+                        city = parse_city_string(city)
+                    
                     price = home_card.xpath(".//div[contains(@class, 'card-body d-flex flex-column')]/div/span[1]/text()").get()
                     if price is not None:
                         price = price.split(",")[0]
