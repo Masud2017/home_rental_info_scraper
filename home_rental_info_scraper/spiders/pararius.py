@@ -40,7 +40,10 @@ class ParariusSpider(scrapy.Spider):
 
                 print(f"count of home list : {len(home_card_list)}")
                 for home_card in home_card_list:
-                    url = self.allowed_domains[0] + home_card.xpath(".//div[contains(@class,  'listing-search-item__depiction')]/a").attrib['href']
+                    url_portion = home_card.xpath(".//div[contains(@class,  'listing-search-item__depiction')]/a").attrib['href']
+                    if url_portion is not None:
+                        url = self.allowed_domains[0] + url_portion
+                    url = self.allowed_domains[0]
                     image_url = home_card.xpath(".//div[contains(@class,  'listing-search-item__depiction')]/a/wc-picture/picture/img").get()
                     if image_url is not None:
                         reg = r'src="([^"]+)"'
@@ -55,8 +58,10 @@ class ParariusSpider(scrapy.Spider):
                         city = ""
                     if city is not None:
                         city = parse_city_string(city)
-                    address = "" + city
-                    address = home_card.xpath(".//div[contains(@class,  'listing-search-item__content')]//h2[contains(@class,'listing-search-item__title')]/a/text()").get().strip() + "," + city
+                    address = ""
+                    address = home_card.xpath(".//div[contains(@class,  'listing-search-item__content')]//h2[contains(@class,'listing-search-item__title')]/a/text()").get().strip()
+                    if address is not None:
+                        address = address + "," + city
                     price = home_card.xpath(".//div[contains(@class,  'listing-search-item__content')]//div[contains(@class ,'listing-search-item__price')]/text()").get().strip()
                     print(f"Debugging the price {price}")
                     price = price.split(" ")[0]
@@ -76,6 +81,7 @@ class ParariusSpider(scrapy.Spider):
                     print(f"url : {url}")
                     print(f"image_Url = {image_url}")
                     print(f"address : {address}")
+                    print(f"city : {city}")
                     print(f"price : {price}")
                     print(f"Name : {agency}")
                     print(f"Room count : {room_count}")

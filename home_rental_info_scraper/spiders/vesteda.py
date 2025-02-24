@@ -46,8 +46,12 @@ class VestedaSpider(scrapy.Spider):
                     city = parse_city_string(city)
                     
                 price = home_card.xpath(".//div[contains(@class, 'o-card--listview-content')]//div[contains(@class, 'o-card--listview-price')]/b[contains(@class, 'h5')]/text()").get()
+                if price is not None:
+                    price = price.split(",")[0]
+                    price = price[2:]
                 agency = "Vesteda"
                 room_count = home_card.xpath(".//ul[contains(@class, 'o-layout o-layout-gap o-layout--gutter-tiny')]/li[2]/b/text()").get()
+                
                 if room_count is not None:
                     room_count = room_count.strip()
                     room_count = room_count.split(" ")[0]
