@@ -4,6 +4,7 @@ from scrapy_playwright.page import PageMethod
 from scrapy.selector import Selector
 from home_rental_info_scraper.models.Home import Home
 from ..items import HomeRentalInfoScraperItem
+from home_rental_info_scraper.utils.util import parse_city_string
 
 class SimilarWebScrapper(scrapy.Spider):
     def start_requests(self):
@@ -32,6 +33,8 @@ class SimilarWebScrapper(scrapy.Spider):
                 street = home_card.xpath(".//div[contains(@class, 'object-address')]/span[1]/span/text()").get()
                 address = street + home_card.xpath(".//div[contains(@class, 'object-address')]/span[1]/text()").get()
                 city = home_card.xpath(".//div[contains(@class, 'object-address')]//span[contains(@class, 'address-part')][2]/text()").get()
+                if city is not None:
+                    city = parse_city_string(city)
                 agency = self.name
                 price = home_card.xpath(".//span[contains(@class, 'kosten-regel2')]/text()").get()
                 if price is not None:

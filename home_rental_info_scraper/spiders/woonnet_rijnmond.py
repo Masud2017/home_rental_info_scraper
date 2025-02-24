@@ -4,6 +4,7 @@ from scrapy.selector import Selector
 import re
 from home_rental_info_scraper.models.Home import Home
 from ..items import HomeRentalInfoScraperItem
+from home_rental_info_scraper.utils.util import parse_city_string
 
 class WoonnetRijnmondSpider(scrapy.Spider):
     name = "woonnet_rijnmond"
@@ -67,7 +68,10 @@ class WoonnetRijnmondSpider(scrapy.Spider):
                     image_url = image_url[2:]
                     
                 city = home_card.xpath(".//a[contains(@class, 'clean')]//div[contains(@class, 'box__properties')]//div[contains(@class, 'box__title')][2]/span/text()").get().strip()
-                address = home_card.xpath(".//a[contains(@class, 'clean')]//div[contains(@class, 'box__properties')]//div[contains(@class, 'box__title')][1]/text()").get().strip() + ","+ city
+                if city is None:
+                    address = home_card.xpath(".//a[contains(@class, 'clean')]//div[contains(@class, 'box__properties')]//div[contains(@class, 'box__title')][1]/text()").get().strip() + ","+ city
+                    city = parse_city_string(city)
+                    
                 price = home_card.xpath(".//a[contains(@class, 'clean')]//div[contains(@class, 'box--obj__price')]/text()").get()
                 if price is not None:
                     price = price[2:]

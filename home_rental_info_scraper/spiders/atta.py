@@ -3,6 +3,7 @@ from scrapy_playwright.page import PageMethod
 from scrapy.selector import Selector
 from home_rental_info_scraper.items import HomeRentalInfoScraperItem
 from home_rental_info_scraper.models.Home import Home
+from home_rental_info_scraper.utils.util import parse_city_string
 
 class AttaSpider(scrapy.Spider):
     name = "atta"
@@ -44,7 +45,9 @@ class AttaSpider(scrapy.Spider):
                 city = ""
                 city = home_card.xpath(".//div[contains(@class, 'object-list__wrapper')]/div[2]/div[1]/div[contains(@class, 'object-list__city')]/text()").get()
                 address = ""
-                address = (home_card.xpath(".//div[contains(@class, 'object-list__wrapper')]/div[2]/div[1]/div[contains(@class, 'object-list__address')]/text()").get()) + "," + city
+                if city is not None:
+                    address = (home_card.xpath(".//div[contains(@class, 'object-list__wrapper')]/div[2]/div[1]/div[contains(@class, 'object-list__address')]/text()").get()) + "," + city
+                    city = parse_city_string(city)
                 price = home_card.xpath(".//div[contains(@class, 'object-list__wrapper')]/div[2]/div[1]/div[contains(@class, 'object-list__price')]/text()").get()
                 if price is not None:
                     price = price.split(" ")[1]

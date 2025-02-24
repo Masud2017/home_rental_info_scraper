@@ -4,6 +4,7 @@ from scrapy.selector import Selector
 import json
 import re
 from home_rental_info_scraper.models.Home import Home
+from home_rental_info_scraper.utils.util import parse_city_string
 import time
 import random
 from home_rental_info_scraper.items import HomeRentalInfoScraperItem
@@ -123,7 +124,9 @@ class AlliantieSpider(scrapy.Spider):
                         room_count = room_count.strip()
                         room_count = room_count.split(" ")[0]
                     address = ""
-                    address = home_card.xpath(".//div[contains(@class, 'result__info')]/h3/span/font/font/text()").get().strip() + "," + city
+                    if city is not None:
+                        address = home_card.xpath(".//div[contains(@class, 'result__info')]/h3/span/font/font/text()").get().strip() + "," + city
+                        city = parse_city_string(city)
                     price = home_card.xpath(".//p[contains(@class, 'result__info__price')]/font/font/text()").get()
                     if price is not None:
                         price = price.split(" ")[0][1:]

@@ -4,6 +4,7 @@ from scrapy.selector import Selector
 import re
 from home_rental_info_scraper.models.Home import Home
 from home_rental_info_scraper.items import HomeRentalInfoScraperItem
+from home_rental_info_scraper.utils.util import parse_city_string
 
 class OomsSpider(scrapy.Spider):
     name = "ooms"
@@ -78,6 +79,7 @@ class OomsSpider(scrapy.Spider):
                 city = city.split(",")
                 if len(city) > 1:
                     city = city[1].strip()
+                    city = parse_city_string(city)
                 
                 price = home_card.xpath(".//div[contains(@class, 'card--default__content')]//footer[contains(@class, 'card--default__footer')]/strong/text()").get()
                 print(f"price : {price}")

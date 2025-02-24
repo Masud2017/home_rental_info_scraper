@@ -3,6 +3,7 @@ from scrapy_playwright.page import PageMethod
 from scrapy.selector import Selector
 from home_rental_info_scraper.models.Home import Home
 from home_rental_info_scraper.items import HomeRentalInfoScraperItem
+from home_rental_info_scraper.utils.util import parse_city_string
 
 class VboSpider(scrapy.Spider):
     name = "vbo"
@@ -50,7 +51,9 @@ class VboSpider(scrapy.Spider):
                     if city is None:
                         city = ""
                     address = "" + city
-                    address = home_card.xpath(".//a[contains(@class, 'propertyLink')]/figure/figcaption/span[1]/text()").get().strip() + "," + city
+                    if city is not None:
+                        address = home_card.xpath(".//a[contains(@class, 'propertyLink')]/figure/figcaption/span[1]/text()").get().strip() + "," + city
+                        city = parse_city_string(city)
                     price = home_card.xpath(".//a[contains(@class, 'propertyLink')]/figure/figcaption/span[3]/text()").get()
                     price = price.split(" ")[1]
                     price = price.split(",")[0]

@@ -4,6 +4,7 @@ from scrapy_playwright.page import PageMethod
 from scrapy.selector import Selector
 from home_rental_info_scraper.models.Home import Home
 from home_rental_info_scraper.items import HomeRentalInfoScraperItem
+from home_rental_info_scraper.utils.util import parse_city_string
 
 class VestedaSpider(scrapy.Spider):
     name = "vesteda"
@@ -40,7 +41,10 @@ class VestedaSpider(scrapy.Spider):
 
                 image_url = home_card.xpath("//div[contains(@class, 'o-card--listview-image')]/picture/source").attrib['data-srcset']
                 city = home_card.xpath(".//div[contains(@class, 'o-card--listview-content')]//div[contains(@class, 'o-reorder-column__first')]/strong/text()").get()
-                address = home_card.xpath(".//div[contains(@class, 'o-card--listview-content')]//h3[contains(@class, 'h4 u-margin-bottom-none')]/span/text()").get() + ","+ city
+                if city is not None:
+                    address = home_card.xpath(".//div[contains(@class, 'o-card--listview-content')]//h3[contains(@class, 'h4 u-margin-bottom-none')]/span/text()").get() + ","+ city
+                    city = parse_city_string(city)
+                    
                 price = home_card.xpath(".//div[contains(@class, 'o-card--listview-content')]//div[contains(@class, 'o-card--listview-price')]/b[contains(@class, 'h5')]/text()").get()
                 agency = "Vesteda"
                 room_count = home_card.xpath(".//ul[contains(@class, 'o-layout o-layout-gap o-layout--gutter-tiny')]/li[2]/b/text()").get()

@@ -5,6 +5,7 @@ import re
 import asyncio
 from home_rental_info_scraper.models.Home import Home
 from ..items import HomeRentalInfoScraperItem
+from home_rental_info_scraper.utils.util import parse_city_string
 # from home_rental_info_scraper.models.Home import Home
 
 
@@ -58,7 +59,10 @@ class WoonzekerSpider(scrapy.Spider):
                     city = ""
                     city = home_card.xpath(".//div[contains(@class, 'property__body-container')]//h1/text()").get()
                     address = ""
-                    address = city + "," +  (home_card.xpath(".//div[contains(@class, 'property__body-container')]//div[contains(@class , 'property__location')]/span[1]/text()").get() + home_card.xpath(".//div[contains(@class, 'property__body-container')]//div[contains(@class , 'property__location')]/span[2]/text()").get()) 
+                    if city is None:
+                        address = city + "," +  (home_card.xpath(".//div[contains(@class, 'property__body-container')]//div[contains(@class , 'property__location')]/span[1]/text()").get() + home_card.xpath(".//div[contains(@class, 'property__body-container')]//div[contains(@class , 'property__location')]/span[2]/text()").get()) 
+                        city = parse_city_string(city)
+                        
                     price = home_card.xpath(".//div[contains(@class, 'property__price')]/span[2]/text()").get()
                     price = price.split(",")[0]
                     price = price.split(" ")[1]

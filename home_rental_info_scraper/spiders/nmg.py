@@ -4,6 +4,7 @@ from scrapy.selector import Selector
 import re
 from home_rental_info_scraper.models.Home import Home
 from home_rental_info_scraper.items import HomeRentalInfoScraperItem
+from home_rental_info_scraper.utils.util import parse_city_string
 
 class NmgSpider(scrapy.Spider):
     name = "nmg"
@@ -58,7 +59,10 @@ class NmgSpider(scrapy.Spider):
                     if city is None:
                         city = ""
                     address = "" + city
-                    address = home_card.xpath(".//div[contains(@class, 'house__content')]//div[contains(@class, 'house__heading heading u-center')]/h2/text()").get().strip() + "," + city
+                    if city is not None:
+                        address = home_card.xpath(".//div[contains(@class, 'house__content')]//div[contains(@class, 'house__heading heading u-center')]/h2/text()").get().strip() + "," + city
+                        city = parse_city_string(city)
+                        
                     price = home_card.xpath(".//div[contains(@class, 'house__content')]//div[contains(@class, 'house__listing')]/ul/li[1]/span[2]/text()").get()
                     if price is not None:
                         price = price.split(" ")[1]

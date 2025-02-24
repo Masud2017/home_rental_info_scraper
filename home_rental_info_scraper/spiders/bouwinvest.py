@@ -4,6 +4,7 @@ from scrapy.selector import Selector
 import re
 from home_rental_info_scraper.models.Home import Home
 from home_rental_info_scraper.items import HomeRentalInfoScraperItem
+from home_rental_info_scraper.utils.util import parse_city_string
 
 
 class BouwinvestSpider(scrapy.Spider):
@@ -49,7 +50,9 @@ class BouwinvestSpider(scrapy.Spider):
                     if city is None:
                         city = ""
                     address = "" + city
-                    address = home_card.xpath(".//span[contains(@class, 'projectproperty-tile__content__body')]/span[1]/text()").get().strip() + "," + city
+                    if city is not None:
+                        address = home_card.xpath(".//span[contains(@class, 'projectproperty-tile__content__body')]/span[1]/text()").get().strip() + "," + city
+                        city = parse_city_string(city)
                     price = home_card.xpath(".//span[contains(@class, 'projectproperty-tile__content__footer__prices text-center text-lg-right d-flex flex-column-reverse flex-lg-column')]/span[2]/text()").get()
                     price = price.split(" ")[1:-1][0]
                     

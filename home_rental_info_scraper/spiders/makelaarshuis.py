@@ -4,6 +4,7 @@ from scrapy.selector import Selector
 from home_rental_info_scraper.models.Home import Home
 import random
 from home_rental_info_scraper.items import HomeRentalInfoScraperItem
+from home_rental_info_scraper.utils.util import parse_city_string
 import re
 
 class MakelaarshuisSpider(scrapy.Spider):
@@ -82,7 +83,9 @@ class MakelaarshuisSpider(scrapy.Spider):
                     if city is None:
                         city = ""
                     address = "" + city
-                    address = home_card.xpath(".//div[contains(@class,'object__data')]//a[contains(@class , 'object__address-container')]//h3[contains(@class, 'object__address')]/span[1]/text()").get().strip() + "," + city
+                    if city is not None:
+                        address = home_card.xpath(".//div[contains(@class,'object__data')]//a[contains(@class , 'object__address-container')]//h3[contains(@class, 'object__address')]/span[1]/text()").get().strip() + "," + city
+                        city = parse_city_string(city)
                     price = home_card.xpath(".//div[contains(@class,'object__data')]//a[contains(@class , 'object__address-container')]//h3[contains(@class, 'object__address')]/span[3]/text()").get().strip()
                     
                     room_count = home_card.xpath(".//span[contains(@class, 'object__features')]/span[2]/span/text()").get()

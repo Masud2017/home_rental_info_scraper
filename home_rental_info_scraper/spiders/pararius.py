@@ -4,6 +4,7 @@ from scrapy.selector import Selector
 import re
 from home_rental_info_scraper.models.Home import Home
 from home_rental_info_scraper.items import HomeRentalInfoScraperItem
+from home_rental_info_scraper.utils.util import parse_city_string
 
 
 class ParariusSpider(scrapy.Spider):
@@ -52,6 +53,8 @@ class ParariusSpider(scrapy.Spider):
                     
                     if city is None:
                         city = ""
+                    if city is not None:
+                        city = parse_city_string(city)
                     address = "" + city
                     address = home_card.xpath(".//div[contains(@class,  'listing-search-item__content')]//h2[contains(@class,'listing-search-item__title')]/a/text()").get().strip() + "," + city
                     price = home_card.xpath(".//div[contains(@class,  'listing-search-item__content')]//div[contains(@class ,'listing-search-item__price')]/text()").get().strip()
