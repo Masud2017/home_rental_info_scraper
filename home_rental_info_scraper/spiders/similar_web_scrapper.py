@@ -35,8 +35,8 @@ class SimilarWebScrapper(scrapy.Spider):
                 address = ""
 
                 if city is not None:
-                    print(f"city before parsing : {city}")
-                    city = parse_city_string(city)
+                    # print(f"city before parsing : {city}")
+                    # city = parse_city_string(city)
                     if city is None:
                         city = ""
                     street = home_card.xpath(".//div[contains(@class, 'object-address')]/span[1]/span/text()").get()
@@ -44,10 +44,10 @@ class SimilarWebScrapper(scrapy.Spider):
                     if street is not None:
                         print(f"street  : {street}")
                         print(f"city : {city}")
-                        street  = street + city
-                        second_part =  home_card.xpath(".//div[contains(@class, 'object-address')]/span[1]/text()").get()+" " + city
+                        second_part = home_card.xpath(".//div[contains(@class, 'object-address')]/span[1]/text()").get()
                         if second_part is not None:
-                            address = f"{street},{second_part}"
+                            print(f"second part : {second_part}")
+                            address = f"{street}{second_part}, {city}"
                 
                 agency = self.name
                 price = home_card.xpath(".//span[contains(@class, 'kosten-regel2')]/text()").get()
