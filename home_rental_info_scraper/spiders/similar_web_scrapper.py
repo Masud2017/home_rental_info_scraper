@@ -27,14 +27,38 @@ class SimilarWebScrapper(scrapy.Spider):
             # headers ={}
         )
 
+    def slow_scroll_js(self):
+        return f"""
+        async () => {{
+            const scrollableDiv = true
+            if (scrollableDiv) {{
+                var totalHeight = document.body.scrollHeight;
+                const step = totalHeight / 10; // Divide the scroll into 10 steps
+                let currentPosition = 0;
+                
+                while (currentPosition < totalHeight) {{
+                    currentPosition += step;
+                    window.scrollBy(0, step);
+                    await new Promise(resolve => setTimeout(resolve, 200));
+                    if (totalHeight < document.body.scrollHeight) {{
+                        totalHeight = document.body.scrollHeight;
+                    }}
+                }}
+            }} else {{
+                console.error('Scrollable element not found!');
+            }}
+        }}
+        """
+
     async def parse(self, response):
         try:
             page = response.meta["playwright_page"]
             
-            # accepting cookie message based on name
-            # if self.name == " woninginzicht":
-            #     await page.click("//button[contains(@id , 'CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll')]")
-            # ended
+            # auto scrolling mechanism
+            await page.evaluate(self.slow_scroll_js())
+            # auto scrolling mechanism ended
+            
+            
         
             data = await page.content()
             home_card_list = Selector(text=data).xpath("//div[contains(@class, 'list-item-content')]")
