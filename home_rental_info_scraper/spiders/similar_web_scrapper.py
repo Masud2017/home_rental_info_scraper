@@ -8,14 +8,20 @@ from home_rental_info_scraper.utils.util import parse_city_string
 
 class SimilarWebScrapper(scrapy.Spider):
     def start_requests(self):
+        page_method_list = list()
+        if self.name == "woninginzicht":
+            page_method_list.append(PageMethod("click", "//button[contains(@id , 'CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll')]"))
+        page_method_list.append(PageMethod("wait_for_selector", "div.list-item-content", timeout=6000),)
+        
         yield scrapy.Request(
             url=self.start_urls[0],
             meta={
                 "playwright": True,
                 "playwright_include_page": True,
-                "playwright_page_methods": [
-                    PageMethod("wait_for_selector", "div.list-item-content", timeout=6000)
-                ],
+                "playwright_page_methods": page_method_list
+                    
+                    
+                ,
                 # "page_number": 1
             },
             # headers ={}
@@ -24,6 +30,11 @@ class SimilarWebScrapper(scrapy.Spider):
     async def parse(self, response):
         try:
             page = response.meta["playwright_page"]
+            
+            # accepting cookie message based on name
+            # if self.name == " woninginzicht":
+            #     await page.click("//button[contains(@id , 'CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll')]")
+            # ended
         
             data = await page.content()
             home_card_list = Selector(text=data).xpath("//div[contains(@class, 'list-item-content')]")
@@ -56,10 +67,11 @@ class SimilarWebScrapper(scrapy.Spider):
                     if len(price) > 1:
                         price = price[2][2:]
                         # CONVERTING FROM EUROPEAN FORMAT TO AMERICAN FORMAT (CURRENCY)
+                        if "." in price:
+                            price = price.replace(".", "")
                         if "," in price:
                             price = price.replace(",", ".")
-                        # if "." in price:
-                        #     price = price.replace(".", "")
+                        
                 url = self.allowed_domains[0] + home_card.xpath(".//a[contains(@ng-click,'goToDetails')]").attrib['href']
                 
                 print(f"Image : {image_url}")
