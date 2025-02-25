@@ -44,6 +44,7 @@ class VestedaSpider(scrapy.Spider):
                 if city is not None:
                     address = home_card.xpath(".//div[contains(@class, 'o-card--listview-content')]//h3[contains(@class, 'h4 u-margin-bottom-none')]/span/text()").get() + ","+ city
                     city = parse_city_string(city)
+                    city = city.replace('\'','')
                     
                 price = home_card.xpath(".//div[contains(@class, 'o-card--listview-content')]//div[contains(@class, 'o-card--listview-price')]/b[contains(@class, 'h5')]/text()").get()
                 if price is not None:
