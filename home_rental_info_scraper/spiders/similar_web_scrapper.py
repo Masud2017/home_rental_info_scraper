@@ -1,5 +1,5 @@
 import scrapy
-import asyncio
+import traceback
 from scrapy_playwright.page import PageMethod
 from scrapy.selector import Selector
 from home_rental_info_scraper.models.Home import Home
@@ -30,11 +30,25 @@ class SimilarWebScrapper(scrapy.Spider):
             print(len(home_card_list))
             for home_card in home_card_list:
                 image_url = self.allowed_domains[0] + home_card.xpath(".//img/@src").get()
-                street = home_card.xpath(".//div[contains(@class, 'object-address')]/span[1]/span/text()").get()
-                address = street + home_card.xpath(".//div[contains(@class, 'object-address')]/span[1]/text()").get()
+                # street = home_card.xpath(".//div[contains(@class, 'object-address')]/span[1]/span/text()").get()
                 city = home_card.xpath(".//div[contains(@class, 'object-address')]//span[contains(@class, 'address-part')][2]/text()").get()
+                address = ""
+
                 if city is not None:
+                    print(f"city before parsing : {city}")
                     city = parse_city_string(city)
+                    if city is None:
+                        city = ""
+                    street = home_card.xpath(".//div[contains(@class, 'object-address')]/span[1]/span/text()").get()
+                    
+                    if street is not None:
+                        print(f"street  : {street}")
+                        print(f"city : {city}")
+                        street  = street + city
+                        second_part =  home_card.xpath(".//div[contains(@class, 'object-address')]/span[1]/text()").get()+" " + city
+                        if second_part is not None:
+                            address = f"{street},{second_part}"
+                
                 agency = self.name
                 price = home_card.xpath(".//span[contains(@class, 'kosten-regel2')]/text()").get()
                 if price is not None:
@@ -44,8 +58,8 @@ class SimilarWebScrapper(scrapy.Spider):
                         # CONVERTING FROM EUROPEAN FORMAT TO AMERICAN FORMAT (CURRENCY)
                         if "," in price:
                             price = price.replace(",", ".")
-                        if "." in price:
-                            price = price.replace(".", "")
+                        # if "." in price:
+                        #     price = price.replace(".", "")
                 url = self.allowed_domains[0] + home_card.xpath(".//a[contains(@ng-click,'goToDetails')]").attrib['href']
                 
                 print(f"Image : {image_url}")
@@ -66,3 +80,4 @@ class SimilarWebScrapper(scrapy.Spider):
                 yield HomeRentalInfoScraperItem(home=home)
         except Exception as e:
             print(f"Error : {e}")
+            traceback.print_exc()

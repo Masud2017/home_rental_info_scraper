@@ -36,7 +36,8 @@ def parse_city_string(city_string: str):
         # Flevoland
         "Almere", "Lelystad",
         # Zeeland
-        "Middelburg", "Vlissingen", "Goes"
+        "Middelburg", "Vlissingen", "Goes",
+        "Heinkenszand"
     ]
     
     for city in cities_netherlands:
