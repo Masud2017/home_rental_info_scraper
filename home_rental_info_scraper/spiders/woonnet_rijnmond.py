@@ -68,13 +68,23 @@ class WoonnetRijnmondSpider(scrapy.Spider):
                     image_url = image_url[2:]
                     
                 city = home_card.xpath(".//a[contains(@class, 'clean')]//div[contains(@class, 'box__properties')]//div[contains(@class, 'box__title')][2]/span/text()").get().strip()
-                if city is None:
-                    address = home_card.xpath(".//a[contains(@class, 'clean')]//div[contains(@class, 'box__properties')]//div[contains(@class, 'box__title')][1]/text()").get().strip() + ","+ city
-                    city = parse_city_string(city)
+                address = ""
+                if city is not None:
+                    address = home_card.xpath(".//a[contains(@class, 'clean')]//div[contains(@class, 'box__properties')]//div[contains(@class, 'box__title')][1]/text()").get().strip()
+                    if address is not None:
+                        address = address + ","+ city
+                    else:
+                        address = city
+                    if parse_city_string(city) is not None:
+                        city = parse_city_string(city)
                     
                 price = home_card.xpath(".//a[contains(@class, 'clean')]//div[contains(@class, 'box--obj__price')]/text()").get()
                 if price is not None:
                     price = price[2:]
+                    if "." in price:
+                        price = price.replace(".", "")
+                    if "," in price:
+                        price = price.replace(",", ".")
                 agency = self.name
                 room_count = home_card.xpath(".//div[contains(@class, 'box__text  ellipsis')]/text()").get()
                 if room_count is not None:
