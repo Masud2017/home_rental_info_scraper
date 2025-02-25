@@ -39,7 +39,7 @@ class SimilarWebScrapper(scrapy.Spider):
                 while (currentPosition < totalHeight) {{
                     currentPosition += step;
                     window.scrollBy(0, step);
-                    await new Promise(resolve => setTimeout(resolve, 200));
+                    await new Promise(resolve => setTimeout(resolve, 800));
                     if (totalHeight < document.body.scrollHeight) {{
                         totalHeight = document.body.scrollHeight;
                     }}
