@@ -130,6 +130,7 @@ class AlliantieSpider(scrapy.Spider):
                     price = home_card.xpath(".//p[contains(@class, 'result__info__price')]/font/font/text()").get()
                     if price is not None:
                         price = price.split(" ")[0][1:]
+                        # price = price.replace(".", "")
                         price = price.replace(",","")
                     agency = self.name
                     
@@ -155,7 +156,7 @@ class AlliantieSpider(scrapy.Spider):
                 # disabled_var = await has_next.get_attribute("disabled")
                 
                 if await has_next.is_visible():
-                    await has_next.click()
+                    await has_next.click(force = True)
                     await response.meta["playwright_page"].wait_for_selector("div.result")  # Wait for new cards
                 
                 else:
