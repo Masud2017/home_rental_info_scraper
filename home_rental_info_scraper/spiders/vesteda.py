@@ -5,6 +5,7 @@ from scrapy.selector import Selector
 from home_rental_info_scraper.models.Home import Home
 from home_rental_info_scraper.items import HomeRentalInfoScraperItem
 from home_rental_info_scraper.utils.util import parse_city_string
+import traceback
 
 class VestedaSpider(scrapy.Spider):
     name = "vesteda"
@@ -43,13 +44,19 @@ class VestedaSpider(scrapy.Spider):
                 city = home_card.xpath(".//div[contains(@class, 'o-card--listview-content')]//div[contains(@class, 'o-reorder-column__first')]/strong/text()").get()
                 if city is not None:
                     address = home_card.xpath(".//div[contains(@class, 'o-card--listview-content')]//h3[contains(@class, 'h4 u-margin-bottom-none')]/span/text()").get() + ","+ city
-                    city = parse_city_string(city)
-                    city = city.replace('\'','')
+                    if parse_city_string(city) is not None:
+                        city = parse_city_string(city)
+                        if "\'" in city:
+                            city = city.replace('\'','')
                     
                 price = home_card.xpath(".//div[contains(@class, 'o-card--listview-content')]//div[contains(@class, 'o-card--listview-price')]/b[contains(@class, 'h5')]/text()").get()
                 if price is not None:
                     price = price.split(",")[0]
                     price = price[2:]
+                    if "." in price:
+                        price = price.replace(".", "")
+                    if "," in price:
+                        price = price.replace(",", ".")
                 agency = "Vesteda"
                 room_count = home_card.xpath(".//ul[contains(@class, 'o-layout o-layout-gap o-layout--gutter-tiny')]/li[2]/b/text()").get()
                 
@@ -80,3 +87,4 @@ class VestedaSpider(scrapy.Spider):
                 yield HomeRentalInfoScraperItem(home=home)
         except Exception as e:
             print(f"Error while parsing: {e}")
+            traceback.print_exc()

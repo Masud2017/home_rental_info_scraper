@@ -5,6 +5,9 @@ import re
 from home_rental_info_scraper.models.Home import Home
 from home_rental_info_scraper.items import HomeRentalInfoScraperItem
 from home_rental_info_scraper.utils.util import parse_city_string
+import random
+import traceback
+import time
 
 
 class BouwinvestSpider(scrapy.Spider):
@@ -54,7 +57,12 @@ class BouwinvestSpider(scrapy.Spider):
                         address = home_card.xpath(".//span[contains(@class, 'projectproperty-tile__content__body')]/span[1]/text()").get().strip() + "," + city
                         city = parse_city_string(city)
                     price = home_card.xpath(".//span[contains(@class, 'projectproperty-tile__content__footer__prices text-center text-lg-right d-flex flex-column-reverse flex-lg-column')]/span[2]/text()").get()
-                    price = price.split(" ")[1:-1][0]
+                    if price is not None:
+                        price = price.split(" ")[1:-1][0]
+                        if "." in price:
+                            price = price.replace(".", "")
+                        if "," in price:
+                            price = price.replace(",", ".")
                     
                     agency = self.name
                     
@@ -83,7 +91,8 @@ class BouwinvestSpider(scrapy.Spider):
                     item = HomeRentalInfoScraperItem()
                     item["home"] = home
                     yield item
-                    
+                
+                await page.wait_for_timeout(random.randint(3000, 5000))    
                 has_next = response.meta["playwright_page"].locator("a.active.active-exact.pagination__arrow.pagination__next.icon-caret-right")
                 print(f"Debugging the has next page for potential anomalies : {has_next}")
                 
@@ -93,16 +102,19 @@ class BouwinvestSpider(scrapy.Spider):
                     if cls_next == "active active-exact pagination__arrow pagination__next icon-caret-right":
                         await page.wait_for_timeout(3000)
                         await has_next.click()
-                        try:
-                            await response.meta["playwright_page"].wait_for_selector("div.projectproperty-tile")  # Wait for new cards
-                        except Exception as e:
-                            print(f"Faced an issue while searching for projectproperty-tile so retrying for one last time : {e}")
-                            await response.meta["playwright_page"].wait_for_selector("div.projectproperty-tile")  # Wait for new cards
+                        
+                        await page.wait_for_timeout(4000)
+                        # try:
+                        #     await response.meta["playwright_page"].wait_for_selector("div.projectproperty-tile")  # Wait for new cards
+                        # except Exception as e:
+                        #     print(f"Faced an issue while searching for projectproperty-tile so retrying for one last time : {e}")
+                        #     await response.meta["playwright_page"].wait_for_selector("div.projectproperty-tile")  # Wait for new cards
                         
                 else:
                     break
         except Exception as e:
             print(f"Error while parsing : {e}")
-            
+            traceback.print_exc()
             print(f"Halting to test the error: ")
+            time.sleep(1000000)
             

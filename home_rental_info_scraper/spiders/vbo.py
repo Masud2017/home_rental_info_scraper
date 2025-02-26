@@ -4,6 +4,7 @@ from scrapy.selector import Selector
 from home_rental_info_scraper.models.Home import Home
 from home_rental_info_scraper.items import HomeRentalInfoScraperItem
 from home_rental_info_scraper.utils.util import parse_city_string
+import traceback
 
 class VboSpider(scrapy.Spider):
     name = "vbo"
@@ -55,8 +56,11 @@ class VboSpider(scrapy.Spider):
                         address = home_card.xpath(".//a[contains(@class, 'propertyLink')]/figure/figcaption/span[1]/text()").get().strip() + "," + city
                         city = parse_city_string(city)
                     price = home_card.xpath(".//a[contains(@class, 'propertyLink')]/figure/figcaption/span[3]/text()").get()
-                    price = price.split(" ")[1]
-                    price = price.split(",")[0]
+                    if price is not None:
+                        price = price.split(" ")[1]
+                        price = price.split(",")[0]
+                        price = price.replace(".", "")
+                        price = price.replace(",", ".")
                     agency = self.name
                     room_count = home_card.xpath("//div[contains(@class, 'bottom d-none d-md-block')]/ul/li[last()]/text()").get()
                     if room_count is not None:
@@ -85,7 +89,7 @@ class VboSpider(scrapy.Spider):
                     
                     
                     # next_page = Selector(text = data).xpath("//div[contains(@class , 'results__pagination')]//a[contains(@class, 'results__pagination__nav-next')]").get()
-                    
+                await page.wait_for_timeout(4000)    
                 has_next = response.meta["playwright_page"].locator("//ul[contains(@class, 'pagination')]//li[last()]")
                 
                 if await has_next.is_visible():
@@ -100,3 +104,4 @@ class VboSpider(scrapy.Spider):
 
         except Exception as e:
             print(f"Error while parsing : {e}")
+            traceback.print_exc()

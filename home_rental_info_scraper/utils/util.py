@@ -45,6 +45,6 @@ def parse_city_string(city_string: str):
         if city.lower() in city_string.lower():
             return city
 
-    return None
+    return city_string
 # if __name__ == "__main__":
 #     print(parse_city_string("Beeldsnijderstraat 107,8043 CR Zwolle"))  # Amsterdam

@@ -51,6 +51,10 @@ class AttaSpider(scrapy.Spider):
                 price = home_card.xpath(".//div[contains(@class, 'object-list__wrapper')]/div[2]/div[1]/div[contains(@class, 'object-list__price')]/text()").get()
                 if price is not None:
                     price = price.split(" ")[1]
+                    if "." in price:
+                        price = price.replace(".", "")
+                    if "," in price:
+                        price = price.replace(",", ".")
                 agency = self.name
                 room_count = home_card.xpath(".//div[contains(@class, 'object-list__wrapper')]/div[2]/div[1]/div[contains(@class, 'object-list__area')]/span[3]/text()").get()
                 if room_count is not None:
