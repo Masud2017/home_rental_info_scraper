@@ -4,6 +4,8 @@ from scrapy.selector import Selector
 from home_rental_info_scraper.models.Home import Home
 from home_rental_info_scraper.utils.util import parse_city_string
 from home_rental_info_scraper.items import HomeRentalInfoScraperItem
+import traceback
+import re
 
 class IkwilhurenSpider(scrapy.Spider):
     name = "ikwilhuren"
@@ -29,6 +31,7 @@ class IkwilhurenSpider(scrapy.Spider):
 
     async def parse(self, response):
         try:
+            pagination_number = 1
             page = response.meta["playwright_page"]
             
             while True:
@@ -79,12 +82,40 @@ class IkwilhurenSpider(scrapy.Spider):
                 
                 
                 has_next = response.meta["playwright_page"].locator("//div[contains(@class, 'd-flex flex-wrap gap-2')]/a[2]")
+                # checking whether there is a infinite loop happening
+                
                     
                 if await has_next.is_visible():
+                    
+                    href_link = Selector(text = data).xpath("//div[contains(@class, 'd-flex flex-wrap gap-2')]/a[2]").attrib["href"]
+                
+                    # if "https://ikwilhuren.nu"+href_link == self.allowed_domains[0]:
+                    #     print(f"Infinite loop detected exiting from the program....")
+                    #     break
+                    if href_link is not None:
+                        reg = r"page=(\d*)"
+                        if re.search(reg, href_link):
+                            nu = int(re.search(reg, href_link).group(1))
+                            if (nu < pagination_number):
+                                print(f"Infinite loop detected exiting from the program....")
+                                break
+                            else:
+                                pagination_number = nu
+                            
+                    # check done
+                    
                     cls_next = await has_next.get_attribute("class")
                     print(f"debugging the next page : {cls_next}")
                     if cls_next == "btn btn-primary":
-                        await has_next.click()
+                        try:
+                            await has_next.click()
+                        except Exception as e:
+                            print(f"Error while clicking next page : {e}")
+                            traceback.print_exc()
+                            print(f"Faced issue while clicking the next page so retrying for one last time")
+                            await page.wait_for_timeout(5000)
+                            # await has_next.click()
+                            await page.goto("https://ikwilhuren.nu"+href_link)
                         # await response.meta["playwright_page"].wait_for_selector("div.projectproperty-tile")  # Wait for new cards
                 else:
                     break
