@@ -41,7 +41,7 @@ def parse_city_string(city_string: str):
     ]
     
     for city in cities_netherlands:
-        print(f"Printing the city : {city}")
+        # print(f"Printing the city : {city}")
         if city.lower() in city_string.lower():
             return city
 

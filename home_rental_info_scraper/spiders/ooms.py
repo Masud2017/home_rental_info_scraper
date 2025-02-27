@@ -1,15 +1,17 @@
 import scrapy
 from scrapy_playwright.page import PageMethod
 from scrapy.selector import Selector
-import re
+import random
 from home_rental_info_scraper.models.Home import Home
 from home_rental_info_scraper.items import HomeRentalInfoScraperItem
 from home_rental_info_scraper.utils.util import parse_city_string
+import traceback
 
 class OomsSpider(scrapy.Spider):
     name = "ooms"
     allowed_domains = ["ooms.com"]
-    start_urls = ["https://ooms.com/wonen/aanbod"]
+    # start_urls = ["https://ooms.com/wonen/aanbod"]
+    start_urls = ["https://ooms.com/wonen/aanbod?buy_rent=rent&order_by=created_at-desc"]
 
     def start_requests(self):
         yield scrapy.Request(
@@ -52,14 +54,48 @@ class OomsSpider(scrapy.Spider):
             }}
         }}
         """
+        
+    async def scroll(self,home_card_list,page,data):
+        while True:
+            await page.evaluate("window.scrollBy(0,-document.body.scrollHeight)")
+            total_pagination = r"//div[contains(@class, 'pagination__total')]/span/text()"
+            total_pagination_selector = Selector(text=data).xpath(total_pagination).get()
+            currently_loaded = 0
+            total = 0
+            if total_pagination_selector is not None:
+                print(f"Total pagination : {total_pagination_selector}")
+                currently_loaded = int(total_pagination_selector.split(" ")[1])
+                total = int(total_pagination_selector.split(" ")[4])
+            
+            
+            
+            prev_count = len(home_card_list)
+            await page.evaluate("window.scrollBy(0,(document.body.scrollHeight - 1600))")
+            await page.wait_for_timeout(5000)
+            
+            
+            data = await page.content()
+            # import time
+            # time.sleep(10)
+            home_card_list = Selector(text=data).xpath("//div[contains(@class, 'card card--default card--object card--object--properties')]")
+            # await page.wait_for_selector("div.js-animate-fadein", timeout=6000)
+            print(len(home_card_list))
+            if (len(home_card_list) > prev_count):
+                if total == currently_loaded:
+                    return home_card_list
+                else:
+                    continue
+            else:
+                return home_card_list
     async def parse(self, response):
         try:
             page = response.meta["playwright_page"]
-            await page.evaluate(self.slow_scroll_js())
+            # await page.evaluate(self.slow_scroll_js())
             
-            data = await page.content()
+            
+            data = await page.content() 
             home_card_list = Selector(text=data).xpath("//div[contains(@class, 'card card--default card--object card--object--properties')]")
-            
+            home_card_list = await self.scroll(home_card_list, page, data)
 
             print(f"count of home list : {len(home_card_list)}")
             for home_card in home_card_list:
@@ -120,3 +156,4 @@ class OomsSpider(scrapy.Spider):
                 yield HomeRentalInfoScraperItem(home=home)
         except Exception as e:
             print(f"Error while parsing: {e}")    
+            traceback.print_exc()
