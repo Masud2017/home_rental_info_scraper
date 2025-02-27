@@ -6,7 +6,7 @@ import asyncio
 from home_rental_info_scraper.models.Home import Home
 from ..items import HomeRentalInfoScraperItem
 from home_rental_info_scraper.utils.util import parse_city_string
-# from home_rental_info_scraper.models.Home import Home
+import traceback
 
 
 class WoonzekerSpider(scrapy.Spider):
@@ -22,7 +22,7 @@ class WoonzekerSpider(scrapy.Spider):
                 "playwright": True,
                 "playwright_include_page": True,
                 "playwright_page_methods": [
-                    PageMethod("wait_for_selector", "div.property-cards__single", timeout=6000)
+                    PageMethod("wait_for_selector", "div.property.offer-card", timeout=6000)
                 ],
             },
             headers = {
@@ -37,37 +37,39 @@ class WoonzekerSpider(scrapy.Spider):
         
             while True:
                 data = await page.content()
-                home_card_list = Selector(text=data).xpath("//div[contains(@class, 'property-cards__single')]")
+                home_card_list = Selector(text=data).xpath("//div[contains(@class, 'property offer-card')]")
                 with open('log.txt', 'a', encoding='utf-8') as f:
                     f.write(str(len(home_card_list)))
 
                 print(f"count of home list : {len(home_card_list)}")
                 for home_card in home_card_list:
-                    url = "https://"+self.allowed_domains[0] + home_card.xpath(".//div[contains(@class,'property__body-container')]/a").attrib['href']
-                    image_url = home_card.xpath(".//div[contains(@class,  'property__image-container')]//div[contains(@class, 'property__image')]").get()
-                    regex_image_url = r'background-image:\s*url\(["\']?(.*?)["\']?\);'
-                    if image_url is not None:
-                        print(f"printing the image url : {image_url}")
-                        res = re.search(regex_image_url,image_url)
-                        if res is not None:
-                            image_url = res.group(1)
-                        else:
-                            image_url = ""
-                    # with open("log.txt", "w", encoding = "utf-8") as f:
-                    #     f.write(image_url)
-                    # image_url = re.search(r"background-image:\s*url\(&quot;(.*?)&quot;\);",image_url).group(1)
+                    url = "https://"+self.allowed_domains[0] + home_card.xpath("./a").attrib['href']
+                    image_url = home_card.xpath(".//div[contains(@class, 'offer-card__image')]//div[contains(@class,'property-images')]//div[contains(@class, 'gallery')]//div[contains(@class, 'q-carousel q-panel-parent q-carousel--without-padding gallery')]//div[contains(@class, 'q-carousel__slides-container')]//div[contains(@class ,'q-panel scroll')]//div[contains(@class,'q-carousel__slide asset-image')]/img").attrib["src"]
+                    # regex_image_url = r'background-image:\s*url\(["\']?(.*?)["\']?\);'
+                    # if image_url is not None:
+                    #     print(f"printing the image url : {image_url}")
+                    #     res = re.search(regex_image_url,image_url)
+                    #     if res is not None:
+                    #         image_url = res.group(1)
+                    #     else:
+                    #         image_url = ""
+                    
                     city = ""
-                    city = home_card.xpath(".//div[contains(@class, 'property__body-container')]//h1/text()").get()
+                    city = home_card.xpath(".//div[contains(@class , 'offer-card__content')]/div/div[1]/text()").get()
                     address = ""
-                    if city is None:
-                        address = city + "," +  (home_card.xpath(".//div[contains(@class, 'property__body-container')]//div[contains(@class , 'property__location')]/span[1]/text()").get() + home_card.xpath(".//div[contains(@class, 'property__body-container')]//div[contains(@class , 'property__location')]/span[2]/text()").get()) 
+                    if city is not None:
+                        address = (home_card.xpath(".//div[contains(@class , 'offer-card__content')]/h1/text()").get()) + ","+city
                         city = parse_city_string(city)
+                        if "\'" in city:
+                            city = city.replace("\'", "")
                         
-                    price = home_card.xpath(".//div[contains(@class, 'property__price')]/span[2]/text()").get()
-                    price = price.split(",")[0]
-                    price = price.split(" ")[1]
+                    price = home_card.xpath(".//div[contains(@class , 'offer-card__content')]/div/b/text()").get()
+                    if price is not None:
+                        price = price.split(" ")[1]
+                        price = price.replace(".", "")
+                        
                     agency = self.name
-                    room_count = home_card.xpath(".//div[contains(@class, 'property__details__rooms')]/span/text()").get()
+                    room_count = home_card.xpath(".//div[contains(@class , 'offer-card__content')]/div/div[2]/span[last()]/text()").get()
                     if room_count is not None:
                         room_count = room_count.strip()
                         room_count = room_count.split(" ")[0]
@@ -89,17 +91,18 @@ class WoonzekerSpider(scrapy.Spider):
                     
                     # next_page = Selector(text = data).xpath("//div[contains(@class , 'results__pagination')]//a[contains(@class, 'results__pagination__nav-next')]").get()
                     
-                has_next = response.meta["playwright_page"].locator("//li[contains(@class, 'pagination-item')]/button[contains(@aria-label, 'Go to next page')]")
+                has_next = response.meta["playwright_page"].locator("//button[contains(@aria-label, 'Go to next page')]")
                 disabled_var = await has_next.get_attribute("disabled")
                 print(f"Debugging the attribute from locator : {disabled_var}")
                 if (disabled_var != "disabled"):
                 
                     if await has_next.is_visible():
                         await has_next.click()
-                        await response.meta["playwright_page"].wait_for_selector("div.property-cards__single")  # Wait for new cards
+                        await response.meta["playwright_page"].wait_for_selector("div.property.offer-card")  # Wait for new cards
                     
                 else:
                     break
 
         except Exception as e:
             print(f"Error while parsing : {e}")
+            traceback.print_exc()
