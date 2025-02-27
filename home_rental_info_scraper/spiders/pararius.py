@@ -69,6 +69,7 @@ class ParariusSpider(scrapy.Spider):
                         print(f"Yoyuo")
                         price = price.strip()
                         price = price[2:]
+                        price = price.replace(".", "")
                     agency = self.name
                     room_count = home_card.xpath(".//ul[contains(@class, 'illustrated-features illustrated-features--compact')]/li[2]/text()").get()
                     if room_count is not None:

@@ -97,13 +97,23 @@ class BouwinvestSpider(scrapy.Spider):
                 print(f"Debugging the has next page for potential anomalies : {has_next}")
                 
                 if await has_next.is_visible():
+                    href_link = Selector(text = data).css("a.active.active-exact.pagination__arrow.pagination__next.icon-caret-right").attrib["href"]   
+                    print(f"Debugging the href link : {href_link}")
+                    
+                    
                     cls_next = await has_next.get_attribute("class")
                     print(f"debugging the next page : {cls_next}")
                     if cls_next == "active active-exact pagination__arrow pagination__next icon-caret-right":
                         await page.wait_for_timeout(3000)
-                        await has_next.click()
+                        try:
+                            await has_next.click()
+                        except Exception as e:
+                            print(f"Error while clicking the next page : {e}")
+                            
+                            print(f"Got an error while clicking the next page so retrying for one last time")
+                            await page.goto("https://www.wonenbijbouwinvest.nl/"+href_link)
                         
-                        await page.wait_for_timeout(4000)
+                        
                         # try:
                         #     await response.meta["playwright_page"].wait_for_selector("div.projectproperty-tile")  # Wait for new cards
                         # except Exception as e:
@@ -115,6 +125,4 @@ class BouwinvestSpider(scrapy.Spider):
         except Exception as e:
             print(f"Error while parsing : {e}")
             traceback.print_exc()
-            print(f"Halting to test the error: ")
-            time.sleep(1000000)
             

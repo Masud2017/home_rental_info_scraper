@@ -34,14 +34,18 @@ class OomsSpider(scrapy.Spider):
         async () => {{
             const scrollableDiv = true;
             if (scrollableDiv) {{
-                const totalHeight = document.body.scrollHeight;
+                var totalHeight = document.body.scrollHeight;
                 const step = totalHeight / 10; // Divide the scroll into 10 steps
                 let currentPosition = 0;
                 
                 while (currentPosition < totalHeight) {{
                     currentPosition += step;
-                    window.scrollBy(0, step);
+                    window.scrollBy(0, step/0.5);
                     await new Promise(resolve => setTimeout(resolve, 200));
+                    
+                    if (totalHeight < document.body.scrollHeight) {{
+                        totalHeight = document.body.scrollHeight;
+                    }}
                 }}
             }} else {{
                 console.error('Scrollable element not found!');

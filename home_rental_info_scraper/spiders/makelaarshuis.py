@@ -68,11 +68,14 @@ class MakelaarshuisSpider(scrapy.Spider):
                     image_url = home_card.xpath(".//a[contains(@class,'swiper-slide swiper-slide-active')]/img").get()
                     image_url_regex = r'data-srcset="([^"]+)"'
                     print(f"Debugging the image url : {image_url}")
-                    if(re.search(image_url_regex,image_url)):
-                        image_url = re.search(image_url_regex,image_url).group(1)
-                        image_url = image_url.strip()
-                        image_url = image_url.split(",")[0]
-                        image_url = image_url.split(" ")[0]
+                    if image_url is not None:
+                        if(re.search(image_url_regex,image_url)):
+                            image_url = re.search(image_url_regex,image_url).group(1)
+                            image_url = image_url.strip()
+                            image_url = image_url.split(",")[0]
+                            image_url = image_url.split(" ")[0]
+                        else:
+                            image_url = ""
                         
                     # if image_url is not None:
                     #     image_url = image_url.split(",")[0]
@@ -89,6 +92,7 @@ class MakelaarshuisSpider(scrapy.Spider):
                         city = parse_city_string(city)
                     price = home_card.xpath(".//div[contains(@class,'object__data')]//a[contains(@class , 'object__address-container')]//h3[contains(@class, 'object__address')]/span[3]/text()").get().strip()
                     if price is not None:
+                        price = price.split(",")[0]
                         price = price.replace(".", "")
                         price = price.replace(",", ".")
                     
