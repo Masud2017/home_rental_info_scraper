@@ -2,6 +2,7 @@ from home_rental_info_scraper.models.Home import Home
 from home_rental_info_scraper.config.db_handler import query_db
 from home_rental_info_scraper.utils import util
 from home_rental_info_scraper.config.email_handler import EmailHandler
+import traceback
 
 def exitsIn(scraped_home_item, old_home_list)-> bool:
     for old_home_item in old_home_list:
@@ -38,7 +39,9 @@ def save_new_homes(unique_home_list: Home) -> bool:
     # there will be a problem since the parameter is a str, inserting price value might invoke exception need to work on that
     try:
         # result = query_db("insert into homes(name, url, image_url) values %s)", params=[home_value_str])
-        result = query_db(util.get_home_persistance_query(unique_home_list))
+        # result = query_db(util.get_home_persistance_query(unique_home_list))
+        result = query_db("insert into homes(address,city, url, agency,date_added, price, image_url,room_count) values "+str([x.get_home_tuple() for x in unique_home_list]).strip('[]'))
+        print(f"Debugging the result : {result}")
         
         if result is not None:
             return True
@@ -47,6 +50,7 @@ def save_new_homes(unique_home_list: Home) -> bool:
         
     except Exception as e:
         print(f"Found error : {e}")
+        traceback.print_exc()
         return False
     
 def send_email_notification_on_user_preferences(unique_home_list:list[Home]):

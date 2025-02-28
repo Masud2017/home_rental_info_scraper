@@ -30,6 +30,36 @@ class Home:
                self.room_count == other["room_count"]:
                 return True
         return False
+    def get_home_tuple(self):
+        def escape_string(s: str) -> str:
+            return s.replace("'", "\\'").replace('"', '\\"')
+
+        address = escape_string(self.address if self.address is not None else "")
+        city = escape_string(self.city if self.city is not None else "")
+        url = escape_string(self.url if self.url is not None else "")
+        agency = escape_string(self.agency if self.agency is not None else "")
+        price = self.price if self.price is not None else 0
+        image_url = escape_string(self.image_url if self.image_url is not None else "")
+        room_count = self.room_count if self.room_count is not None else 0
+        print(f"Address: {address}")
+        print(f"City: {city}")
+        print(f"URL: {url}")
+        print(f"Agency: {agency}")
+        print(f"Price: {price}")
+        print(f"Image URL: {image_url}")
+        print(f"Room Count: {room_count}")
+        return (
+            str(address), 
+            str(city), 
+            str(url), 
+            str(agency), 
+            str(self.date_added), 
+            str(price), 
+            str(image_url), 
+            str(room_count)
+        )
+        
+        
     @property
     def room_count(self) -> int:
         return self._room_count

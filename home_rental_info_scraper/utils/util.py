@@ -61,6 +61,6 @@ def parse_city_string(address):
 
 
 if __name__ == "__main__":
-    address = "Carnegielaan 78 ,2517 KH, 'S-GRAVENHAGE"
+    address = "Ring road-Kruiskamp 90 L,Amersfoort"
     city = parse_city_string(address)
     print(city)  # Output: The Hague ('s-Gravenhage)
