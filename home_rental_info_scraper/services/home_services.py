@@ -56,15 +56,18 @@ def send_email_notification_on_user_preferences(unique_home_list:list[Home]):
         if user_item["email"] == "msmasud578@gmail.com":
             search_pref = query_db("select * from search_preferences where user_id=%s", params=[str(user_item["id"])],fetchOne=True)
             if search_pref is not None:
+                if search_pref["cities"] == None:
+                    search_pref["cities"] = []
                 sendable_home_list = list()
                 for home_item in unique_home_list:
                     if (int(home_item.price) >= int(search_pref["min_price"]) and
                         int(home_item.price) <= int(search_pref["max_price"])) and\
-                        home_item.city.lower() == search_pref["city"].lower() and \
+                        home_item.city == search_pref["cities"] and \
                         int(home_item.room_count) >= int(search_pref["min_rooms"]) and \
                         int(home_item.room_count) <= int(search_pref["max_rooms"]):
                         sendable_home_list.append(home_item)
                 print(f"Size of sendable home list : {sendable_home_list}")
-                email_message = email_handler.generate_email_message(sendable_home_list)
-                email_handler.send_single_email(user_item["email"],"Home list notification", email_message)
+                if len(sendable_home_list) > 0:
+                    email_message = email_handler.generate_email_message(sendable_home_list)
+                    email_handler.send_single_email(user_item["email"],"Home list notification", email_message)
         

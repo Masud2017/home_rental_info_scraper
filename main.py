@@ -47,5 +47,5 @@ if result is not None:
     unique_home_list = get_unique_home_list(home_list)
     print(f"printing the size of unique home_list {len(unique_home_list)}")
     if len(unique_home_list) > 0:
-        # send_email_notification_on_user_preferences(unique_home_list)
-        save_new_homes(unique_home_list=unique_home_list)
+        send_email_notification_on_user_preferences(unique_home_list)
+        # save_new_homes(unique_home_list=unique_home_list)

@@ -9,8 +9,8 @@ from .secrets import MAIL_GUN_API
 
 class EmailHandler:
     def __init__(self):
-        self.MAILGUN_API_URL = "https://api.mailgun.net/v3/sandbox9663794f3e4d4009a9dde37a6db4dc45.mailgun.org/messages"
-        self.FROM_EMAIL_ADDRESS = "Mailgun Sandbox <postmaster@sandbox9663794f3e4d4009a9dde37a6db4dc45.mailgun.org>"
+        self.MAILGUN_API_URL = "https://api.mailgun.net/v3/sandbox425b650e53b54c2890dd4cc80f3499cc.mailgun.org/messages"
+        self.FROM_EMAIL_ADDRESS = "Mailgun Sandbox <postmaster@sandbox425b650e53b54c2890dd4cc80f3499cc.mailgun.org>"
     
     def generate_email_message(self, homes):
         home_cards = "".join(f'''
