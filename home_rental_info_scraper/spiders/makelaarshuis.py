@@ -103,6 +103,8 @@ class MakelaarshuisSpider(scrapy.Spider):
                     if price is not None:
                         price = price.split(",")[0]
                         price = price[2:]
+                    else:
+                        price = "0"
                         
                     agency = self.name
                     

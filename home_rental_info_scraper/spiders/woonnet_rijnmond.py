@@ -85,6 +85,8 @@ class WoonnetRijnmondSpider(scrapy.Spider):
                         price = price.replace(".", "")
                     if "," in price:
                         price = price.replace(",", ".")
+                else:
+                    price = "0"
                 agency = self.name
                 room_count = home_card.xpath(".//div[contains(@class, 'box__text  ellipsis')]/text()").get()
                 if room_count is not None:

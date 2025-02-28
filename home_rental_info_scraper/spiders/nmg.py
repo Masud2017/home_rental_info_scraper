@@ -69,6 +69,8 @@ class NmgSpider(scrapy.Spider):
                         price = price.split(",")[0]
                         price = price.replace(".","")
                         price = price.replace(",",".")
+                    else:
+                        price = "0"
                     agency = self.name
                     room_count = home_card.xpath("//ul[contains(@class ,'house__list u-center')]/li[last()]/span[2]/text()").get()
                     if room_count is not None:

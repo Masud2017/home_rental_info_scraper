@@ -54,6 +54,8 @@ class IkwilhurenSpider(scrapy.Spider):
                         price = price.split(",")[0]
                         price = price[2:]
                         price = price.replace(".", "")
+                    else:
+                        price = "0"
                     agency = self.name
                     room_count = home_card.xpath("//div[contains(@class, 'card-body d-flex flex-column')]/div/span[3]/text()").get()
                     

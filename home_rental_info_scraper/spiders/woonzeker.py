@@ -67,6 +67,8 @@ class WoonzekerSpider(scrapy.Spider):
                     if price is not None:
                         price = price.split(" ")[1]
                         price = price.replace(".", "")
+                    else:
+                        price = "0"
                         
                     agency = self.name
                     room_count = home_card.xpath(".//div[contains(@class , 'offer-card__content')]/div/div[2]/span[last()]/text()").get()

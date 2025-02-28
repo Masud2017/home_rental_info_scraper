@@ -132,6 +132,8 @@ class AlliantieSpider(scrapy.Spider):
                         price = price.split(" ")[0][1:]
                         # price = price.replace(".", "")
                         price = price.replace(",","")
+                    else:
+                        price = "0"
                     agency = self.name
                     
                     print(f"url : {url}")

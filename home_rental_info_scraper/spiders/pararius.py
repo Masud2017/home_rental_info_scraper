@@ -64,12 +64,15 @@ class ParariusSpider(scrapy.Spider):
                         address = address + "," + city
                     price = home_card.xpath(".//div[contains(@class,  'listing-search-item__content')]//div[contains(@class ,'listing-search-item__price')]/text()").get().strip()
                     print(f"Debugging the price {price}")
-                    price = price.split(" ")[0]
-                    if len(price) > 0:
-                        print(f"Yoyuo")
-                        price = price.strip()
-                        price = price[2:]
-                        price = price.replace(".", "")
+                    if price is not None:
+                        price = price.split(" ")[0]
+                        if len(price) > 0:
+                            print(f"Yoyuo")
+                            price = price.strip()
+                            price = price[2:]
+                            price = price.replace(".", "")
+                    else:
+                        price = "0"
                     agency = self.name
                     room_count = home_card.xpath(".//ul[contains(@class, 'illustrated-features illustrated-features--compact')]/li[2]/text()").get()
                     if room_count is not None:

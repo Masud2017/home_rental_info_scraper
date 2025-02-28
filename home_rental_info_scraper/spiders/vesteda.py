@@ -57,6 +57,8 @@ class VestedaSpider(scrapy.Spider):
                         price = price.replace(".", "")
                     if "," in price:
                         price = price.replace(",", ".")
+                else:
+                    price = "0"
                 agency = "Vesteda"
                 room_count = home_card.xpath(".//ul[contains(@class, 'o-layout o-layout-gap o-layout--gutter-tiny')]/li[2]/b/text()").get()
                 

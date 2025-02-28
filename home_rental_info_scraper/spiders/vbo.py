@@ -61,6 +61,8 @@ class VboSpider(scrapy.Spider):
                         price = price.split(",")[0]
                         price = price.replace(".", "")
                         price = price.replace(",", ".")
+                    else:
+                        price = "0"
                     agency = self.name
                     room_count = home_card.xpath("//div[contains(@class, 'bottom d-none d-md-block')]/ul/li[last()]/text()").get()
                     if room_count is not None:
