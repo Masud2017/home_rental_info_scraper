@@ -17,9 +17,9 @@ DOWNLOAD_HANDLERS = {
     "http": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
     "https": "scrapy_playwright.handler.ScrapyPlaywrightDownloadHandler",
 }
-CONCURRENT_SPIDERS = 3
+
 PLAYWRIGHT_LAUNCH_OPTIONS = {
-    "headless": False,
+    # "headless": False,
 }
 PLAYWRIGHT_BROWSER_TYPE = "firefox"
 # PLAYWRIGHT_CONTEXTS={
