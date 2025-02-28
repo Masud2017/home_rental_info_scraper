@@ -1,12 +1,28 @@
-FROM mcr.microsoft.com/playwright:v1.50.0-noble
-WORKDIR /app
-COPY . /app/
+FROM mcr.microsoft.com/playwright
+RUN apt-get update && \
+    apt-get install -y software-properties-common && \
+    add-apt-repository -y ppa:deadsnakes/ppa && \
+    apt-get update && \
+    apt-get install -y python3.10
+RUN  apt install python3-pip -y
+RUN  apt-get update && apt-get install -y default-libmysqlclient-dev
+RUN apt-get install -y build-essential
+# RUN pip3 install mysql-python
 
-RUN apt-get update && apt-get install -y \
-    python3 \
-    python3-pip
+WORKDIR /app
+ADD . /app
+
+COPY requirements.txt /tmp/requirements.txt
 
 RUN pip3 install -r requirements.txt
-RUN python3 -m playwright install
-# RUN echo "*/2 * * * * root /usr/local/bin/python3 /app/main.py > /proc/1/fd/1 2>/proc/1/fd/2" >> /etc/crontab
-CMD ["python", "main.py"]
+
+
+# ADD xvfb_init /etc/init.d/xvfb
+# RUN chmod a+x /etc/init.d/xvfb
+
+RUN playwright install
+RUN playwright install-deps
+
+
+# CMD ["flask","run","-h","0.0.0.0","-p",$PORT]
+CMD ["python3","main.py"]
