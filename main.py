@@ -4,6 +4,7 @@ from scrapy.signalmanager import dispatcher
 from scrapy.utils.project import get_project_settings
 from home_rental_info_scraper.spiders import alliantie,antares,atta,bouwinvest,dewoningzoeker,frieslandhuurt,hollandrijnland,hwwonen,ikwilhuren,klikvoorwonen,makelaarshuis,mercatus_aanbod,mosaic_plaza,nmg,noordveluwe,ooms,oostwestwonen,pararius,studentenenschede,svnk,thuisindeachterhoek,thuisinlimburg,thuiskompas,thuispoort,thuispoortstudenten,vbo,vesteda,woninghuren,woninginzicht,wooniezie,woonkeusstedendriehoek,woonnet_rijnmond,woonnethaaglanden,woontij,woonzeker,zuidwestwonen
 from home_rental_info_scraper.services.home_services import get_unique_home_list,save_new_homes,send_email_notification_on_user_preferences
+import logging
 
 
 
@@ -75,12 +76,12 @@ if result is not None:
     for item in result:
         home_list.append(item["home"])
         
-    print(f"checking the home list :{home_list[0].address}")
+    logging.info(f"checking the home list :{home_list[0].address}")
     unique_home_list = get_unique_home_list(home_list)
-    print(f"printing the size of unique home_list {len(unique_home_list)}")
+    logging.info(f"printing the size of unique home_list {len(unique_home_list)}")
     if len(unique_home_list) > 0:
         send_email_notification_on_user_preferences(unique_home_list)
         if save_new_homes(unique_home_list=unique_home_list):
-            print("New home list added to the database..")
+            logging.info("New home list added to the database..")
         else:
-            print("Something went wrong while trying to save home list to the database")
+            logging.info("Something went wrong while trying to save home list to the database")
