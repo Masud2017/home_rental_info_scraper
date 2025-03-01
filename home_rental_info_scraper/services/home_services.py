@@ -90,6 +90,9 @@ def send_email_notification_on_user_preferences(unique_home_list:list[Home]):
                             sendable_home_list.append(home_item)
                 print(f"Size of sendable home list : {sendable_home_list}")
                 if len(sendable_home_list) > 0:
+                    # filtering the sendable_home_list
+                    sendable_home_list = util.filter_sendable_home_list(sendable_home_list)
+                    # filtering section ended
                     email_message = email_handler.generate_email_message(sendable_home_list)
                     email_handler.send_single_email(user_item["email"],"Home list notification", email_message)
             
