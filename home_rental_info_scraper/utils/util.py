@@ -1,3 +1,5 @@
+from home_rental_info_scraper.models.Home import Home
+
 def get_home_persistance_query(tuple_list:list[tuple]):
     string = "insert into homes(address,city, url, agency,date_added, price, image_url,room_count) values"
     for idx in range(0, len(tuple_list)):
@@ -11,7 +13,7 @@ def get_home_persistance_query(tuple_list:list[tuple]):
     return string
 
 
-def parse_city_string(city_string: str):
+def parse_city_string(city_string: str) -> str:
     cities_netherlands = [
         # North Holland (Noord-Holland)
         "Amsterdam", "Haarlem", "Alkmaar", "Zaandam", "Hilversum", "Hoorn",
@@ -48,6 +50,21 @@ def parse_city_string(city_string: str):
     return city_string.split(" ")[-1]
 
 
+def filter_sendable_home_list(sendable_home_list:list) -> list | None:
+    filtered_home_list = []
+    
+    for home_item in sendable_home_list:
+        if len(home_item.city) > 0 and \
+            len(home_item.address) > 0 and \
+            len(home_item.price) > 0 and \
+            len(home_item.url) > 0 and\
+            len(home_item.image_url) > 0 and \
+            len(home_item.agency) > 0 and\
+            len(home_item.room_count) > 0:
+            filtered_home_list.append(home_item)
+            
+    return filtered_home_list
+            
 
 # from geopy.geocoders import Nominatim
 # def parse_city_string(address):
