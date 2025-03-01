@@ -7,7 +7,7 @@ import traceback
 def exitsIn(scraped_home_item, old_home_list)-> bool:
     for old_home_item in old_home_list:
         if scraped_home_item.address == old_home_item["address"] and \
-        int(scraped_home_item.price) == int(old_home_item["price"]) and \
+        util.parse_price_based_on_base(scraped_home_item.price) == util.parse_price_based_on_base(str(old_home_item["price"])) and \
         scraped_home_item.city  == old_home_item["city"] and \
         scraped_home_item.url == old_home_item["url"] and \
         scraped_home_item.agency == old_home_item["agency"] and \
