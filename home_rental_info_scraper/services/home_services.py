@@ -34,14 +34,22 @@ def get_unique_home_list(scraped_home_list : Home)-> list[Home]:
 
     
 def save_new_homes(unique_home_list: Home) -> bool:
-    # home_value_str = util.convert_tuple_list_to_str(unique_home_list)
-    
-    # there will be a problem since the parameter is a str, inserting price value might invoke exception need to work on that
     try:
         # result = query_db("insert into homes(name, url, image_url) values %s)", params=[home_value_str])
         # result = query_db(util.get_home_persistance_query(unique_home_list))
-        result = query_db("insert into homes(address,city, url, agency,date_added, price, image_url,room_count) values "+str([x.get_home_tuple() for x in unique_home_list]).strip('[]'))
-        print(f"Debugging the result : {result}")
+        query = ""
+        for tuple_item in unique_home_list:
+            temp_str = str(tuple_item.get_home_tuple()).strip('[]')
+            if len(query) == 0:
+                query = temp_str
+            query = query + "," + temp_str
+                
+        
+        # result = query_db("insert into homes(address,city, url, agency,date_added, price, image_url,room_count) values "+str([x.get_home_tuple() for x in unique_home_list]).strip('[]'))
+        qr = "insert into homes(address,city, url, agency,date_added, price, image_url,room_count) values "+query
+        print(f"Debugging the result : {qr}")
+        result = query_db(qr)
+        
         
         if result is not None:
             return True
@@ -64,14 +72,24 @@ def send_email_notification_on_user_preferences(unique_home_list:list[Home]):
                     search_pref["cities"] = []
                 sendable_home_list = list()
                 for home_item in unique_home_list:
-                    if (int(home_item.price) >= int(search_pref["min_price"]) and
-                        int(home_item.price) <= int(search_pref["max_price"])) and\
-                        home_item.city == search_pref["cities"] and \
+                    price = None
+                    if home_item.price is not None:
+                        if "." in home_item.price:
+                            price = float(home_item.price)
+                        else:
+                            price = int(home_item.price)
+                            
+                    if home_item.city == None:
+                        home_item.city = ""
+                    
+                    if (price >= int(search_pref["min_price"]) and
+                        price <= int(search_pref["max_price"])) and\
+                        home_item.city.casefold() in search_pref["cities"] and \
                         int(home_item.room_count) >= int(search_pref["min_rooms"]) and \
                         int(home_item.room_count) <= int(search_pref["max_rooms"]):
-                        sendable_home_list.append(home_item)
+                            sendable_home_list.append(home_item)
                 print(f"Size of sendable home list : {sendable_home_list}")
                 if len(sendable_home_list) > 0:
                     email_message = email_handler.generate_email_message(sendable_home_list)
                     email_handler.send_single_email(user_item["email"],"Home list notification", email_message)
-        
+            

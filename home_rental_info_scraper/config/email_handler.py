@@ -81,8 +81,9 @@ class EmailHandler:
                     "from": self.FROM_EMAIL_ADDRESS,
                     "to": to_address,
                     "subject": subject,
-                    "text": message,
-                    "html": message
+                    # "text": message,
+                    "html": message,
+                    "v:name": "TEst name"
                 }
             )
             if resp.status_code == 200:

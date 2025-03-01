@@ -2,7 +2,7 @@ from datetime import datetime
 import re
 
 class Home:
-    def __init__(self, address: str = '', city: str = '', url: str = '', agency: str = '', price: int = -1, image_url: str = '', room_count:int = 1) -> None:
+    def __init__(self, address: str = '', city: str = '', url: str = '', agency: str = '', price: str = -1, image_url: str = '', room_count:int = 1) -> None:
         self.address = address
         self.city = city
         self.url = url
@@ -32,7 +32,7 @@ class Home:
         return False
     def get_home_tuple(self):
         def escape_string(s: str) -> str:
-            return s.replace("'", "\\'").replace('"', '\\"')
+            return s.replace("'", "")
 
         address = escape_string(self.address if self.address is not None else "")
         city = escape_string(self.city if self.city is not None else "")
