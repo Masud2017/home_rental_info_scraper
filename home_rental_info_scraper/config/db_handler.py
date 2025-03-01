@@ -11,6 +11,8 @@ def query_db(query: str, params: list[str] = [], fetchOne: bool = False) -> list
                             port=DB["port"])
     
     cursor = db.cursor(cursor_factory=RealDictCursor)
+    print(f"Printing the query  {query}")
+    print(f"Printing the query  {params}")
     cursor.execute(query, params)
     
     # Try, because not all queries will return data

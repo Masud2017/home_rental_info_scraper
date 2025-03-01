@@ -35,22 +35,13 @@ def get_unique_home_list(scraped_home_list : Home)-> list[Home]:
     
 def save_new_homes(unique_home_list: Home) -> bool:
     try:
-        # result = query_db("insert into homes(name, url, image_url) values %s)", params=[home_value_str])
-        # result = query_db(util.get_home_persistance_query(unique_home_list))
-        query = ""
-        for tuple_item in unique_home_list:
-            temp_str = str(tuple_item.get_home_tuple()).strip('[]')
-            if len(query) == 0:
-                query = temp_str
-            query = query + "," + temp_str
-                
+        # result = query_db("insert into homes(address,city, url, agency,date_added, price, image_url,room_count) values %s", params=[str([x.get_home_tuple() for x in unique_home_list]).strip('[]')])
+        query_st = "insert into homes(address,city, url, agency,date_added, price, image_url,room_count) values "
+        place_holder = ",".join(['%s']*len(unique_home_list))
+        query_st = query_st + place_holder
+        result = query_db(query_st, params=[x.get_home_tuple() for x in unique_home_list])
         
-        # result = query_db("insert into homes(address,city, url, agency,date_added, price, image_url,room_count) values "+str([x.get_home_tuple() for x in unique_home_list]).strip('[]'))
-        qr = "insert into homes(address,city, url, agency,date_added, price, image_url,room_count) values "+query
-        print(f"Debugging the result : {qr}")
-        result = query_db(qr)
-        
-        
+
         if result is not None:
             return True
         else:

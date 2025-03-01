@@ -1,6 +1,6 @@
 import unittest
 from home_rental_info_scraper.models.Home import Home
-from home_rental_info_scraper.utils.util import filter_sendable_home_list
+from home_rental_info_scraper.utils.util import filter_sendable_home_list, parse_price_based_on_base
 
 
 class TestUtil(unittest.TestCase):
@@ -22,6 +22,19 @@ class TestUtil(unittest.TestCase):
         
         self.assertEqual(len(expected), len(actual))
         
+    
+    def test_parse_price_based_on_base(self):
+        source_float = "223.35"
+        source_int = "343"
+        
+        expected_float = 223.35
+        expected_int = 343
+        
+        actual_float = parse_price_based_on_base(source_float)
+        actual_int = parse_price_based_on_base(source_int)
+        
+        self.assertEqual(expected_float,actual_float)
+        self.assertEqual(expected_int,actual_int)
     
 if __name__ == "__main__":
     unittest.main()

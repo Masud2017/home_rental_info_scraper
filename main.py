@@ -6,7 +6,8 @@ from home_rental_info_scraper.spiders import alliantie,antares,atta,bouwinvest,d
 from home_rental_info_scraper.services.home_services import get_unique_home_list,save_new_homes,send_email_notification_on_user_preferences
 import logging
 from home_rental_info_scraper.models.Home import Home
-
+import json
+import jsonpickle
 
 
 def spider_results():
@@ -93,6 +94,12 @@ try:
         unique_home_list = get_unique_home_list(home_list)
         logging.info(f"printing the size of unique home_list {len(unique_home_list)}")
         if len(unique_home_list) > 0:
+            # saving the generated data 
+            # data = json.dumps(unique_home_list)
+            data = jsonpickle.encode(unique_home_list, unpicklable=False)
+            with open("log2.json", "w") as f:
+                f.write(data)
+            # ended
             send_email_notification_on_user_preferences(unique_home_list)
             if save_new_homes(unique_home_list=unique_home_list):
                 logging.info("New home list added to the database..")

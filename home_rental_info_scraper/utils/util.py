@@ -66,6 +66,12 @@ def filter_sendable_home_list(sendable_home_list:list) -> list | None:
     return filtered_home_list
             
 
+def parse_price_based_on_base(price_str) -> int | float:
+    if "." in price_str:
+        return float(price_str)
+    else:
+        return int(price_str)
+
 # from geopy.geocoders import Nominatim
 # def parse_city_string(address):
 #     geolocator = Nominatim(user_agent="city_finder")
