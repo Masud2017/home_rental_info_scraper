@@ -9,7 +9,7 @@ from home_rental_info_scraper.models.Home import Home
 import json
 import jsonpickle
 import traceback
-import asyncio
+
 
 def spider_results():
     try:
@@ -44,22 +44,7 @@ def spider_results():
             for crawler in process.crawlers:
                 crawler.signals.connect(crawler_results, signal = signals.item_passed)
         
-            # # The commented code block you provided is checking if the current event loop being used
-            # is the `ProactorEventLoop` on Windows. If it is, then it sets the event loop policy to
-            # use the `WindowsSelectorEventLoopPolicy` instead.
-            # if asyncio.windows_events.ProactorEventLoop is asyncio.get_event_loop_policy().get_event_loop().__class__:
-            #     asyncio.set_event_loop_policy(asyncio.WindowsSelectorEventLoopPolicy())
-            process.start()
-            
-            
-            break
-        
-        # process = CrawlerProcess(get_project_settings())
-        # process.crawl(spider_list[0][0])
-        # for crawler in process.crawlers:
-        #     crawler.signals.connect(crawler_results, signal = signals.item_passed)
-        # process.start()
-        
+            process.start(stop_after_crawl=False)
         return results
     except Exception as e:
         print(f"Error in spider_results : {e}")
@@ -93,6 +78,8 @@ try:
                 logging.info("New home list added to the database..")
             else:
                 logging.info("Something went wrong while trying to save home list to the database")
+    else:
+        print("Something went wrong the scraper couldn't scrap info.")
 except Exception as e:
     print(f"Exception happend while executing scraping operation.")
     import traceback; traceback.print_exc();

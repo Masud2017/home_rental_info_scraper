@@ -1,9 +1,12 @@
 import logging
 import requests
-import re
+import json
 from home_rental_info_scraper.models.Home import Home
 from ..config.db_handler import query_db
 from .secrets import MAIL_GUN_API
+import traceback
+import jsonpickle
+from home_rental_info_scraper.config.fire_store_handler import db,db_url
 
 
 
@@ -15,6 +18,7 @@ class EmailHandler:
     def generate_email_message(self, homes):
         home_cards = "".join(f'''
             <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-bottom: 20px; border: 1px solid #ddd; border-radius: 4px; max-width: 600px;">
+            
                 <tr>
                     <td style="padding: 10px; vertical-align: top;">
                         <img src="{home.image_url}" alt="Home Image" style="display: block; width: 100px; height: 100px; border-radius: 4px; margin-right: 10px;" />
@@ -71,8 +75,16 @@ class EmailHandler:
 
 
     
-    def send_single_email(self, to_address: str, subject: str, message: str):
+    def send_single_email(self, to_address: str, subject: str, message: str, home_list : list = {}, home_count:int = 0):
         try:
+            home_list_json_data = json.dumps(jsonpickle.encode({"home_list": home_list, "home_count":str(home_count)}, unpicklable=False),)
+            doc = db.collection("home_list").document()
+            doc.set({"data" : home_list_json_data})
+            new_doc_id = doc.id
+            new_db_url = db_url + new_doc_id
+            
+            print(f"Printing newly generated firestore url : {new_db_url}")
+            
             api_key = MAIL_GUN_API
             resp = requests.post(
                 self.MAILGUN_API_URL,
@@ -81,9 +93,13 @@ class EmailHandler:
                     "from": self.FROM_EMAIL_ADDRESS,
                     "to": to_address,
                     "subject": subject,
-                    # "text": message,
-                    "html": message,
-                    "v:name": "TEst name"
+                    "text": message,
+                    # "html": message,
+                    "template": "home rental info notification",
+                    # "h:X-Mailgun-Variables": jsonpickle.encode({"home_list": home_list, "home_count":str(home_count)}, unpicklable=False),
+                    "v:home_count": home_count,
+                    "v:home_list_json_resource" : new_db_url
+                    # "X-Mailgun-Template-Variables": '{"test": "test"}'
                 }
             )
             if resp.status_code == 200:
@@ -92,6 +108,7 @@ class EmailHandler:
                 logging.error(f"Could not send the email, reason: {resp.text}")
         except Exception as ex:
             logging.exception(f"Mailgun error: {ex}")
+            traceback.print_exc()
 
 # if __name__ == "__main__":
 #     email_handler = EmailHandler()

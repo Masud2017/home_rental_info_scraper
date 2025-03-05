@@ -42,10 +42,7 @@ def save_new_homes(unique_home_list: Home) -> bool:
         result = query_db(query_st, params=[x.get_home_tuple() for x in unique_home_list])
         
 
-        if result is not None:
-            return True
-        else:
-            return False
+        return True
         
     except Exception as e:
         print(f"Found error : {e}")
@@ -85,5 +82,5 @@ def send_email_notification_on_user_preferences(unique_home_list:list[Home]):
                     sendable_home_list = util.filter_sendable_home_list(sendable_home_list)
                     # filtering section ended
                     email_message = email_handler.generate_email_message(sendable_home_list)
-                    email_handler.send_single_email(user_item["email"],"Home list notification", email_message)
+                    email_handler.send_single_email(user_item["email"],"Home list notification", email_message,home_list=unique_home_list, home_count= len(unique_home_list))
             
