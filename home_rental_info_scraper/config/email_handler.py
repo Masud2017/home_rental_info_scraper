@@ -12,8 +12,8 @@ from home_rental_info_scraper.config.fire_store_handler import db,db_url
 
 class EmailHandler:
     def __init__(self):
-        self.MAILGUN_API_URL = "https://api.mailgun.net/v3/sandbox425b650e53b54c2890dd4cc80f3499cc.mailgun.org/messages"
-        self.FROM_EMAIL_ADDRESS = "Mailgun Sandbox <postmaster@sandbox425b650e53b54c2890dd4cc80f3499cc.mailgun.org>"
+        self.MAILGUN_API_URL = "https://api.mailgun.net/v3/notification.rentalhunternl.online/messages"
+        self.FROM_EMAIL_ADDRESS = "Rental hunter nl <rental_hunter_nl@notification.rentalhunternl.online>"
     
     def generate_email_message(self, homes):
         home_cards = "".join(f'''
@@ -77,7 +77,7 @@ class EmailHandler:
     
     def send_single_email(self, to_address: str, subject: str, message: str, home_list : list = {}, home_count:int = 0):
         try:
-            home_list_json_data = json.dumps(jsonpickle.encode({"home_list": home_list, "home_count":str(home_count)}, unpicklable=False),)
+            home_list_json_data = jsonpickle.encode({"home_list": home_list, "home_count":str(home_count)}, unpicklable=False)
             doc = db.collection("home_list").document()
             doc.set({"data" : home_list_json_data})
             new_doc_id = doc.id
@@ -96,9 +96,9 @@ class EmailHandler:
                     "text": message,
                     # "html": message,
                     "template": "home rental info notification",
-                    # "h:X-Mailgun-Variables": jsonpickle.encode({"home_list": home_list, "home_count":str(home_count)}, unpicklable=False),
-                    "v:home_count": home_count,
-                    "v:home_list_json_resource" : new_db_url
+                    "h:X-Mailgun-Variables": jsonpickle.encode({"home_list": home_list, "home_count":str(home_count)}, unpicklable=False),
+                    # "v:home_count": home_count,
+                    # "v:home_list_json_resource" : requests.get(new_db_url).json()
                     # "X-Mailgun-Template-Variables": '{"test": "test"}'
                 }
             )

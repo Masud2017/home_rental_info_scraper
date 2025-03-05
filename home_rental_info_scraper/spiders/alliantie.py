@@ -115,7 +115,9 @@ class AlliantieSpider(scrapy.Spider):
                 #     f.write(home_card_list.get())
                 print(f"count of home list : {len(home_card_list)}")
                 for home_card in home_card_list:
-                    url = self.allowed_domains[0] + home_card.xpath("./a").attrib['href']
+                    url = self.allowed_domains[0]+"/" + home_card.xpath("./a").attrib['href']
+                    url = url.replace(" ", "%20")
+                    
                     image_url = self.allowed_domains[0] + home_card.xpath(".//div[contains(@class, 'result__picture__slide slick-slide slick-current slick-active')]/img").attrib["src"]
                     city = ""
                     city = home_card.xpath(".//p[contains(@class, 'result__info__footer')]/span[1]/font/font/text()").get().strip()
