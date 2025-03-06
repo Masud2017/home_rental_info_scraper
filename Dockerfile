@@ -22,8 +22,8 @@ RUN pip3 install -r requirements.txt
 
 RUN playwright install
 RUN playwright install-deps
-RUN chmod +x /run_batches.sh
+RUN chmod +x run_batches.sh
 
 
 # CMD ["flask","run","-h","0.0.0.0","-p",$PORT]
-CMD ["/bin/bash", "/run_batches.sh"]
+CMD ["/bin/bash", "run_batches.sh"]
