@@ -39,6 +39,8 @@ class Home:
         url = escape_string(self.url if self.url is not None else "")
         agency = escape_string(self.agency if self.agency is not None else "")
         price = self.price if self.price is not None else 0
+        if self.price == '':
+            price = 0
         image_url = escape_string(self.image_url if self.image_url is not None else "")
         room_count = self.room_count if self.room_count is not None else 0
         print(f"Address: {address}")
