@@ -39,7 +39,11 @@ class IkwilhurenSpider(scrapy.Spider):
                 home_card_list = Selector(text=data).xpath("//div[contains(@class, 'card card-woning shadow-sm rounded-5 rounded-end-0 rounded-bottom-0 overflow-hidden flex-grow-1')]")
                 print(f"Total Home Cards : {len(home_card_list)}")
                 for home_card in home_card_list:
-                    url = self.allowed_domains[0] + home_card.xpath(".//a[contains(@class, 'stretched-link')]").attrib['href']
+                    url = home_card.xpath(".//a[contains(@class, 'stretched-link')]").attrib['href']
+                    if "https://" in url:
+                        continue
+                    else:
+                        url = self.allowed_domains[0] + home_card.xpath(".//a[contains(@class, 'stretched-link')]").attrib['href']
 
                     image_url = home_card.xpath(".//div[contains(@class, 'card-img-top')]/div[2]/picture/img").attrib['src']
                     if len(image_url) > 2:

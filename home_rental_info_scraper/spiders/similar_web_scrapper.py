@@ -11,7 +11,7 @@ class SimilarWebScrapper(scrapy.Spider):
         page_method_list = list()
         if self.name == "woninginzicht":
             page_method_list.append(PageMethod("click", "//button[contains(@id , 'CybotCookiebotDialogBodyLevelButtonLevelOptinAllowAll')]"))
-        page_method_list.append(PageMethod("wait_for_selector", "div.list-item-content", timeout=6000),)
+        page_method_list.append(PageMethod("wait_for_selector", "div.list-item-content", timeout=36000),)
         
         yield scrapy.Request(
             url=self.start_urls[0],
