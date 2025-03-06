@@ -85,6 +85,8 @@ def filter_sendable_home_list(sendable_home_list:list) -> list | None:
 def parse_price_based_on_base(price_str) -> int | float:
     if "." in price_str:
         return float(price_str)
+    elif price_str == '':
+        return 0
     else:
         return int(price_str)
 
