@@ -90,7 +90,7 @@ class AlliantieSpider(scrapy.Spider):
                 while (currentPosition < totalHeight) {{
                     currentPosition += step;
                     scrollableDiv.scrollBy(0, step);
-                    await new Promise(resolve => setTimeout(resolve, 200));
+                    await new Promise(resolve => setTimeout(resolve, 1500));
                 }}
             }} else {{
                 console.error('Scrollable element not found!');
