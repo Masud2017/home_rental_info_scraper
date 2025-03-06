@@ -53,7 +53,23 @@ def parse_city_string(city_string: str) -> str:
 def filter_sendable_home_list(sendable_home_list:list) -> list | None:
     filtered_home_list = []
     
+    
     for home_item in sendable_home_list:
+        if home_item.price is None:
+            home_item.price = 0
+        if home_item.city is None:
+            home_item.city = ""
+        if home_item.address is None:
+            home_item.address = ""
+        if home_item.url is None:
+            home_item.url = ""
+        if home_item.image_url is None:
+            home_item.image_url = ""
+        if home_item.agency is None:
+            home_item.agency = ""
+        if home_item.room_count is None:
+            home_item.room_count = 0
+            
         if len(home_item.city) > 0 and \
             len(home_item.address) > 0 and \
             len(home_item.price) > 0 and \

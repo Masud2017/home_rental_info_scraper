@@ -21,7 +21,7 @@ DOWNLOAD_HANDLERS = {
 PLAYWRIGHT_LAUNCH_OPTIONS = {
     # "headless": False,
 }
-PLAYWRIGHT_BROWSER_TYPE = "firefox"
+PLAYWRIGHT_BROWSER_TYPE = "chromium"
 # PLAYWRIGHT_CONTEXTS={
 #       "persistent": {
 #         "user_data_dir": "C:\\Users\\User\\AppData\\Local\\Mozilla\\Firefox\\Profiles\\pq6y97j6.default-release",  # will be a persistent context
