@@ -1,6 +1,6 @@
 import unittest
 from home_rental_info_scraper.models.Home import Home
-from home_rental_info_scraper.utils.util import filter_sendable_home_list, parse_price_based_on_base
+from home_rental_info_scraper.utils.util import filter_sendable_home_list, parse_price_based_on_base,divide_into_bactches
 
 
 class TestUtil(unittest.TestCase):
@@ -36,5 +36,15 @@ class TestUtil(unittest.TestCase):
         self.assertEqual(expected_float,actual_float)
         self.assertEqual(expected_int,actual_int)
     
+    
+    def test_divide_into_bactches(self):
+        source = [34,234,223,4345,46,345,13,234,45,234,645,243,234,5435]
+        _threshold = 5
+        expected = [[34,234,223],[4345,46,345],[13,234,45],[234,645,243],[234,5435]]
+        actual = divide_into_bactches(source,threshold=_threshold)
+        
+        print(f"expected : {expected}")
+        print(f"actual: {actual}")
+            
 if __name__ == "__main__":
     unittest.main()

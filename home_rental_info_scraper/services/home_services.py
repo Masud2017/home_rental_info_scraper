@@ -80,11 +80,18 @@ def send_email_notification_on_user_preferences(unique_home_list:list[Home]):
                         int(home_item.room_count) <= int(search_pref["max_rooms"]):
                             sendable_home_list.append(home_item)
                 print(f"Size of sendable home list : {len(sendable_home_list)}")
-                
+
+                # filtering the sendable_home_list
                 sendable_home_list = util.filter_sendable_home_list(sendable_home_list)
+                # filtering section ended
+                
                 if len(sendable_home_list) > 0:
-                    # filtering the sendable_home_list
-                    # filtering section ended
-                    email_message = email_handler.generate_email_message(sendable_home_list)
-                    email_handler.send_single_email(user_item["email"],"Home list notification", email_message,home_list=sendable_home_list, home_count= len(sendable_home_list))
+                    if len(sendable_home_list) > 8:
+                        sendable_home_list_batch = util.divide_into_bactches(sendable_home_list=sendable_home_list)
+                        for sendable_home_list_item in sendable_home_list_batch:
+                            email_message = email_handler.generate_email_message(sendable_home_list_item)
+                            email_handler.send_single_email(user_item["email"],f"({len(sendable_home_list_item)}) Home list notification", email_message,home_list=sendable_home_list_item, home_count= len(sendable_home_list_item))    
+                    else:
+                        email_message = email_handler.generate_email_message(sendable_home_list)
+                        email_handler.send_single_email(user_item["email"],f"({len(sendable_home_list)}) Home list notification", email_message,home_list=sendable_home_list, home_count= len(sendable_home_list))
             

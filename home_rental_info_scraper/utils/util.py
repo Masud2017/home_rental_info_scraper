@@ -90,16 +90,23 @@ def parse_price_based_on_base(price_str) -> int | float:
     else:
         return int(price_str)
 
-# from geopy.geocoders import Nominatim
-# def parse_city_string(address):
-#     geolocator = Nominatim(user_agent="city_finder")
-#     location = geolocator.geocode(address, addressdetails=True)
-    
-#     if location and 'address' in location.raw:
-#         return location.raw['address'].get('city', location.raw['address'].get('town', location.raw['address'].get('village')))
-
-#     return address
-
+def divide_into_bactches(sendable_home_list:list, threshold:int = 8) -> list:
+    sendable_size = len(sendable_home_list)
+    batches = sendable_size / threshold
+    if "." in str(batches):
+        batches = batches + 1
+    batches = int(batches)
+    begin_idx = 0
+    end_idx = threshold
+    batch_list = []
+    for x in range(0,batches):
+        new_list = sendable_home_list[begin_idx:end_idx]
+        if len(new_list) > 0:
+            batch_list.append(new_list)
+        begin_idx = end_idx
+        end_idx = end_idx + threshold
+        
+    return batch_list
 
 if __name__ == "__main__":
     address = "Ring road-Kruiskamp 90 L,Amersfoort"
