@@ -6,7 +6,7 @@ from ..config.db_handler import query_db
 from .secrets import MAIL_GUN_API
 import traceback
 import jsonpickle
-from home_rental_info_scraper.config.fire_store_handler import db,db_url
+
 
 
 
@@ -77,14 +77,6 @@ class EmailHandler:
     
     def send_single_email(self, to_address: str, subject: str, message: str, home_list : list = {}, home_count:int = 0):
         try:
-            home_list_json_data = jsonpickle.encode({"home_list": home_list, "home_count":str(home_count)}, unpicklable=False)
-            doc = db.collection("home_list").document()
-            doc.set({"data" : home_list_json_data})
-            new_doc_id = doc.id
-            new_db_url = db_url + new_doc_id
-            
-            print(f"Printing newly generated firestore url : {new_db_url}")
-            
             api_key = MAIL_GUN_API
             resp = requests.post(
                 self.MAILGUN_API_URL,
