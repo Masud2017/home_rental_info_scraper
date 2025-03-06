@@ -39,12 +39,13 @@ class TestUtil(unittest.TestCase):
     
     def test_divide_into_bactches(self):
         source = [34,234,223,4345,46,345,13,234,45,234,645,243,234,5435]
-        _threshold = 5
+        _threshold = 3
         expected = [[34,234,223],[4345,46,345],[13,234,45],[234,645,243],[234,5435]]
         actual = divide_into_bactches(source,threshold=_threshold)
         
         print(f"expected : {expected}")
         print(f"actual: {actual}")
+        self.assertListEqual(expected,actual)
             
 if __name__ == "__main__":
     unittest.main()
