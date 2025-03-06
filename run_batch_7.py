@@ -21,14 +21,14 @@ def spider_results():
 
         # dispatcher.connect(crawler_results, signal=signals.item_passed)
 
+        process = CrawlerProcess(get_project_settings())
         for spider_item in spider_list:
-            process = CrawlerProcess(get_project_settings())
             process.crawl(spider_item)
         
             for crawler in process.crawlers:
                 crawler.signals.connect(crawler_results, signal = signals.item_passed)
             
-            process.start()
+        process.start()
             
             
         
