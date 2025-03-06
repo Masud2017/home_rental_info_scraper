@@ -1,0 +1,96 @@
+version: '3.8'
+
+services:
+  batch1:
+    build:
+      context: .
+      dockerfile: Dockerfile.batch1
+    container_name: batch1
+
+  batch2:
+    build:
+      context: .
+      dockerfile: Dockerfile.batch2
+    container_name: batch2
+    depends_on:
+      - batch1
+
+  batch3:
+    build:
+      context: .
+      dockerfile: Dockerfile.batch3
+    container_name: batch3
+    depends_on:
+      - batch2
+
+  batch4:
+    build:
+      context: .
+      dockerfile: Dockerfile.batch4
+    container_name: batch4
+    depends_on:
+      - batch3
+
+  batch5:
+    build:
+      context: .
+      dockerfile: Dockerfile.batch5
+    container_name: batch5
+    depends_on:
+      - batch4
+
+  batch6:
+    build:
+      context: .
+      dockerfile: Dockerfile.batch6
+    container_name: batch6
+    depends_on:
+      - batch5
+
+  batch7:
+    build:
+      context: .
+      dockerfile: Dockerfile.batch7
+    container_name: batch7
+    depends_on:
+      - batch6
+
+  batch8:
+    build:
+      context: .
+      dockerfile: Dockerfile.batch8
+    container_name: batch8
+    depends_on:
+      - batch7
+
+  batch9:
+    build:
+      context: .
+      dockerfile: Dockerfile.batch9
+    container_name: batch9
+    depends_on:
+      - batch8
+
+  batch10:
+    build:
+      context: .
+      dockerfile: Dockerfile.batch10
+    container_name: batch10
+    depends_on:
+      - batch9
+
+  batch11:
+    build:
+      context: .
+      dockerfile: Dockerfile.batch11
+    container_name: batch11
+    depends_on:
+      - batch10
+
+  batch12:
+    build:
+      context: .
+      dockerfile: Dockerfile.batch12
+    container_name: batch12
+    depends_on:
+      - batch11
