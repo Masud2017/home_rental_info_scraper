@@ -97,6 +97,9 @@ class SimilarWebScrapper(scrapy.Spider):
                             price = price.replace(",", ".")
                         
                 url = self.allowed_domains[0] + home_card.xpath(".//a[contains(@ng-click,'goToDetails')]").attrib['href']
+                room_count = home_card.xpath(".//span[contains(@class, 'icon-icon_aantal_slaapkamers object-label-icon')]/following-sibling::*[1]/text()").get()
+                if room_count is None:
+                    room_count = 1
                 
                 print(f"Image : {image_url}")
                 print(f"Price : {price}")
@@ -104,14 +107,15 @@ class SimilarWebScrapper(scrapy.Spider):
                 print(f"URL : {url}")
                 print(f"City : {city}")
                 print(f"Agency : {agency}")            
-                
+                print(f"room count : {room_count}")
                 home = Home(
                     image_url=image_url,
                     address=address,
                     city=city,
                     agency=agency,
                     price=price,
-                    url=url
+                    url=url,
+                    room_count=room_count
                 )
                 yield HomeRentalInfoScraperItem(home=home)
         except Exception as e:

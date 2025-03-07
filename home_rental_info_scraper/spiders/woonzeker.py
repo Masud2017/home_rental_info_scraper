@@ -58,7 +58,7 @@ class WoonzekerSpider(scrapy.Spider):
                     city = home_card.xpath(".//div[contains(@class , 'offer-card__content')]/div/div[1]/text()").get()
                     address = ""
                     if city is not None:
-                        address = (home_card.xpath(".//div[contains(@class , 'offer-card__content')]/h1/text()").get()) + ","+city
+                        address = (home_card.xpath(".//div[contains(@class , 'offer-card__content')]//div[contains(@class, 'offer-card__title property__title tx-b')]/text()").get()) + ","+city
                         city = parse_city_string(city)
                         if "\'" in city:
                             city = city.replace("\'", "")
