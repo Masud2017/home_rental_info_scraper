@@ -44,10 +44,12 @@ class VestedaSpider(scrapy.Spider):
                 city = home_card.xpath(".//div[contains(@class, 'o-card--listview-content')]//div[contains(@class, 'o-reorder-column__first')]/strong/text()").get()
                 if city is not None:
                     address = home_card.xpath(".//div[contains(@class, 'o-card--listview-content')]//h3[contains(@class, 'h4 u-margin-bottom-none')]/span/text()").get() + ","+ city
-                    if parse_city_string(city) is not None:
-                        city = parse_city_string(city)
-                        if "\'" in city:
-                            city = city.replace('\'','')
+                    # if parse_city_string(city) is not None:
+                    #     city = parse_city_string(city)
+                    #     if "\'" in city:
+                    #         city = city.replace('\'','')
+                            
+                
                     
                 price = home_card.xpath(".//div[contains(@class, 'o-card--listview-content')]//div[contains(@class, 'o-card--listview-price')]/b[contains(@class, 'h5')]/text()").get()
                 if price is not None:
