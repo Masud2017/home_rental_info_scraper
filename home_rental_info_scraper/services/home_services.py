@@ -64,11 +64,12 @@ def send_email_notification_on_user_preferences(unique_home_list:list[Home]):
                     if home_item.price is not None:
                         if "." in home_item.price:
                             price = float(home_item.price)
+                        elif home_item.price == '':
+                            price = 0
                         else:
-                            if home_item.price == '':
-                                price = 0
-                            else:
-                                price = int(home_item.price)
+                            price = int(home_item.price)
+                    else:
+                        price = 0
                             
                     if home_item.city == None:
                         home_item.city = ""
