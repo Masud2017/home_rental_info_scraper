@@ -3,6 +3,8 @@ from home_rental_info_scraper.config.db_handler import query_db
 from home_rental_info_scraper.utils import util
 from home_rental_info_scraper.config.email_handler import EmailHandler
 import traceback
+import datetime
+import time
 
 def exitsIn(scraped_home_item, old_home_list)-> bool:
     for old_home_item in old_home_list:
@@ -91,8 +93,10 @@ def send_email_notification_on_user_preferences(unique_home_list:list[Home]):
                         sendable_home_list_batch = util.divide_into_bactches(sendable_home_list=sendable_home_list)
                         for sendable_home_list_item in sendable_home_list_batch:
                             email_message = email_handler.generate_email_message(sendable_home_list_item)
-                            email_handler.send_single_email(user_item["email"],f"({len(sendable_home_list_item)}) Home list notification", email_message,home_list=sendable_home_list_item, home_count= len(sendable_home_list_item))    
+                            ts = time.time()
+                            email_handler.send_single_email(user_item["email"],f"({len(sendable_home_list_item)}) Home list notification - {datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')}", email_message,home_list=sendable_home_list_item, home_count= len(sendable_home_list_item))    
                     else:
                         email_message = email_handler.generate_email_message(sendable_home_list)
-                        email_handler.send_single_email(user_item["email"],f"({len(sendable_home_list)}) Home list notification", email_message,home_list=sendable_home_list, home_count= len(sendable_home_list))
+                        ts = time.time()
+                        email_handler.send_single_email(user_item["email"],f"({len(sendable_home_list)}) Home list notification - {datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')}", email_message,home_list=sendable_home_list, home_count= len(sendable_home_list))
             

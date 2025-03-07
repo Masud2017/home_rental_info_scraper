@@ -28,11 +28,38 @@ class ParariusSpider(scrapy.Spider):
             
         )
 
+
+    def slow_scroll_js(self):
+        return f"""
+        async () => {{
+            const scrollableDiv = true
+            if (scrollableDiv) {{
+                var totalHeight = document.body.scrollHeight;
+                const step = totalHeight / 10; // Divide the scroll into 10 steps
+                let currentPosition = 0;
+                
+                while (currentPosition < totalHeight) {{
+                    currentPosition += step;
+                    window.scrollBy(0, step);
+                    await new Promise(resolve => setTimeout(resolve, 800));
+                    if (totalHeight < document.body.scrollHeight) {{
+                        totalHeight = document.body.scrollHeight;
+                    }}
+                }}
+            }} else {{
+                console.error('Scrollable element not found!');
+            }}
+        }}
+        """
+
+
     async def parse(self, response):
         try:
             page = response.meta["playwright_page"]
+            
         
             while True:
+                await page.evaluate(self.slow_scroll_js())
                 data = await page.content()
                 home_card_list = Selector(text=data).xpath("//li[contains(@class , 'search-list__item search-list__item--listing')]")
 
@@ -43,10 +70,13 @@ class ParariusSpider(scrapy.Spider):
                     url_portion = home_card.xpath(".//div[contains(@class,  'listing-search-item__depiction')]/a").attrib['href']
                     if url_portion is not None:
                         url = self.allowed_domains[0] + url_portion
-                    url = self.allowed_domains[0]
-                    image_url = home_card.xpath(".//div[contains(@class,  'listing-search-item__depiction')]/a/wc-picture/picture/img").get()
+                    else:
+                        url = self.allowed_domains[0]
+                    image_url = home_card.xpath(".//div[contains(@class,  'listing-search-item__depiction')]/a/wc-picture/picture//img[contains(@class, 'picture__image')]").get()
+                    print(f"Debugging the image url : {image_url}")
                     if image_url is not None:
                         reg = r'src="([^"]+)"'
+                        reg_alternative = r""
                         search = re.search(reg, image_url)
                         if search:
                             image_url = search.group(1)
@@ -58,10 +88,12 @@ class ParariusSpider(scrapy.Spider):
                         city = ""
                     if city is not None:
                         city = parse_city_string(city)
+                        city = city.replace('(','').replace(')','')
                     address = ""
                     address = home_card.xpath(".//div[contains(@class,  'listing-search-item__content')]//h2[contains(@class,'listing-search-item__title')]/a/text()").get().strip()
                     if address is not None:
                         address = address + "," + city
+                        address = address.replace('(','').replace(')','')
                     price = home_card.xpath(".//div[contains(@class,  'listing-search-item__content')]//div[contains(@class ,'listing-search-item__price')]/text()").get().strip()
                     print(f"Debugging the price {price}")
                     if price is not None:
@@ -90,17 +122,19 @@ class ParariusSpider(scrapy.Spider):
                     print(f"Name : {agency}")
                     print(f"Room count : {room_count}")
                     print("--------------------------\n")
-                    home = Home(
-                        address=address,
-                        city=city,
-                        url=url,
-                        agency=agency,
-                        price=price,
-                        image_url=image_url,
-                        room_count=room_count
-                    )
-                    yield HomeRentalInfoScraperItem(home=home)
-                    
+                    if "ijs" not in price:
+                        
+                        home = Home(
+                            address=address,
+                            city=city,
+                            url=url,
+                            agency=agency,
+                            price=price,
+                            image_url=image_url,
+                            room_count=room_count
+                        )
+                        yield HomeRentalInfoScraperItem(home=home)
+                        
                     
                 has_next = response.meta["playwright_page"].locator("//a[contains(@class, 'pagination__link pagination__link--next')]")
                 print(f"debugging the next page : {has_next}")

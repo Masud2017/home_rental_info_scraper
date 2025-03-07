@@ -19,7 +19,7 @@ DOWNLOAD_HANDLERS = {
 }
 
 PLAYWRIGHT_LAUNCH_OPTIONS = {
-    "headless": False,
+    # "headless": False,
 }
 PLAYWRIGHT_BROWSER_TYPE = "chromium"
 # PLAYWRIGHT_CONTEXTS={
