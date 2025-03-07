@@ -81,15 +81,20 @@ class WoonnetRijnmondSpider(scrapy.Spider):
                 price = home_card.xpath(".//a[contains(@class, 'clean')]//div[contains(@class, 'box--obj__price')]/text()").get()
                 if price is not None:
                     price = price[2:]
+                    
                     if "." in price:
                         price = price.replace(".", "")
                     if "," in price:
                         price = price.replace(",", ".")
+                    if ".-" in price:
+                        price = price.replace(".-","")
                 else:
                     price = "0"
                 agency = self.name
-                room_count = home_card.xpath(".//div[contains(@class, 'box__text  ellipsis')]/text()").get()
+                room_count = home_card.xpath(".//div[contains(@class, 'box__text  ellipsis')]/br/following-sibling::text()").get()
+                
                 if room_count is not None:
+                    room_count = room_count.strip()
                     room_count = room_count.strip()
                     room_count = room_count.split(" ")[0]
                 # date_added = home_card.xpath(".//div[contains(@class, 'o-card--listview-content')]//div[contains(@class, 'o-card--listview-price')]/text()").get()

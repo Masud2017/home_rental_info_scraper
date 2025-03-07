@@ -77,7 +77,7 @@ class NmgSpider(scrapy.Spider):
                         room_count = room_count.strip()
                         room_count = room_count.split(" ")[0]
                     else:
-                        room_count = "1"
+                        room_count = 1
                     
                     print("\n--------------------------")
                     print(f"url : {url}")

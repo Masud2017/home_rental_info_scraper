@@ -86,7 +86,8 @@ class BouwinvestSpider(scrapy.Spider):
                         image_url=image_url,
                         address=address,
                         price=price,
-                        agency=agency
+                        agency=agency,
+                        room_count=room_count
                     )
                     item = HomeRentalInfoScraperItem()
                     item["home"] = home
