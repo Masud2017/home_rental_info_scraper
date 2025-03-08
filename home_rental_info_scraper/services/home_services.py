@@ -55,7 +55,7 @@ def send_email_notification_on_user_preferences(unique_home_list:list[Home]):
     email_handler = EmailHandler()
     user_list = query_db("select * from users;")
     for user_item in user_list:
-        if user_item["email"] == "msmasud578@gmail.com":
+        if user_item["email"] is not None:
             search_pref = query_db("select * from search_preferences where user_id=%s", params=[str(user_item["id"])],fetchOne=True)
             if search_pref is not None:
                 if search_pref["cities"] == None:
