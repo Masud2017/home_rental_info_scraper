@@ -64,8 +64,8 @@ def start_scraping():
                 # saving the generated data 
                 # data = json.dumps(unique_home_list)
                 data = jsonpickle.encode(unique_home_list, unpicklable=False)
-                with open("log2.json", "w") as f:
-                    f.write(data)
+                # with open("log2.json", "w") as f:
+                #     f.write(data)
                 # ended
                 send_email_notification_on_user_preferences(unique_home_list)
                 if save_new_homes(unique_home_list=unique_home_list):

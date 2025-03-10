@@ -38,8 +38,8 @@ class WoonzekerSpider(scrapy.Spider):
             while True:
                 data = await page.content()
                 home_card_list = Selector(text=data).xpath("//div[contains(@class, 'property offer-card')]")
-                with open('log.txt', 'a', encoding='utf-8') as f:
-                    f.write(str(len(home_card_list)))
+                # with open('log.txt', 'a', encoding='utf-8') as f:
+                #     f.write(str(len(home_card_list)))
 
                 print(f"count of home list : {len(home_card_list)}")
                 for home_card in home_card_list:

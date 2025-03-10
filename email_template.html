@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Home List</title>
+        </head>
+        <body style="font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px; margin: 0;">
+            <table width="100%" border="0" cellpadding="0" cellspacing="0" style="background-color: #ffffff; max-width: 600px; margin: 0 auto; border-collapse: collapse;">
+                <tr>
+                    <td style="padding: 20px; text-align: center; background-color: #ff9800; color: #ffffff;">
+                        <h1 style="font-size: 24px; margin: 0;">Your Home List <strong>Alert</strong></h1>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 20px; text-align: center;">
+                        <p style="font-size: 16px; margin: 0;">{{home_count}} new matches for you.</p>
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 0;">
+                      <!-- divided -->
+                      
+                      {{#each home_list}}
+                      
+                        <table width="100%" border="0" cellpadding="0" cellspacing="0" style="margin-bottom: 20px; border: 1px solid #ddd; border-radius: 4px; max-width: 600px;">
+
+                            <tr>
+                                <td style="padding: 10px; vertical-align: top;">
+                                    <img src={{_image_url}} alt="Home Image" style="display: block; width: 100px; height: 100px; border-radius: 4px; margin-right: 10px;" />
+                                </td>
+                                <td style="padding: 10px; vertical-align: top;">
+                                    <p style="margin: 0; font-size: 14px; line-height: 1.5;"><strong>Address:</strong> {{_address}}, {{home.city}}</p>
+                                    <p style="margin: 0; font-size: 14px; line-height: 1.5;"><strong>Price:</strong> €{{price}}/m</p>
+                                    <p style="margin-top: 10px;">
+                                        <a href={{url}} target="_blank" rel="noopener noreferrer" style="display: inline-block; background: #ff9800; color: #ffffff; padding: 8px 16px; text-decoration: none; font-size: 14px; border-radius: 4px;">View</a>
+                                    </p>
+                                </td>
+                            </tr>
+                  			</table>
+
+                      {{/each}}
+
+                      <!-- divided -->
+                    </td>
+                </tr>
+                <tr>
+                    <td style="padding: 20px; text-align: center; background-color: #f4f4f4;">
+                        <p style="font-size: 12px; color: #888;">This is an automated email. Please do not reply.</p>
+                      <a href="%unsubscribe_url%" target="_blank">Click here to unsubscribe</a>
+
+                    </td>
+                </tr>
+            </table>
+        </body>
+        </html>
