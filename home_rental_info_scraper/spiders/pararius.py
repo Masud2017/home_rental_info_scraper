@@ -56,6 +56,10 @@ class ParariusSpider(scrapy.Spider):
     async def parse(self, response):
         try:
             page = response.meta["playwright_page"]
+            data = await page.content()
+            page_count = int(Selector(text = data).xpath("//ul[contains(@class, 'pagination__list')]//li[contains(@class , 'pagination__item pagination__item--spacer')]/following-sibling::li[1]/a/text()").get().strip())
+            print(f"Printing the page count {page_count}")
+            page_counter = 1
             
         
             while True:
@@ -135,6 +139,11 @@ class ParariusSpider(scrapy.Spider):
                         )
                         yield HomeRentalInfoScraperItem(home=home)
                         
+                
+                if page_count > 5:
+                    if page_counter == 5:
+                        break
+                page_counter = page_counter + 1
                     
                 has_next = response.meta["playwright_page"].locator("//a[contains(@class, 'pagination__link pagination__link--next')]")
                 print(f"debugging the next page : {has_next}")
