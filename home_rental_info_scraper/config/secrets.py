@@ -13,3 +13,5 @@ DB = {
 }
 
 MAIL_GUN_API = os.environ["mail_gun_api"]
+MAIL_GUN_API_URL = os.environ["mail_gun_api_url"]
+MAIL_GUN_FROM_EMAIL_ADDRESS = os.environ["mail_gun_from_email_address"]

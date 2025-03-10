@@ -3,7 +3,7 @@ import requests
 import json
 from home_rental_info_scraper.models.Home import Home
 from ..config.db_handler import query_db
-from .secrets import MAIL_GUN_API
+from .secrets import MAIL_GUN_API,MAIL_GUN_API_URL,MAIL_GUN_FROM_EMAIL_ADDRESS
 import traceback
 import jsonpickle
 
@@ -12,8 +12,8 @@ import jsonpickle
 
 class EmailHandler:
     def __init__(self):
-        self.MAILGUN_API_URL = "https://api.mailgun.net/v3/notification.pandjespost.nl/messages"
-        self.FROM_EMAIL_ADDRESS = "Pandjes post <pandjespost@notification.pandjespost.nl>"
+        self.MAILGUN_API_URL = MAIL_GUN_API_URL
+        self.FROM_EMAIL_ADDRESS = MAIL_GUN_FROM_EMAIL_ADDRESS
     
     def generate_email_message(self, homes):
         home_cards = "".join(f'''
