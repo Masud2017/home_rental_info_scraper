@@ -115,4 +115,4 @@ class EmailHandler:
     
 #     homes = [home]
 #     message = email_handler.generate_email_message(homes)
-#     email_handler.send_single_email("Masud <msmasud578@gmail.com>", "New Homes", message)
+#     email_handler.send_single_email("msmasud578@gmail.com", "New Homes", message)
