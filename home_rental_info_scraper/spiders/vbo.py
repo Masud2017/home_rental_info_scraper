@@ -30,6 +30,10 @@ class VboSpider(scrapy.Spider):
     async def parse(self, response):
         try:
             page = response.meta["playwright_page"]
+            data = await page.content()
+            page_count = int(Selector(text = data).xpath("//ul[contains(@class, 'pagination')]/li[last()]/preceding-sibling::li[1]/a/text()").get().strip())
+            print(f"Printing the page count {page_count}")
+            page_counter = 1
         
             while True:
                 data = await page.content()
@@ -91,6 +95,11 @@ class VboSpider(scrapy.Spider):
                     
                     
                     # next_page = Selector(text = data).xpath("//div[contains(@class , 'results__pagination')]//a[contains(@class, 'results__pagination__nav-next')]").get()
+                if page_count > 5:
+                    if page_counter == 5:
+                        break
+                page_counter = page_counter + 1
+                
                 await page.wait_for_timeout(4000)    
                 has_next = response.meta["playwright_page"].locator("//ul[contains(@class, 'pagination')]//li[last()]")
                 
