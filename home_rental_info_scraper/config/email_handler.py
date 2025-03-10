@@ -12,8 +12,8 @@ import jsonpickle
 
 class EmailHandler:
     def __init__(self):
-        self.MAILGUN_API_URL = "https://api.mailgun.net/v3/notification.rentalhunternl.online/messages"
-        self.FROM_EMAIL_ADDRESS = "Rental hunter nl <rental_hunter_nl@notification.rentalhunternl.online>"
+        self.MAILGUN_API_URL = "https://api.mailgun.net/v3/notification.pandjespost.nl/messages"
+        self.FROM_EMAIL_ADDRESS = "Pandjes post <pandjespost@notification.pandjespost.nl>"
     
     def generate_email_message(self, homes):
         home_cards = "".join(f'''
