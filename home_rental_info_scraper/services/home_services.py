@@ -94,9 +94,9 @@ def send_email_notification_on_user_preferences(unique_home_list:list[Home]):
                         for sendable_home_list_item in sendable_home_list_batch:
                             email_message = email_handler.generate_email_message(sendable_home_list_item)
                             ts = time.time()
-                            email_handler.send_single_email(user_item["email"],f"({len(sendable_home_list_item)}) Home list notification - {datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')}", email_message,home_list=sendable_home_list_item, home_count= len(sendable_home_list_item))    
+                            email_handler.send_single_email(user_item["email"],f"PandjesPost - New home’s found", email_message,home_list=sendable_home_list_item, home_count= len(sendable_home_list_item))    
                     else:
                         email_message = email_handler.generate_email_message(sendable_home_list)
                         ts = time.time()
-                        email_handler.send_single_email(user_item["email"],f"({len(sendable_home_list)}) Home list notification - {datetime.datetime.fromtimestamp(ts).strftime('%Y-%m-%d %H:%M:%S')}", email_message,home_list=sendable_home_list, home_count= len(sendable_home_list))
+                        email_handler.send_single_email(user_item["email"],f"PandjesPost - New home’s found", email_message,home_list=sendable_home_list, home_count= len(sendable_home_list))
             
