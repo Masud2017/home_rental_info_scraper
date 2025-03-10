@@ -5,6 +5,7 @@ import re
 from home_rental_info_scraper.models.Home import Home
 from home_rental_info_scraper.items import HomeRentalInfoScraperItem
 from home_rental_info_scraper.utils.util import parse_city_string
+import traceback
 
 class NmgSpider(scrapy.Spider):
     name = "nmg"
@@ -30,6 +31,11 @@ class NmgSpider(scrapy.Spider):
     async def parse(self, response):
         try:
             page = response.meta["playwright_page"]
+            data = await page.content()
+            
+            page_count = int(Selector(text = data).xpath("//div[contains(@class , 'pagination__content')]/span[last()]/following-sibling::a[1]/text()").get().strip())
+            print(f"Printing the page count : {page_count}")
+            page_counter = 1
             
             while True:
                 data = await page.content()
@@ -101,7 +107,12 @@ class NmgSpider(scrapy.Spider):
                     item = HomeRentalInfoScraperItem()
                     item["home"] = home
                     yield item
-                        
+                
+                if page_count > 5:
+                    if page_counter == 5:
+                        break
+                page_counter = page_counter + 1
+                
                 has_next = response.meta["playwright_page"].locator("a.next.page-numbers")
                 
                 if await has_next.is_visible():
@@ -112,3 +123,4 @@ class NmgSpider(scrapy.Spider):
                     
         except Exception as e:
             print(f"Error while parsing : {e}")
+            traceback.print_exc()

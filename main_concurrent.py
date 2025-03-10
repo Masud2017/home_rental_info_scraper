@@ -44,7 +44,7 @@ def spider_results():
             for crawler in process.crawlers:
                 crawler.signals.connect(crawler_results, signal = signals.item_passed)
         
-            process.start(stop_after_crawl=False)
+        process.start()
         return results
     except Exception as e:
         print(f"Error in spider_results : {e}")
