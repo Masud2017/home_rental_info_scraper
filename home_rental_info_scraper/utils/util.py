@@ -108,6 +108,14 @@ def divide_into_bactches(sendable_home_list:list, threshold:int = 8) -> list:
         
     return batch_list
 
+
+    """
+    This function is used to run the batch process for the home rental info scraper.
+    It is created to reduce code inside the run_batch[n].py files
+    """
+def batch_runner(batch_list:list):
+    pass
+
 if __name__ == "__main__":
     address = "Ring road-Kruiskamp 90 L,Amersfoort"
     city = parse_city_string(address)

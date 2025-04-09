@@ -3,7 +3,7 @@ from scrapy import signals
 from scrapy.signalmanager import dispatcher
 from scrapy.utils.project import get_project_settings
 from home_rental_info_scraper.spiders import woontij,woonzeker,zuidwestwonen
-from home_rental_info_scraper.services.home_services import get_unique_home_list,save_new_homes,send_email_notification_on_user_preferences
+from home_rental_info_scraper.services.home_services import get_unique_home_list,save_new_homes,send_email_notification_on_user_preferences,send_whatsapp_notification_on_user_preferences
 import logging
 from home_rental_info_scraper.models.Home import Home
 import json
@@ -68,6 +68,7 @@ def start_scraping():
                 #     f.write(data)
                 # ended
                 send_email_notification_on_user_preferences(unique_home_list)
+                send_whatsapp_notification_on_user_preferences(unique_home_list)
                 if save_new_homes(unique_home_list=unique_home_list):
                     logging.info("New home list added to the database..")
                 else:
