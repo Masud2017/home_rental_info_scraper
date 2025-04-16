@@ -1,6 +1,6 @@
 import unittest
 from home_rental_info_scraper.models.Home import Home
-from home_rental_info_scraper.utils.util import filter_sendable_home_list, parse_price_based_on_base,divide_into_bactches
+from home_rental_info_scraper.utils.util import filter_sendable_home_list, parse_price_based_on_base,divide_into_bactches,filter_home_list_irrespective_of_website
 
 
 class TestUtil(unittest.TestCase):
@@ -46,6 +46,15 @@ class TestUtil(unittest.TestCase):
         print(f"expected : {expected}")
         print(f"actual: {actual}")
         self.assertListEqual(expected,actual)
+    
+    def test_filter_home_list_irrespective_of_website(self):
+        home = Home(address="4333 33s32", city = "some city", url = "dsfsd", agency = "sdf", price = "324", image_url= "sdafad" , room_count= "34")
+        home2 = Home(address="4333 33s32", city = "some city", url = "dsfsd", agency = "sdf", price = "324", image_url= "sdafad" , room_count= "34")
+        home3 = Home(address="some value", city = "some city", url = "dsfsd", agency = "sdf", price = "324", image_url= "sdafad" , room_count= "34")
+        home_list = [home, home2, home3]
+        expected = [home, home2]
+        actual = filter_home_list_irrespective_of_website(home_list)
+        self.assertEqual(len(expected), len(actual))
             
 if __name__ == "__main__":
     unittest.main()

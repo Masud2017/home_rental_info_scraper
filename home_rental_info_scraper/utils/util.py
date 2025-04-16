@@ -116,6 +116,14 @@ def divide_into_bactches(sendable_home_list:list, threshold:int = 8) -> list:
 def batch_runner(batch_list:list):
     pass
 
+def filter_home_list_irrespective_of_website(unique_home_list:list[Home]) -> list[Home]:
+    def mapper(home_item):
+        return home_item.address.lower()
+    if len(unique_home_list) != 0:
+        # return unique_home_list.map(lambda x: x.address).lower().filter(lambda x: x != None).distinct()
+        addres_list = map(mapper,unique_home_list)
+                    
+
 if __name__ == "__main__":
     address = "Ring road-Kruiskamp 90 L,Amersfoort"
     city = parse_city_string(address)

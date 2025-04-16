@@ -83,12 +83,12 @@ class EmailHandler:
                 auth=("api", api_key),
                 data={
                     "from": self.FROM_EMAIL_ADDRESS,
-                    "to": to_address,
+                    "to":to_address,
                     "subject": subject,
                     "text": message,
                     # "html": message,
                     "template": "home rental info notification",
-                    "h:X-Mailgun-Variables": jsonpickle.encode({"home_list": home_list, "home_count":str(home_count)}, unpicklable=False),
+                    "h:X-Mailgun-Variables": jsonpickle.encode({"home_list": home_list, "home_count":str(home_count),"fav_icon": "https://iili.io/3lxGVGj.jpg"}, unpicklable=False),
                     # "v:home_count": home_count,
                     # "v:home_list_json_resource" : requests.get(new_db_url).json()
                     # "X-Mailgun-Template-Variables": '{"test": "test"}'
