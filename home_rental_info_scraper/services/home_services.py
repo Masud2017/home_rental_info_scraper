@@ -12,14 +12,21 @@ from dotenv import load_dotenv
 
 load_dotenv()
 
+# not stable need to test Date : 17 - 04 - 2025 (have a look at its test code)
+def sanitize_string(string: str) -> str:
+    if string is None or string == "":
+        return string
+    else:
+        return string.strip().replace("'", "''").replace('"', '""').replace("\\", "\\\\").replace("\n", "").replace("\r", "").replace("\t", "")
+
 def exitsIn(scraped_home_item, old_home_list)-> bool:
     for old_home_item in old_home_list:
-        if scraped_home_item.address == old_home_item["address"] and \
+        if scraped_home_item.address.strip().replace(" ","").casefold() == old_home_item["address"].strip().replace(" ","").casefold() and \
         util.parse_price_based_on_base(scraped_home_item.price) == util.parse_price_based_on_base(str(old_home_item["price"])) and \
-        scraped_home_item.city  == old_home_item["city"] and \
-        scraped_home_item.url == old_home_item["url"] and \
-        scraped_home_item.agency == old_home_item["agency"] and \
-        scraped_home_item.image_url == old_home_item["image_url"] and \
+        scraped_home_item.city.strip().replace(" ", "").casefold()  == old_home_item["city"].strip().replace(" ", "").casefold() and \
+        scraped_home_item.url.strip().replace(" ", "").casefold() == old_home_item["url"].strip().replace(" ","").casefold() and \
+        scraped_home_item.agency.strip().replace(" ", "").casefold() == old_home_item["agency"].strip().replace(" ","").casefold() and \
+        scraped_home_item.image_url.strip().replace(" ", "").casefold() == old_home_item["image_url"].strip().replace(" ","").casefold() and \
         int(scraped_home_item.room_count) == int(old_home_item["room_count"]):
             return True
             
