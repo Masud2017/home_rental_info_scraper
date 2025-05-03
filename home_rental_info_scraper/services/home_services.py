@@ -37,7 +37,10 @@ def sanitize_string(string: str) -> str:
 def exitsIn(scraped_home_item, old_home_list)-> bool:
     for old_home_item in old_home_list:
         fuzzy_match_ratio = fuzz.ratio(scraped_home_item.address.strip().replace(" ","").casefold(), old_home_item["address"].strip().replace(" ","").casefold())
-        if fuzzy_match_ratio >= 85:
+        fuzzy_match_city = fuzz.ratio(scraped_home_item.city.strip().replace(" ", "").casefold(), old_home_item["city"].strip().replace(" ", "").casefold())
+        if fuzzy_match_ratio >= 85 and util.parse_price_based_on_base(scraped_home_item.price) == util.parse_price_based_on_base(str(old_home_item["price"])) and \
+            int(scraped_home_item.room_count) == int(old_home_item["room_count"]) and \
+                fuzzy_match_city >= 85:
             return True
         if scraped_home_item.address.strip().replace(" ","").casefold() == old_home_item["address"].strip().replace(" ","").casefold() and \
         scraped_home_item.city.strip().replace(" ", "").casefold()  == old_home_item["city"].strip().replace(" ", "").casefold():
