@@ -8,6 +8,7 @@ import datetime
 import time
 import os
 from dotenv import load_dotenv
+from rapidfuzz import fuzz
 
 
 load_dotenv()
@@ -19,19 +20,32 @@ def sanitize_string(string: str) -> str:
     else:
         return string.strip().replace("'", "''").replace('"', '""').replace("\\", "\\\\").replace("\n", "").replace("\r", "").replace("\t", "")
 
+# def exitsIn(scraped_home_item, old_home_list)-> bool:
+#     for old_home_item in old_home_list:
+#         if scraped_home_item.address.strip().replace(" ","").casefold() == old_home_item["address"].strip().replace(" ","").casefold() and \
+#         util.parse_price_based_on_base(scraped_home_item.price) == util.parse_price_based_on_base(str(old_home_item["price"])) and \
+#         scraped_home_item.city.strip().replace(" ", "").casefold()  == old_home_item["city"].strip().replace(" ", "").casefold() and \
+#         scraped_home_item.url.strip().replace(" ", "").casefold() == old_home_item["url"].strip().replace(" ","").casefold() and \
+#         scraped_home_item.agency.strip().replace(" ", "").casefold() == old_home_item["agency"].strip().replace(" ","").casefold() and \
+#         scraped_home_item.image_url.strip().replace(" ", "").casefold() == old_home_item["image_url"].strip().replace(" ","").casefold() and \
+#         int(scraped_home_item.room_count) == int(old_home_item["room_count"]):
+#             return True
+            
+            
+#     return False
+
 def exitsIn(scraped_home_item, old_home_list)-> bool:
     for old_home_item in old_home_list:
+        fuzzy_match_ratio = fuzz.ratio(scraped_home_item.address.strip().replace(" ","").casefold(), old_home_item["address"].strip().replace(" ","").casefold())
+        if fuzzy_match_ratio >= 85:
+            return True
         if scraped_home_item.address.strip().replace(" ","").casefold() == old_home_item["address"].strip().replace(" ","").casefold() and \
-        util.parse_price_based_on_base(scraped_home_item.price) == util.parse_price_based_on_base(str(old_home_item["price"])) and \
-        scraped_home_item.city.strip().replace(" ", "").casefold()  == old_home_item["city"].strip().replace(" ", "").casefold() and \
-        scraped_home_item.url.strip().replace(" ", "").casefold() == old_home_item["url"].strip().replace(" ","").casefold() and \
-        scraped_home_item.agency.strip().replace(" ", "").casefold() == old_home_item["agency"].strip().replace(" ","").casefold() and \
-        scraped_home_item.image_url.strip().replace(" ", "").casefold() == old_home_item["image_url"].strip().replace(" ","").casefold() and \
-        int(scraped_home_item.room_count) == int(old_home_item["room_count"]):
+        scraped_home_item.city.strip().replace(" ", "").casefold()  == old_home_item["city"].strip().replace(" ", "").casefold():
             return True
             
             
     return False
+
 def get_unique_home_list(scraped_home_list : Home)-> list[Home]:
     old_home_list = query_db("select * from homes;")
     unique_home_list = list()
