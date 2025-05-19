@@ -8,6 +8,10 @@ from scrapy import signals
 # useful for handling different item types with a single interface
 from itemadapter import is_item, ItemAdapter
 
+import cloudscraper
+import logging
+from scrapy.http import HtmlResponse
+
 
 class HomeRentalInfoScraperSpiderMiddleware:
     # Not all methods need to be defined. If a method is not defined,
@@ -101,3 +105,25 @@ class HomeRentalInfoScraperDownloaderMiddleware:
 
     def spider_opened(self, spider):
         spider.logger.info("Spider opened: %s" % spider.name)
+
+
+
+# cloud scraper middleware
+
+
+# class CustomCloudflareMiddleware():
+
+#     cloudflare_scraper = cloudscraper.create_scraper()
+
+#     def process_response(self, request, response, spider):
+#         print("Test downloader middleware")
+#         request_url = request.url
+#         response_status = response.status
+#         # if response_status not in (403, 503):
+#         #     return response
+        
+#         spider.logger.info("Cloudflare detected. Using cloudscraper on URL: %s", request_url)
+#         cflare_response = self.cloudflare_scraper.get(request_url)
+#         cflare_res_transformed = HtmlResponse(url = request_url, body=cflare_response.text, encoding='utf-8')
+#         return cflare_res_transformed
+    

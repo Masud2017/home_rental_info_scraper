@@ -19,7 +19,7 @@ DOWNLOAD_HANDLERS = {
 }
 
 PLAYWRIGHT_LAUNCH_OPTIONS = {
-    # "headless": False,
+    "headless": False,
 }
 PLAYWRIGHT_BROWSER_TYPE = "chromium"
 # PLAYWRIGHT_CONTEXTS={
@@ -67,9 +67,11 @@ COOKIES_ENABLED = True # disabled the cookie to evade bot detection
 
 # Enable or disable downloader middlewares
 # See https://docs.scrapy.org/en/latest/topics/downloader-middleware.html
-#DOWNLOADER_MIDDLEWARES = {
-#    "home_rental_info_scraper.middlewares.HomeRentalInfoScraperDownloaderMiddleware": 543,
-#}
+DOWNLOADER_MIDDLEWARES = {
+    # "home_rental_info_scraper.middlewares.HomeRentalInfoScraperDownloaderMiddleware": 543,
+    # "home_rental_info_scraper.middlewares.CustomCloudflareMiddleware":543
+    'scrapy.downloadermiddlewares.httpproxy.HttpProxyMiddleware': 1,
+}
 
 # Enable or disable extensions
 # See https://docs.scrapy.org/en/latest/topics/extensions.html
