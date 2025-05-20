@@ -12,3 +12,4 @@ python3 run_batch_9.py
 python3 run_batch_10.py
 python3 run_batch_11.py
 python3 run_batch_12.py
+python3 run_batch_13.py
