@@ -54,10 +54,36 @@ def download_audio(base_url:str):
     else:
         print("File could not be downloaded!!")
 
+
+
+def slow_scroll_js():
+    return f"""
+    async () => {{
+        const scrollableDiv = true
+        if (scrollableDiv) {{
+            var totalHeight = document.body.scrollHeight;
+            const step = totalHeight / 10; // Divide the scroll into 10 steps
+            let currentPosition = 0;
+            
+            while (currentPosition < totalHeight) {{
+                currentPosition += step;
+                window.scrollBy(0, step);
+                await new Promise(resolve => setTimeout(resolve, 800));
+                if (totalHeight < document.body.scrollHeight) {{
+                    totalHeight = document.body.scrollHeight;
+                }}
+            }}
+        }} else {{
+            console.error('Scrollable element not found!');
+        }}
+    }}
+    """
+
 class FundaSpider(scrapy.Spider):
     name = "funda"
     allowed_domains = ["www.funda.nl"]
     start_urls = ["https://www.funda.nl/zoeken/huur"]
+   
     
 
     def start_requests(self):
@@ -89,8 +115,11 @@ class FundaSpider(scrapy.Spider):
             
         )
    
+   
+   
     async def parse(self,response):
         try:
+            page_count = 1 # page counter for the pagination logic
             page = response.meta["playwright_page"]
             data = await page.content()
             try:
@@ -166,71 +195,125 @@ class FundaSpider(scrapy.Spider):
                     #parsing portion ended
                     
                     try:
-                        page = response.meta["playwright_page"]
-                        data = await page.content()
-                        home_card_list = Selector(text=data).xpath("//div[contains(@class, 'flex flex-col gap-3 mt-4')]/div")
-                        # parsed_home_list = list()
+                        while True:
+                            page = response.meta["playwright_page"]
+                            data = await page.content()
+                            await page.evaluate(slow_scroll_js())
 
-                        print(f"count of home list : {len(home_card_list)}")
-                        for home_card in home_card_list:
-                            url = home_card.xpath(".//div[contains(@class, 'relative items-center justify-center sm:flex')]/a").attrib['href']
-                            url = "https://www.funda.nl/" + url
-                            print(f"Debugging the value of url : {url}")
-                            image_url = home_card.xpath(".//div[contains(@class, 'relative items-center justify-center sm:flex')]/a/div/img").attrib["srcset"].split(" ")[0]
                             
-                            
-                            city = home_card.xpath(".//div[contains(@class, 'relative flex w-full min-w-0 flex-col pl-0 pt-4 sm:pl-4 sm:pt-0')]/h2/a//div[2]/text()").get().strip()
-                            # debugging purpose only
-                            # print(f"debugging the value of city : {home_card.xpath("//a[contains(@class, 'propertyLink')]/figure/figcaption/span[1]").get()}")
-                            
-                            if city is None:
+                            home_card_list = Selector(text=data).xpath("//div[contains(@class, 'flex flex-col gap-3 mt-4')]/div")
+                            # parsed_home_list = list()
+
+                            print(f"count of home list : {len(home_card_list)}")
+                            for home_card in home_card_list:
+                                await page.wait_for_timeout(3000)
+                                url_element = home_card.xpath(".//div[contains(@class, 'relative items-center justify-center sm:flex')]/a")
+                                url = ""
+                                print(f"Inspecting the url element {url_element}")
+                                if len(url_element) > 0:
+                                    url = home_card.xpath(".//div[contains(@class, 'relative items-center justify-center sm:flex')]/a").attrib['href']
+                                    url = "https://www.funda.nl/" + url
+                                    print(f"Debugging the value of url : {url}")
+                                else:
+                                    url_element = home_card.xpath(".//div/header[contains(@class, 'bg-secondary-10 px-4 py-2')]/following-sibling::*[1]").attrib['href']
+                                    url = "https://www.funda.nl/" + url_element
+                                    
+                                image_element = home_card.xpath(".//div[contains(@class, 'relative items-center justify-center sm:flex')]/a/div/img")
+                                image_url = ""
+                                if len(image_element) > 0:
+                                    image_url = home_card.xpath(".//div[contains(@class, 'relative items-center justify-center sm:flex')]/a/div/img").attrib["srcset"].split(" ")[0]
+                                else:
+                                    image_alter = home_card.xpath(".//div/header[contains(@class, 'bg-secondary-10 px-4 py-2')]/following-sibling::*[1]/div[1]/div[1]/div[1]/div[2]/img").attrib["srcset"].split(" ")[0]
+                                    image_url = image_alter
+                                
+                                city_element = home_card.xpath(".//div[contains(@class, 'relative flex w-full min-w-0 flex-col pl-0 pt-4 sm:pl-4 sm:pt-0')]/h2/a//div[2]/text()")
                                 city = ""
-                            address = "" + city
-                            address = home_card.xpath(".//div[contains(@class, 'relative flex w-full min-w-0 flex-col pl-0 pt-4 sm:pl-4 sm:pt-0')]/h2/a//div[contains(@class,  'flex font-semibold')]/span[1]/text()").get().strip() + "," + city
-                            city = parse_city_string(city)
-                            import asyncio; await asyncio.sleep(2323232)
-                            price = ""
-                            if len(home_card.xpath(".//div[contains(@class, 'font-semibold mt-2')]")) > 1:
-                                price = home_card.xpath(".//div[contains(@class, 'font-semibold mt-2')]/div[2]/text()").get()
+                                if len(city_element) > 0:
+                                    city = home_card.xpath(".//div[contains(@class, 'relative flex w-full min-w-0 flex-col pl-0 pt-4 sm:pl-4 sm:pt-0')]/h2/a//div[2]/text()").get().strip()
+                                else:
+                                    city_alter = home_card.xpath(".//a[contains(@class, 'text-secondary-70 visited:text-purple-80 hover:text-secondary-70-darken-1 visited:hover:text-purple-80-darken-1 block pr-8')]/div[2]/text()").get().strip()
+                                    city = city_alter
+                                # debugging purpose only
+                                # print(f"debugging the value of city : {home_card.xpath("//a[contains(@class, 'propertyLink')]/figure/figcaption/span[1]").get()}")
+                                
+                                if city is None:
+                                    city = ""
+                                address = "" + city
+                                # //a[contains(@class, 'text-secondary-70 visited:text-purple-80 hover:text-secondary-70-darken-1 visited:hover:text-purple-80-darken-1 block pr-8')]/div[1]
+                                address_element = home_card.xpath(".//div[contains(@class, 'relative flex w-full min-w-0 flex-col pl-0 pt-4 sm:pl-4 sm:pt-0')]/h2/a//div[contains(@class,  'flex font-semibold')]/span[1]")
+                                address = ""
+                                if len(address_element) > 0:
+                                    address = home_card.xpath(".//div[contains(@class, 'relative flex w-full min-w-0 flex-col pl-0 pt-4 sm:pl-4 sm:pt-0')]/h2/a//div[contains(@class,  'flex font-semibold')]/span[1]/text()").get().strip() + "," + city
+                                    city = parse_city_string(city)
+                                else:
+                                    address_element = home_card.xpath(".//a[contains(@class, 'text-secondary-70 visited:text-purple-80 hover:text-secondary-70-darken-1 visited:hover:text-purple-80-darken-1 block pr-8')]/div[1]/span[1]/text()").get().strip() + "," + city
+                                    address = address_element
+                                    city = parse_city_string(city)
+                                    
+                                # import asyncio; await asyncio.sleep(2323232)
+                                price = ""
+                                if len(home_card.xpath(".//div[contains(@class, 'font-semibold mt-2')]")) > 0:
+                                    price = home_card.xpath(".//div[contains(@class, 'font-semibold mt-2')]/div[last()]/text()").get()
+                                else:
+                                    price = home_card.xpath(".//div[contains(@class, 'font-semibold mt-2')]/div/text()").get()
+                                print(f"Inspecting the type of list : {type(price)}")
+                                print(f"Now printing the price value ; {price}")
+                                if price is not None:
+                                    price = price.split(" ")[1]
+                                    if "." in price:
+                                        price = price.replace(".","")
+                                agency = self.name
+                                room_count = home_card.xpath(".//div[contains(@class , 'flex space-x-3')]/ul/li[2]/span/text()").get()
+                                if room_count is not None:
+                                    room_count = room_count.strip()
+                                    if len(room_count) > 0:
+                                        room_count = room_count.split(" ")[0]
+                                    if int(room_count) > 6:
+                                        room_count = home_card.xpath(".//div[contains(@class , 'flex space-x-3')]/ul/li[2]/span/text()").get()        
+                                        if len(room_count) > 0:
+                                            if "m" in room_count:
+                                                room_count = home_card.xpath(".//div[contains(@class , 'flex space-x-3')]/ul/li[3]/span/text()").get()        
+                                                
+                                        if room_count is not None:
+                                            room_count = room_count.strip()
+                                
+                                print("\n--------------------------")
+                                print(f"url : {url}")
+                                print(f"image_Url = {image_url}")
+                                print(f"address : {address}")
+                                print(f"city : {city}")
+                                print(f"price : {price}")
+                                print(f"Name : {agency}")
+                                print(f"Room count : {room_count}")
+                                print("--------------------------\n")
+                                
+                            home = Home(
+                                address=address,
+                                city=city,
+                                url=url,
+                                agency=agency,
+                                price=price,
+                                image_url=image_url,
+                                room_count=room_count
+                            )
+                            yield HomeRentalInfoScraperItem(home=home)
+                            
+                            if page_count > 5:
+                                break
                             else:
-                                price = home_card.xpath(".//div[contains(@class, 'font-semibold mt-2')]/div/text()").get()
-                            print(f"Inspecting the type of list : {type(price)}")
-                            print(f"Now printing the price value ; {price}")
-                            if price is not None:
-                                price = price.split(" ")[1]
-                                if "," in price:
-                                    price = price.replace("")
-                            agency = self.name
-                            room_count = home_card.xpath(".//div[contains(@class , 'flex space-x-3')]/ul/li[2]/span/text()").get()
-                            if room_count is not None:
-                                room_count = room_count.strip()
-                                if int(room_count) > 6:
-                                    room_count = home_card.xpath(".//div[contains(@class , 'flex space-x-3')]/ul/li[3]/span/text()").get()        
-                                    if room_count is not None:
-                                        room_count = room_count.strip()
-                            
-                            print("\n--------------------------")
-                            print(f"url : {url}")
-                            print(f"image_Url = {image_url}")
-                            print(f"address : {address}")
-                            print(f"city : {city}")
-                            print(f"price : {price}")
-                            print(f"Name : {agency}")
-                            print(f"Room count : {room_count}")
-                            print("--------------------------\n")
-                            
-                        home = Home(
-                            address=address,
-                            city=city,
-                            url=url,
-                            agency=agency,
-                            price=price,
-                            image_url=image_url,
-                            room_count=room_count
-                        )
-                        yield HomeRentalInfoScraperItem(home=home)
+                                page_count +=1
+                            print("Trying to find the next button and scrap the next page.")
+                            has_next = response.meta["playwright_page"].locator("//a[contains(@class , 'mx-1 h-8 min-w-8 px-0.5 md:px-2 flex items-center justify-center text-secondary-70 hover:text-secondary-70-darken-1 active:text-secondary-70-darken-2 rounded hover:bg-secondary-10 sm:ml-2 flex items-end md:ml-6')]")
+                            if await has_next.is_visible():
+                                print("Next pagination button is visible.")
+                                await has_next.click()
+                             
+                                await response.meta["playwright_page"].wait_for_selector("div.gap-3")
+                            else:
+                                print("Next pagination button is no longer available to quitting.")
+                                break
                     except Exception as e:
-                        import traceback; traceback.print_exc
+                        import traceback; traceback.print_exc()
                         # print(f"Error while parsing : {e}")
                         
                     # parsing portion started 
