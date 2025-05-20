@@ -206,7 +206,7 @@ class FundaSpider(scrapy.Spider):
 
                             print(f"count of home list : {len(home_card_list)}")
                             for home_card in home_card_list:
-                                await page.wait_for_timeout(3000)
+                                # await page.wait_for_timeout(3000)
                                 url_element = home_card.xpath(".//div[contains(@class, 'relative items-center justify-center sm:flex')]/a")
                                 url = ""
                                 print(f"Inspecting the url element {url_element}")
@@ -265,17 +265,12 @@ class FundaSpider(scrapy.Spider):
                                 agency = self.name
                                 room_count = home_card.xpath(".//div[contains(@class , 'flex space-x-3')]/ul/li[2]/span/text()").get()
                                 if room_count is not None:
-                                    room_count = room_count.strip()
-                                    if len(room_count) > 0:
-                                        room_count = room_count.split(" ")[0]
-                                    if int(room_count) > 6:
-                                        room_count = home_card.xpath(".//div[contains(@class , 'flex space-x-3')]/ul/li[2]/span/text()").get()        
-                                        if len(room_count) > 0:
-                                            if "m" in room_count:
-                                                room_count = home_card.xpath(".//div[contains(@class , 'flex space-x-3')]/ul/li[3]/span/text()").get()        
-                                                
-                                        if room_count is not None:
-                                            room_count = room_count.strip()
+                                    if "m" in room_count:
+                                        room_count = home_card.xpath(".//div[contains(@class , 'flex space-x-3')]/ul/li[3]/span/text()").get()        
+                                        
+                                    room_count = room_count.split(" ")[0]
+                                    if room_count is not None:
+                                        room_count = room_count.strip()
                                 
                                 print("\n--------------------------")
                                 print(f"url : {url}")
