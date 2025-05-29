@@ -392,6 +392,11 @@ class FundaSpider(scrapy.Spider):
                                     if room_count is not None:
                                         room_count = room_count.strip()
                                 
+                                if room_count == None:
+                                    room_count = "0"
+                                if price == None:
+                                    price = "0"
+                                
                                 print("\n--------------------------")
                                 print(f"url : {url}")
                                 print(f"image_Url = {image_url}")
