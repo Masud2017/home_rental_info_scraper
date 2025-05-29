@@ -74,8 +74,8 @@ def start_scraping():
                 else:
                     logging.info("Something went wrong while trying to save home list to the database")
     except Exception as e:
-        print(f"Exception happend while executing scraping operation.")
         import traceback; traceback.print_exc();
+        print(f"Exception happend while executing scraping operation.")
 
 
 start_scraping()
