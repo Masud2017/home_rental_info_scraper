@@ -57,7 +57,9 @@ def start_scraping():
             for item in result:
                 home_list.append(item["home"])
                 
-            logging.info(f"checking the home list :{home_list[0].address}")
+            # logging.info(f"checking the home list :{home_list[0].address}")
+            if len(home_list) == 0:
+                logging.info(f"Home found :')")
             unique_home_list = get_unique_home_list(home_list)
             logging.info(f"printing the size of unique home_list {len(unique_home_list)}")
             if len(unique_home_list) > 0:
