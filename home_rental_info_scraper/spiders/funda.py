@@ -93,8 +93,8 @@ class FundaSpider(scrapy.Spider):
                 "playwright": True,
                 "playwright_include_page": True,
                 "playwright_page_methods": [
-                    # PageMethod("wait_for_selector", "button.didomi-components-button", timeout=26000),
-                    # PageMethod("click", "//div[contains(@class,'multiple didomi-buttons didomi-popup-notice-buttons')]/button[3]"),
+                    PageMethod("wait_for_selector", "button.didomi-components-button", timeout=26000),
+                    PageMethod("click", "//div[contains(@class,'multiple didomi-buttons didomi-popup-notice-buttons')]/button[3]"),
                     
                     # PageMethod("wait_for_selector", 'iframe[src*="recaptcha"]'),
                     # PageMethod("evaluate", """
